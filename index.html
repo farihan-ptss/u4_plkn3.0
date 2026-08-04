@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Kelanasiswa Malaysia (KSM) POLYCC</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        scout: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                            950: '#052e16',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-scout-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-50 bg-scout-900/95 backdrop-blur border-b border-scout-800 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-scout-600 p-2 rounded-lg text-white">
+                    <i data-lucide="compass" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-lg leading-tight block tracking-wide">Kelanasiswa Malaysia</span>
+                    <span class="text-xs text-scout-200 block">Panduan & Portal Maklumat POLYCC</span>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#pengenalan" class="hover:text-scout-200 transition-colors">Pengenalan</a>
+                <a href="#struktur" class="hover:text-scout-200 transition-colors">Struktur Organisasi</a>
+                <a href="#fasa" class="hover:text-scout-200 transition-colors">Fasa Pelaksanaan</a>
+                <a href="#fakta" class="hover:text-scout-200 transition-colors">Fakta Ringkas</a>
+            </nav>
+
+            <a href="#fasa" class="bg-scout-500 hover:bg-scout-600 text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-full transition-all shadow-sm flex items-center gap-2">
+                <i data-lucide="layers" class="w-4 h-4"></i> Carta Pelaksanaan
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-b from-scout-950 via-scout-900 to-scout-800 text-white py-16 lg:py-24 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#22c55e_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            
+            <div class="inline-flex items-center gap-2 bg-scout-800/80 border border-scout-600/50 rounded-full px-4 py-1.5 text-xs sm:text-sm text-scout-200 mb-6 backdrop-blur">
+                <span class="w-2 h-2 rounded-full bg-scout-400 animate-pulse"></span>
+                Kumpulan Latihan Kelanasiswa Malaysia (KLKM) &rarr; KSM
+            </div>
+
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+                Panduan Pengurusan & Penubuhan <br class="hidden sm:inline" />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-scout-200 via-scout-400 to-emerald-300">
+                    Kelanasiswa Malaysia (KSM) POLYCC
+                </span>
+            </h1>
+
+            <p class="text-slate-300 text-base sm:text-lg max-w-3xl mx-auto mb-10 leading-relaxed">
+                Panduan komprehensif penubuhan, pengurusan organisasi, dan tata cara pelaksanaan program Pengakap Kelana di Politeknik dan Kolej Komuniti (POLYCC).
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-6 text-sm text-scout-100 border-t border-scout-700/60 pt-8 max-w-3xl mx-auto">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="award" class="w-5 h-5 text-scout-400"></i>
+                    <span>Di bawah Akta 784 (1968)</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i data-lucide="globe" class="w-5 h-5 text-scout-400"></i>
+                    <span>Ahli Rasmi WOSM</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i data-lucide="calendar" class="w-5 h-5 text-scout-400"></i>
+                    <span>Dijenamakan: 13 Nov 2023</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Layout -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            
+            <!-- Sidebar Table of Contents -->
+            <aside class="lg:col-span-1 hidden lg:block">
+                <div class="sticky top-24 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="text-xs font-bold text-scout-800 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-3">
+                        <i data-lucide="list" class="w-4 h-4 text-scout-600"></i> Navigasi Artikel
+                    </h3>
+                    <nav class="space-y-2 text-sm">
+                        <a href="#pengenalan" class="block text-slate-600 hover:text-scout-700 hover:bg-scout-50 px-3 py-2 rounded-lg transition-colors font-medium">
+                            1. Pengenalan & Sejarah
+                        </a>
+                        <a href="#struktur" class="block text-slate-600 hover:text-scout-700 hover:bg-scout-50 px-3 py-2 rounded-lg transition-colors font-medium">
+                            2. Struktur Organisasi
+                        </a>
+                        <a href="#fasa" class="block text-slate-600 hover:text-scout-700 hover:bg-scout-50 px-3 py-2 rounded-lg transition-colors font-medium">
+                            3. 6 Fasa Pelaksanaan
+                        </a>
+                        <a href="#fakta" class="block text-slate-600 hover:text-scout-700 hover:bg-scout-50 px-3 py-2 rounded-lg transition-colors font-medium">
+                            4. Ringkasan & Apa Itu Kelana
+                        </a>
+                    </nav>
+
+                    <div class="pt-4 border-t border-slate-100">
+                        <div class="bg-scout-50 p-4 rounded-xl border border-scout-100">
+                            <p class="text-xs font-semibold text-scout-900 mb-1">Rujukan Borang Rasmi</p>
+                            <p class="text-xs text-slate-600">Pendaftaran Daerah menggunakan <strong>Borang PPM-2 (Pindaan 2026)</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3 space-y-12">
+
+                <!-- Section 1: Pengenalan -->
+                <section id="pengenalan" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm transition-all hover:shadow-md">
+                    <div class="inline-flex items-center gap-2 text-xs font-bold text-scout-700 bg-scout-100 px-3 py-1 rounded-full mb-3">
+                        <i data-lucide="book-open" class="w-3.5 h-3.5"></i> SEJARAH & LATAR BELAKANG
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-6">1. Pengenalan Kelanasiswa Malaysia (KSM)</h2>
+                    
+                    <div class="prose prose-slate max-w-none text-slate-600 leading-relaxed space-y-4">
+                        <p>
+                            <strong>Persekutuan Pengakap Malaysia (PPM)</strong> merupakan badan rasmi pergerakan Pengakap di Malaysia dan diiktiraf sebagai ahli penuh <em>World Organization of the Scout Movement (WOSM)</em>. Penubuhannya adalah sah di sisi undang-undang berpandukan <strong>Akta Persekutuan Pengakap-Pengakap Malaysia (Perbadanan) 1968 [Akta 784]</strong>.
+                        </p>
+                        
+                        <p>
+                            Pengurusan serta pentadbiran PPM beroperasi sepenuhnya mengikut dasar <em>Policy, Organisation and Rules (POR)</em> Persekutuan Pengakap Malaysia. Bagi peringkat institusi pengajian tinggi (IPT), penglibatan Pengakap Kelana dikawal selia mengikut <strong>POR Bahagian IV, Peraturan 91</strong>.
+                        </p>
+
+                        <!-- Rebranding Highlight Card -->
+                        <div class="bg-gradient-to-r from-scout-900 to-scout-800 text-white p-6 rounded-xl my-6 shadow-sm border-l-4 border-scout-400">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-scout-700/80 p-3 rounded-lg hidden sm:block">
+                                    <i data-lucide="sparkles" class="w-6 h-6 text-scout-300"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-scout-100 mb-1">Penjenamaan Semula Khusus (13 November 2023)</h4>
+                                    <p class="text-sm text-slate-200">
+                                        Pada <strong>13 November 2023</strong>, Kumpulan Latihan Kelanasiswa Malaysia (KLKM) telah rasmi dijenamakan semula sebagai <strong>Kelanasiswa Malaysia (KSM)</strong>. 
+                                    </p>
+                                    <p class="text-xs text-scout-300 mt-2 italic">
+                                        Sempurna disempurnakan oleh: <strong>Dato' Haji Ahmad Shazilly bin Ismail Bakti</strong> (Timbalan Yang Dipertua Majlis Pengakap Negara).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Struktur Organisasi (Carta Visual) -->
+                <section id="struktur" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="inline-flex items-center gap-2 text-xs font-bold text-scout-700 bg-scout-100 px-3 py-1 rounded-full mb-3">
+                        <i data-lucide="users" class="w-3.5 h-3.5"></i> HIERARKI & PENTADBIRAN
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">2. Carta Struktur Organisasi</h2>
+                    <p class="text-slate-600 mb-8 text-sm sm:text-base">Carta hirarki kepimpinan Pengakap Kelana di peringkat daerah POLYCC terbahagi kepada 3 aras utama:</p>
+
+                    <!-- Carta Organisasi Visual -->
+                    <div class="flex flex-col items-center max-w-4xl mx-auto space-y-3 relative">
+                        
+                        <!-- Tingkat 1: Majlis Pengakap Daerah -->
+                        <div class="w-full max-w-2xl bg-scout-900 text-white rounded-2xl p-5 sm:p-6 shadow-md border-2 border-scout-700 text-center relative z-10 transition-all hover:scale-[1.01]">
+                            <div class="inline-block bg-scout-700 text-scout-100 text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wider mb-2">
+                                ARAS 1 • KUASA PENGANJUR (PENGURUSAN INSTITUSI)
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-extrabold text-white mb-3">Majlis Pengakap Daerah</h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs pt-3 border-t border-scout-800">
+                                <div class="bg-scout-800/80 p-2.5 rounded-lg font-medium text-scout-100 flex items-center justify-center gap-1.5 border border-scout-700/50">
+                                    <i data-lucide="user-check" class="w-3.5 h-3.5 text-scout-400"></i> Pengerusi
+                                </div>
+                                <div class="bg-scout-800/80 p-2.5 rounded-lg font-medium text-scout-100 flex items-center justify-center gap-1.5 border border-scout-700/50">
+                                    <i data-lucide="file-text" class="w-3.5 h-3.5 text-scout-400"></i> Setiausaha Kehormat
+                                </div>
+                                <div class="bg-scout-800/80 p-2.5 rounded-lg font-medium text-scout-100 flex items-center justify-center gap-1.5 border border-scout-700/50">
+                                    <i data-lucide="wallet" class="w-3.5 h-3.5 text-scout-400"></i> Bendahari Kehormat
+                                </div>
+                                <div class="bg-scout-800/80 p-2.5 rounded-lg font-medium text-scout-100 flex items-center justify-center gap-1.5 border border-scout-700/50">
+                                    <i data-lucide="users" class="w-3.5 h-3.5 text-scout-400"></i> Ahli Yang Dipilih
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Garis Penghubung 1 -->
+                        <div class="flex flex-col items-center">
+                            <div class="w-0.5 h-7 bg-scout-500"></div>
+                            <div class="w-2.5 h-2.5 border-b-2 border-r-2 border-scout-500 transform rotate-45 -mt-2"></div>
+                        </div>
+
+                        <!-- Tingkat 2: Majlis Pesuruhjaya Pengakap Daerah -->
+                        <div class="w-full max-w-2xl bg-scout-800 text-white rounded-2xl p-5 sm:p-6 shadow-md border border-scout-600 text-center relative z-10 transition-all hover:scale-[1.01]">
+                            <div class="inline-block bg-scout-600 text-scout-100 text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wider mb-2">
+                                ARAS 2 • PESURUHJAYA, PENOLONG & PEMIMPIN
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-3">Majlis Pesuruhjaya Pengakap Daerah</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs pt-3 border-t border-scout-700/60">
+                                <div class="bg-scout-900/60 p-2.5 rounded-lg font-medium text-scout-100 flex items-center justify-center gap-2 border border-scout-700/50">
+                                    <i data-lucide="award" class="w-4 h-4 text-emerald-400"></i> Pesuruhjaya Pengakap Daerah
+                                </div>
+                                <div class="bg-scout-900/60 p-2.5 rounded-lg font-medium text-scout-100 flex items-center justify-center gap-2 border border-scout-700/50">
+                                    <i data-lucide="book-open" class="w-4 h-4 text-emerald-400"></i> Pengerusi Latihan Daerah
+                                </div>
+                                <div class="bg-scout-900/60 p-2.5 rounded-lg font-medium text-scout-100 flex items-center justify-center gap-2 border border-scout-700/50">
+                                    <i data-lucide="calendar" class="w-4 h-4 text-emerald-400"></i> Pengerusi Program Daerah
+                                </div>
+                                <div class="bg-scout-900/60 p-2.5 rounded-lg font-medium text-scout-100 flex items-center justify-center gap-2 border border-scout-700/50">
+                                    <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> Semua Penolong Pesuruhjaya
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Garis Penghubung 2 -->
+                        <div class="flex flex-col items-center">
+                            <div class="w-0.5 h-7 bg-scout-500"></div>
+                            <div class="w-2.5 h-2.5 border-b-2 border-r-2 border-scout-500 transform rotate-45 -mt-2"></div>
+                        </div>
+
+                        <!-- Tingkat 3: Sekretariat Pengakap Kelana Daerah -->
+                        <div class="w-full max-w-2xl bg-gradient-to-br from-scout-50 to-emerald-50 border-2 border-scout-400 rounded-2xl p-5 sm:p-6 shadow-md text-center relative z-10 transition-all hover:scale-[1.01]">
+                            <div class="inline-block bg-scout-200 text-scout-900 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider mb-2">
+                                ARAS 3 • PELAKSANAAN PELAJAR
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold text-scout-900 mb-1">Sekretariat Pengakap Kelana Daerah</h3>
+                            <p class="text-xs text-scout-700 font-semibold mb-3">(Dianggotai Oleh Pelajar Pengakap Kelana)</p>
+                            
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs pt-3 border-t border-scout-200">
+                                <div class="bg-white p-2.5 rounded-xl border border-scout-200 font-semibold text-scout-900 shadow-xs flex flex-col items-center gap-1">
+                                    <i data-lucide="user" class="w-4 h-4 text-scout-600"></i> Pengerusi
+                                </div>
+                                <div class="bg-white p-2.5 rounded-xl border border-scout-200 font-semibold text-scout-900 shadow-xs flex flex-col items-center gap-1">
+                                    <i data-lucide="file-edit" class="w-4 h-4 text-scout-600"></i> Setiausaha
+                                </div>
+                                <div class="bg-white p-2.5 rounded-xl border border-scout-200 font-semibold text-scout-900 shadow-xs flex flex-col items-center gap-1">
+                                    <i data-lucide="credit-card" class="w-4 h-4 text-scout-600"></i> Bendahari
+                                </div>
+                                <div class="bg-white p-2.5 rounded-xl border border-scout-200 font-semibold text-scout-900 shadow-xs flex flex-col items-center gap-1">
+                                    <i data-lucide="layers" class="w-4 h-4 text-scout-600"></i> Biro-biro
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Section 3: 6 Fasa Pelaksanaan -->
+                <section id="fasa" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="inline-flex items-center gap-2 text-xs font-bold text-scout-700 bg-scout-100 px-3 py-1 rounded-full mb-3">
+                        <i data-lucide="git-commit" class="w-3.5 h-3.5"></i> CARTA ALIR CARTA OPERASI
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">3. Proses Pelaksanaan Pengakap Kelana POLYCC</h2>
+                    <p class="text-slate-600 mb-8">Terdapat 6 Fasa utama yang wajib dipatuhi dalam pengurusan dan pelaksanaan Pengakap Kelana:</p>
+
+                    <div class="space-y-6 relative before:absolute before:inset-0 before:left-6 before:w-0.5 before:bg-scout-200 md:before:left-1/2 md:before:-ml-0.5">
+                        
+                        <!-- Fasa 1 -->
+                        <div class="relative flex flex-col md:flex-row items-start group">
+                            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-scout-800 text-white font-bold text-sm shadow-md shrink-0 z-10 my-1 md:order-1 md:mx-auto">
+                                1
+                            </div>
+                            <div class="ml-16 md:ml-0 md:w-1/2 md:pr-8 md:text-right md:order-1">
+                                <div class="bg-scout-50 border border-scout-200 p-5 rounded-xl shadow-xs">
+                                    <span class="text-xs font-bold text-scout-700 uppercase tracking-wide">Fasa 1</span>
+                                    <h4 class="font-bold text-slate-900 text-lg mb-2">Perancangan</h4>
+                                    <ul class="text-xs text-slate-600 space-y-1 inline-block text-left">
+                                        <li>• Kelulusan pengurusan organisasi</li>
+                                        <li>• Pelantikan Pegawai Penyelaras Pengakap Kelana</li>
+                                        <li>• Pelantikan pemimpin / pensyarah</li>
+                                        <li>• Penubuhan Jawatankuasa Penaja</li>
+                                        <li>• Penyediaan kertas kerja penubuhan</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="hidden md:block md:w-1/2 md:order-2"></div>
+                        </div>
+
+                        <!-- Fasa 2 -->
+                        <div class="relative flex flex-col md:flex-row items-start group">
+                            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-scout-800 text-white font-bold text-sm shadow-md shrink-0 z-10 my-1 md:order-1 md:mx-auto">
+                                2
+                            </div>
+                            <div class="hidden md:block md:w-1/2 md:order-1"></div>
+                            <div class="ml-16 md:ml-0 md:w-1/2 md:pl-8 md:order-2">
+                                <div class="bg-scout-50 border border-scout-200 p-5 rounded-xl shadow-xs">
+                                    <span class="text-xs font-bold text-scout-700 uppercase tracking-wide">Fasa 2</span>
+                                    <h4 class="font-bold text-slate-900 text-lg mb-2">Pendaftaran</h4>
+                                    <ul class="text-xs text-slate-600 space-y-1">
+                                        <li>• Permohonan pendaftaran daerah guna <strong>Borang PPM-2 (Pindaan 2026)</strong> kepada PPM melalui PPM Negeri (Kelanasiswa Malaysia)</li>
+                                        <li>• Pendaftaran kumpulan</li>
+                                        <li>• Yuran tahunan (Pemimpin & Kelana)</li>
+                                        <li>• Pemakluman penubuhan kepada Bahagian Kurikulum (BK), JPPKK</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fasa 3 -->
+                        <div class="relative flex flex-col md:flex-row items-start group">
+                            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-scout-800 text-white font-bold text-sm shadow-md shrink-0 z-10 my-1 md:order-1 md:mx-auto">
+                                3
+                            </div>
+                            <div class="ml-16 md:ml-0 md:w-1/2 md:pr-8 md:text-right md:order-1">
+                                <div class="bg-scout-50 border border-scout-200 p-5 rounded-xl shadow-xs">
+                                    <span class="text-xs font-bold text-scout-700 uppercase tracking-wide">Fasa 3</span>
+                                    <h4 class="font-bold text-slate-900 text-lg mb-2">Pengurusan Organisasi</h4>
+                                    <ul class="text-xs text-slate-600 space-y-1 inline-block text-left">
+                                        <li>• Penubuhan Majlis Pengakap Daerah</li>
+                                        <li>• Penubuhan Majlis Pesuruhjaya Pengakap Daerah</li>
+                                        <li>• Pelantikan Sekretariat Pengakap Kelana Daerah</li>
+                                        <li>• Penyediaan takwim tahunan</li>
+                                        <li>• Penyediaan fail pengurusan & dokumentasi</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="hidden md:block md:w-1/2 md:order-2"></div>
+                        </div>
+
+                        <!-- Fasa 4 -->
+                        <div class="relative flex flex-col md:flex-row items-start group">
+                            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-scout-800 text-white font-bold text-sm shadow-md shrink-0 z-10 my-1 md:order-1 md:mx-auto">
+                                4
+                            </div>
+                            <div class="hidden md:block md:w-1/2 md:order-1"></div>
+                            <div class="ml-16 md:ml-0 md:w-1/2 md:pl-8 md:order-2">
+                                <div class="bg-scout-50 border border-scout-200 p-5 rounded-xl shadow-xs">
+                                    <span class="text-xs font-bold text-scout-700 uppercase tracking-wide">Fasa 4</span>
+                                    <h4 class="font-bold text-slate-900 text-lg mb-2">Pelaksanaan Kurikulum</h4>
+                                    <ul class="text-xs text-slate-600 space-y-1">
+                                        <li>• Pendaftaran kursus kokurikulum pengakap kelana</li>
+                                        <li>• Pelaksanaan pengajaran teori & latihan amali</li>
+                                        <li>• Pelaksanaan aktiviti wajib & penilaian berterusan</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fasa 5 -->
+                        <div class="relative flex flex-col md:flex-row items-start group">
+                            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-scout-800 text-white font-bold text-sm shadow-md shrink-0 z-10 my-1 md:order-1 md:mx-auto">
+                                5
+                            </div>
+                            <div class="ml-16 md:ml-0 md:w-1/2 md:pr-8 md:text-right md:order-1">
+                                <div class="bg-scout-50 border border-scout-200 p-5 rounded-xl shadow-xs">
+                                    <span class="text-xs font-bold text-scout-700 uppercase tracking-wide">Fasa 5</span>
+                                    <h4 class="font-bold text-slate-900 text-lg mb-2">Penilaian</h4>
+                                    <ul class="text-xs text-slate-600 space-y-1 inline-block text-left">
+                                        <li>• Merekod kehadiran</li>
+                                        <li>• Pelaksanaan penilaian pencapaian & amali</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="hidden md:block md:w-1/2 md:order-2"></div>
+                        </div>
+
+                        <!-- Fasa 6 -->
+                        <div class="relative flex flex-col md:flex-row items-start group">
+                            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-scout-600 text-white font-bold text-sm shadow-md shrink-0 z-10 my-1 md:order-1 md:mx-auto ring-4 ring-scout-100">
+                                6
+                            </div>
+                            <div class="hidden md:block md:w-1/2 md:order-1"></div>
+                            <div class="ml-16 md:ml-0 md:w-1/2 md:pl-8 md:order-2">
+                                <div class="bg-scout-600 text-white p-5 rounded-xl shadow-sm">
+                                    <span class="text-xs font-bold text-scout-200 uppercase tracking-wide">Fasa 6</span>
+                                    <h4 class="font-bold text-white text-lg mb-1">Pengiktirafan</h4>
+                                    <p class="text-xs text-scout-100">Penganugerahan lencana / pengiktirafan rasmi Pengakap Kelana setelah memenuhi standard penilaian.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Section 4: Apa Itu Pengakap Kelana -->
+                <section id="fakta" class="bg-gradient-to-br from-slate-900 to-scout-950 text-white p-6 sm:p-8 rounded-2xl shadow-md">
+                    <div class="flex items-center gap-2 text-xs font-bold text-scout-400 mb-2 uppercase tracking-wider">
+                        <i data-lucide="help-circle" class="w-4 h-4"></i> Info Kelanasiswa
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-4">Apa Itu Pengakap Kelana?</h2>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        Pengakap Kelana (Rover Scout) ialah bahagian kepengakapan bagi belia berumur antara 17 hingga 26 tahun. Di peringkat institusi pengajian tinggi seperti POLYCC, ia melatih kepimpinan, khidmat masyarakat, kelestarian alam, serta kemahiran insaniah yang selari dengan aspirasi pembangunan modal insan negara.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                        <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700">
+                            <span class="text-scout-400 font-bold block mb-1">Borang Pendaftaran Utama</span>
+                            <span class="text-slate-200">Borang Permohonan Pendaftaran Daerah - Borang PPM-2 (Pindaan Tahun 2026)</span>
+                        </div>
+                        <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700">
+                            <span class="text-scout-400 font-bold block mb-1">Penaung & Pelulus</span>
+                            <span class="text-slate-200">Bahagian Kurikulum (BK), Jabatan Pendidikan Politeknik dan Kolej Komuniti (JPPKK)</span>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-scout-950 text-slate-400 border-t border-scout-900 py-10 mt-12 text-sm">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
+            <div class="flex justify-center items-center gap-2 text-white font-bold text-base">
+                <i data-lucide="compass" class="w-5 h-5 text-scout-500"></i> Kelanasiswa Malaysia (KSM) POLYCC
+            </div>
+            <p class="text-xs text-slate-500 max-w-md mx-auto">
+                Persekutuan Pengakap Malaysia (PPM) • Akta Persekutuan Pengakap-Pengakap Malaysia (Perbadanan) 1968 [Akta 784]
+            </p>
+            <p class="text-xs text-slate-600">
+                &copy; 2026 Portal Maklumat Pengakap Kelana POLYCC.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
