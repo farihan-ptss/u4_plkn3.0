@@ -526,6 +526,45 @@
             modal.classList.add("hidden");
             document.body.style.overflow = "auto";
         }
+        // Toggle Bahan PdP Popover Menu
+        function togglePdpMenu(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById('pdpMenuDropdown');
+            const btn = document.getElementById('pdpMenuBtn');
+            const chevron = document.getElementById('pdpChevron');
+            const isHidden = dropdown.classList.contains('hidden');
+
+            if (isHidden) {
+                const rect = btn.getBoundingClientRect();
+                dropdown.style.top = (rect.bottom + 8) + 'px';
+                dropdown.style.left = Math.max(10, Math.min(rect.left, window.innerWidth - 240)) + 'px';
+                dropdown.classList.remove('hidden');
+                if (chevron) chevron.style.transform = 'rotate(180deg)';
+            } else {
+                dropdown.classList.add('hidden');
+                if (chevron) chevron.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Close dropdown when clicking outside or scrolling
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('pdpMenuDropdown');
+            const btn = document.getElementById('pdpMenuBtn');
+            const chevron = document.getElementById('pdpChevron');
+            if (dropdown && !dropdown.classList.contains('hidden')) {
+                if (!dropdown.contains(e.target) && !btn.contains(e.target)) {
+                    dropdown.classList.add('hidden');
+                    if (chevron) chevron.style.transform = 'rotate(0deg)';
+                }
+            }
+        });
+
+        window.addEventListener('resize', function() {
+            const dropdown = document.getElementById('pdpMenuDropdown');
+            if (dropdown && !dropdown.classList.contains('hidden')) {
+                dropdown.classList.add('hidden');
+            }
+        });
     </script>
 </body>
 </html>
