@@ -1,754 +1,620 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="ms" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hub Pembelajaran MPU24491 Pengakap Kelana 2</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Inter & Outfit -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            display: ['Outfit', 'sans-serif']
-          },
-          colors: {
-            scout: {
-              red: '#b91c1c',
-              darkred: '#7f1d1d',
-              gold: '#d97706',
-              purple: '#581c87',
-              navy: '#0f172a'
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Informasi Kelanasiswa Malaysia (KSM) POLYCC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        }
+                    }
+                }
             }
-          }
         }
-      }
-    }
-  </script>
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-    .font-display {
-      font-family: 'Outfit', sans-serif;
-    }
-    .custom-scroll::-webkit-scrollbar {
-      width: 6px;
-    }
-    .custom-scroll::-webkit-scrollbar-thumb {
-      background-color: #cbd5e1;
-      border-radius: 9999px;
-    }
-  </style>
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+        }
+        .bg-grid-pattern {
+            background-image: radial-gradient(#8b5cf6 0.75px, transparent 0.75px);
+            background-size: 24px 24px;
+        }
+        .slide-img-container {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .slide-img-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgba(124, 58, 237, 0.2), 0 8px 10px -6px rgba(124, 58, 237, 0.1);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
 
-  <header class="bg-gradient-to-r from-red-900 via-rose-900 to-amber-900 text-white shadow-xl sticky top-0 z-40 border-b border-red-700/40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
-      <div class="flex items-center space-x-3.5">
-        <div class="w-11 h-11 rounded-xl bg-amber-400 text-red-950 flex items-center justify-center font-black shadow-lg text-xl tracking-wider">
-          <i class="fa-solid fa-compass"></i>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30">Politeknik Malaysia</span>
-            <span class="text-xs font-semibold text-rose-200">MPU24491</span>
-          </div>
-          <h1 class="font-display text-lg sm:text-xl font-extrabold tracking-tight text-white leading-tight">
-            Hub Pengakap Kelana 2
-          </h1>
-        </div>
-      </div>
-
-      <!-- Quick Action buttons in header -->
-      <div class="flex items-center gap-2.5">
-        <button id="btnSettings" onclick="openConfigModal()" class="flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-white/10 hover:bg-white/20 text-white backdrop-blur transition border border-white/10">
-          <i class="fa-solid fa-link text-amber-300"></i>
-          <span>Urus Pautan URL</span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <section class="bg-gradient-to-b from-red-950 via-slate-900 to-slate-900 text-white py-10 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-    <!-- Background scout decorative motif -->
-    <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-9xl">
-      <i class="fa-solid fa-award"></i>
-    </div>
-    <div class="max-w-7xl mx-auto">
-      <div class="max-w-3xl space-y-4">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-300 text-xs font-semibold tracking-wide">
-          <i class="fa-solid fa-graduation-cap"></i> Portal Navigasi Kursus Kokurikulum
-        </div>
-        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-          Indeks Pembelajaran & Modul Interaktif
-        </h2>
-        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-          Pusat rujukan bersepadu modul latihan Pengakap Kelana Politeknik 2. Akses nota kuliah, panduan amali pertolongan cemas, program khidmat, dan kertas rancangan pengembaraan.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-    <div class="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-between mb-8 pb-4 border-b border-slate-200">
-      <!-- Search Input -->
-      <div class="relative flex-1 max-w-md">
-        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-        <input 
-          type="text" 
-          id="searchInput" 
-          onkeyup="filterModules()" 
-          placeholder="Cari topik modul atau kata kunci..."
-          class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition shadow-sm"
-        >
-      </div>
-
-      <!-- Category Filter Pills -->
-      <div class="flex flex-wrap items-center gap-1.5 overflow-x-auto pb-1">
-        <button onclick="setFilter('semua')" class="filter-btn active-filter px-3.5 py-1.5 text-xs font-semibold rounded-lg border transition bg-rose-900 text-white border-rose-900" data-category="semua">
-          Semua (8)
-        </button>
-        <button onclick="setFilter('keselamatan')" class="filter-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-100 transition" data-category="keselamatan">
-          Keselamatan & Kesihatan
-        </button>
-        <button onclick="setFilter('komuniti')" class="filter-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-100 transition" data-category="komuniti">
-          Khidmat & Alam Sekitar
-        </button>
-        <button onclick="setFilter('pengembaraan')" class="filter-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-100 transition" data-category="pengembaraan">
-          Ekspedisi
-        </button>
-      </div>
-    </div>
-
-    <div id="modulesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <!-- Cards dynamically generated by JS -->
-    </div>
-
-    <!-- Empty State Notification -->
-    <div id="emptySearch" class="hidden text-center py-16">
-      <div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">
-        <i class="fa-solid fa-folder-open"></i>
-      </div>
-      <h3 class="font-display text-lg font-bold text-slate-700">Tiada modul dijumpai</h3>
-      <p class="text-sm text-slate-500 mt-1">Cuba cari dengan kata kunci lain atau pilih tab 'Semua'.</p>
-    </div>
-
-    <section class="mt-14 pt-8 border-t border-slate-200">
-      <div class="flex items-center justify-between mb-4">
-        <div>
-          <h3 class="font-display text-xl font-bold text-slate-900">Rujukan & Pautan Rasmi Pengakap</h3>
-          <p class="text-xs sm:text-sm text-slate-500">Pautan pantas ke portal badan induk dan sumber rujukan antarabangsa.</p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <a href="https://www.scout.org/safefromharm" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 hover:shadow-md transition group flex items-start space-x-3">
-          <div class="w-10 h-10 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-lg shrink-0 group-hover:scale-105 transition">
-            <i class="fa-solid fa-shield-heart"></i>
-          </div>
-          <div>
-            <h4 class="font-bold text-slate-800 text-sm group-hover:text-purple-700">WOSM Safe From Harm</h4>
-            <p class="text-xs text-slate-500 mt-0.5">Polisi perlindungan kanak-kanak & belia sedunia.</p>
-          </div>
-        </a>
-
-        <a href="https://www.infosihat.gov.my/" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl border border-slate-200 bg-white hover:border-emerald-300 hover:shadow-md transition group flex items-start space-x-3">
-          <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-lg shrink-0 group-hover:scale-105 transition">
-            <i class="fa-solid fa-notes-medical"></i>
-          </div>
-          <div>
-            <h4 class="font-bold text-slate-800 text-sm group-hover:text-emerald-700">Info Sihat KKM</h4>
-            <p class="text-xs text-slate-500 mt-0.5">Panduan kesihatan, sengatan & pertolongan cemas.</p>
-          </div>
-        </a>
-
-        <a href="https://www.nadma.gov.my/" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl border border-slate-200 bg-white hover:border-blue-300 hover:shadow-md transition group flex items-start space-x-3">
-          <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center text-lg shrink-0 group-hover:scale-105 transition">
-            <i class="fa-solid fa-person-military-pointing"></i>
-          </div>
-          <div>
-            <h4 class="font-bold text-slate-800 text-sm group-hover:text-blue-700">NADMA Malaysia</h4>
-            <p class="text-xs text-slate-500 mt-0.5">Pengurusan bencana dan pertahanan awam.</p>
-          </div>
-        </a>
-
-        <a href="https://pengakapmalaysia.org/" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl border border-slate-200 bg-white hover:border-amber-300 hover:shadow-md transition group flex items-start space-x-3">
-          <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-lg shrink-0 group-hover:scale-105 transition">
-            <i class="fa-solid fa-campground"></i>
-          </div>
-          <div>
-            <h4 class="font-bold text-slate-800 text-sm group-hover:text-amber-700">Persekutuan Pengakap</h4>
-            <p class="text-xs text-slate-500 mt-0.5">Warta rasmi & lencana Pengakap Kelana PPM.</p>
-          </div>
-        </a>
-      </div>
-    </section>
-  </main>
-
-  <!-- Module Overview Modal -->
-  <div id="overviewModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden transform transition-all border border-slate-100 animate-in fade-in duration-200">
-      <div id="modalHeader" class="bg-gradient-to-r from-red-900 to-rose-900 text-white p-5 flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-          <div id="modalIcon" class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center text-xl"></div>
-          <div>
-            <span id="modalCode" class="text-xs uppercase tracking-wider font-semibold text-rose-200">Modul 1.0</span>
-            <h3 id="modalTitle" class="font-display text-lg font-bold text-white leading-tight">Tajuk Modul</h3>
-          </div>
-        </div>
-        <button onclick="closeOverviewModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <div class="p-6 space-y-4 text-sm text-slate-600 custom-scroll max-h-[60vh] overflow-y-auto">
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Sinopsis & Objektif Pembelajaran:</h4>
-          <p id="modalDesc" class="leading-relaxed text-slate-700"></p>
-        </div>
-
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Topik & Komponen Utama:</h4>
-          <ul id="modalKeypoints" class="space-y-1.5"></ul>
-        </div>
-
-        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200/60 flex items-start space-x-2.5">
-          <i class="fa-solid fa-lightbulb text-amber-600 mt-0.5 text-sm"></i>
-          <p class="text-xs text-amber-900">
-            Pastikan anda mencatat refleksi log harian Pengakap Kelana selepas menyelesaikan bahan bacaan ini.
-          </p>
-        </div>
-      </div>
-
-      <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 flex items-center justify-between">
-        <button onclick="closeOverviewModal()" class="px-4 py-2 text-xs font-medium text-slate-600 hover:text-slate-800 transition">
-          Tutup
-        </button>
-        <button id="modalLaunchBtn" onclick="launchCurrentModuleLink()" class="px-5 py-2.5 bg-red-700 hover:bg-red-800 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md transition transform active:scale-95">
-          <span>Terus ke Laman Modul</span>
-          <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Settings / URL Configuration Modal -->
-  <div id="configModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden border border-slate-100">
-      <div class="bg-slate-900 text-white p-5 flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-lg">
-            <i class="fa-solid fa-link"></i>
-          </div>
-          <div>
-            <h3 class="font-display text-lg font-bold text-white">Konfigurasi Pautan Modul</h3>
-            <p class="text-xs text-slate-400">Tukar URL untuk disambungkan ke Google Sites, LMS CIDOS, atau Google Drive pensyarah.</p>
-          </div>
-        </div>
-        <button onclick="closeConfigModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <div class="p-6 custom-scroll max-h-[60vh] overflow-y-auto space-y-4">
-        <div id="urlConfigList" class="space-y-3">
-          <!-- Populated by JS -->
-        </div>
-      </div>
-
-      <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 flex items-center justify-between">
-        <button onclick="resetDefaultUrls()" class="text-xs text-rose-700 hover:text-rose-900 font-semibold">
-          Pulihkan URL Lalai
-        </button>
-        <div class="flex items-center gap-2">
-          <button onclick="closeConfigModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-200/60 rounded-lg transition">
-            Batal
-          </button>
-          <button onclick="saveConfigUrls()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-md transition">
-            Simpan Perubahan
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast Notification element -->
-  <div id="toastNotification" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center space-x-2 bg-slate-900 text-white text-xs px-4 py-3 rounded-xl shadow-xl border border-slate-700">
-    <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
-    <span id="toastMsg">Mesej berjaya</span>
-  </div>
-
-  <footer class="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800 mt-auto">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-      <div class="flex items-center space-x-3">
-        <div class="w-8 h-8 rounded-lg bg-red-700 text-white flex items-center justify-center font-bold">
-          <i class="fa-solid fa-fleur-de-lis"></i>
-        </div>
-        <div>
-          <p class="font-bold text-slate-200">MPU24491 Pengakap Kelana Politeknik Malaysia</p>
-          <p class="text-slate-500">Unit Kokurikulum Jabatan Pengajian Politeknik & Kolej Komuniti</p>
-        </div>
-      </div>
-      <div class="text-slate-400 text-xs font-medium">
-        Hak Milik 2020@Pn Farihan Elyana binti Zahari
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    const INITIAL_MODULES = [
-      {
-        id: 1,
-        code: "1.0",
-        title: "Dasar Keselamatan dan Pertahanan Negara",
-        category: "keselamatan",
-        icon: "fa-shield-halved",
-        color: "from-blue-600 to-indigo-700",
-        badgeColor: "bg-blue-100 text-blue-800 border-blue-200",
-        url: "https://farihan-ptss.github.io/pengakap_kelana2/hanruh.html",
-        desc: "Memahami rangka kerja Dasar Keselamatan Negara (DKN), Dasar Pertahanan Negara, konsep HANRUH (Pertahanan Menyeluruh), dan peranan belia Pengakap Kelana sebagai barisan pertahanan awam.",
-        keypoints: [
-          "Pengenalan Majlis Keselamatan Negara (MKN)",
-          "Konsep HANRUH & Ketahanan Nasional",
-          "Ancaman Konvensional vs Siber & Hibrid",
-          "Peranan Pengakap dalam Kesedaran Keselamatan Komuniti"
-        ]
-      },
-      {
-        id: 2,
-        code: "2.0",
-        title: "Asas Pertolongan Cemas",
-        category: "keselamatan",
-        icon: "fa-kit-medical",
-        color: "from-red-600 to-rose-700",
-        badgeColor: "bg-red-100 text-red-800 border-red-200",
-        url: "https://farihan-ptss.github.io/pengakap_kelana2/pertolongan_cemas.html",
-        desc: "Latihan praktikal teknik pertolongan cemas asas merangkumi penilaian situasi DRSABC, balutan anduh, pengurusan pendarahan, fraktur, serta rawatan terkejut (shock).",
-        keypoints: [
-          "Prosedur Tindak Balas DRSABC",
-          "Aplikasi Anduh & Pembebat Segitiga",
-          "Kawalan Pendarahan Teruk & Rawatan Renjatan",
-          "Pengusung Kecemasan & Pemindahan Mangsa"
-        ]
-      },
-      {
-        id: 3,
-        code: "3.0",
-        title: "Rawatan Gigitan Serangga, Binatang Kecil & Berbisa",
-        category: "keselamatan",
-        icon: "fa-spider",
-        color: "from-amber-600 to-orange-700",
-        badgeColor: "bg-amber-100 text-amber-800 border-amber-200",
-        url: "https://farihan-ptss.github.io/pengakap_kelana2/topic3.html",
-        desc: "Identifikasi hidupan berbisa di hutan tropika Malaysia (ular, labah-labah, tebuan, lipan), simptom keracunan, dan protokol rawatan kecemasan imobilisasi tekanan (PIM).",
-        keypoints: [
-          "Pengecaman Ular Berbisa (Viper vs Elapid)",
-          "Pantang Larang Rawatan Patukan Ular",
-          "Teknik Pressure Immobilization Technique (PIM)",
-          "Rawatan Sengatan Lebah, Tebuan, & Anaphylaxis"
-        ]
-      },
-      {
-        id: 4,
-        code: "4.0",
-        title: "Sistem Pernafasan Manusia",
-        category: "keselamatan",
-        icon: "fa-lungs",
-        color: "from-cyan-600 to-teal-700",
-        badgeColor: "bg-cyan-100 text-cyan-800 border-cyan-200",
-        url: "https://farihan-ptss.github.io/pengakap_kelana2/topic4.html",
-        desc: "Kajian fungsi sistem pernafasan manusia, mekanisme pertukaran oksigen, kecemasan asfiksia (lemas, tercekik), dan kemahiran resusitasi kardiopulmonari (CPR) serta penggunaan AED.",
-        keypoints: [
-          "Anatomi Paru-paru & Saluran Pernafasan",
-          "Heimlich Maneuver untuk Mangsa Tercekik",
-          "Protokol CPR Dewasa & Kanak-kanak",
-          "Pengendalian Mesin Automated External Defibrillator (AED)"
-        ]
-      },
-      {
-        id: 5,
-        code: "5.0",
-        title: "Pengurusan Kesihatan Mental (Safe From Harm)",
-        category: "keselamatan",
-        icon: "fa-brain",
-        color: "from-purple-600 to-violet-700",
-        badgeColor: "bg-purple-100 text-purple-800 border-purple-200",
-        url: "https://farihan-ptss.github.io/pengakap_kelana2/sfh.html",
-        desc: "Penerapan modul WOSM Safe From Harm (Selamat Daripada Bahaya), kesedaran kesihatan mental belia, pencegahan buli/gangguan emosi, dan sokongan psikososial sesama rakan sebaya.",
-        keypoints: [
-          "Prinsip Kod Etika Safe From Harm WOSM",
-          "Pengecaman Stres, Kebimbangan & Kemurungan",
-          "Pertolongan Cemas Kesihatan Mental (PFA)",
-          "Saluran Bantuan & Perlindungan Ahli Kelana"
-        ]
-      },
-      {
-        id: 6,
-        code: "6.0",
-        title: "Program Perkhidmatan Masyarakat",
-        category: "komuniti",
-        icon: "fa-hand-holding-heart",
-        color: "from-emerald-600 to-teal-800",
-        badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-200",
-        url: "https://farihan-ptss.github.io/pengakap_kelana2/csr.html",
-        desc: "Penyediaan, perancangan dan pelaksanaan projek bakti masyarakat berimpak tinggi selaras dengan moto Pengakap Kelana 'Berkhidmat' (Service).",
-        keypoints: [
-          "Analisis Keperluan Komuniti Tempatan",
-          "Penyediaan Kertas Kerja & Pengurusan Bajet",
-          "Pelaksanaan Projek Khidmat Komuniti Politeknik",
-          "Laporan Penilaian & Maklum Balas Penerima Manfaat"
-        ]
-      },
-      {
-        id: 7,
-        code: "7.0",
-        title: "Program Pemeliharaan Alam Sekitar",
-        category: "komuniti",
-        icon: "fa-leaf",
-        color: "from-green-600 to-emerald-700",
-        badgeColor: "bg-green-100 text-green-800 border-green-200",
-        url: "https://farihan-ptss.github.io/pengakap_kelana2/alam_sekitar.html",
-        desc: "Inisiatif Champions for Nature (Earth Tribe), amalan Leave No Trace (LNT), pemuliharaan biodiversiti, dan projek kitar semula/pembersihan eko-sistem politeknik.",
-        keypoints: [
-          "7 Prinsip Utama 'Leave No Trace' (LNT)",
-          "Program Penanaman Pokok Bakau & Penghutanan",
-          "Pengurusan Sisa Sifar & Audit Plastik Kampus",
-          "Kempen Kesedaran Perubahan Iklim Belia"
-        ]
-      },
-      {
-        id: 8,
-        code: "8.0",
-        title: "Rancangan Pengembaraan",
-        category: "pengembaraan",
-        icon: "fa-map-location-dot",
-        color: "from-amber-600 to-yellow-600",
-        badgeColor: "bg-amber-100 text-amber-800 border-amber-200",
-        url: "https://farihan-ptss.github.io/pengakap_kelana2/pengembaraan.html",
-        desc: "Tatacara penyediaan logbook pengembaraan jalan kaki/basikal/berkayak bagi syarat Lencana Ekspedisi Kelana: navigasi peta topo, kompas, log logistik, dan pelan mitigasi risiko.",
-        keypoints: [
-          "Navigasi Peta Topografi & Kompas Prisma",
-          "Penyusunan Jadual Perjalanan (Itinerary) & Penanda Titik",
-          "Pengurusan Logistik, Ransum Kering & Peralatan Khemah",
-          "Pengurusan Risiko Keselamatan & Pelan Kecemasan Ekspedisi"
-        ]
-      }
-    ];
-
-    // State holders
-    let modulesData = [];
-    let currentFilter = 'semua';
-    let activeModalModuleId = null;
-
-    // Load from LocalStorage
-    function initApp() {
-      // Load customized module URLs or default
-      const savedUrls = localStorage.getItem('mpu24491_urls');
-      if (savedUrls) {
-        try {
-          const parsed = JSON.parse(savedUrls);
-          modulesData = INITIAL_MODULES.map(m => ({
-            ...m,
-            url: parsed[m.id] || m.url
-          }));
-        } catch (e) {
-          modulesData = [...INITIAL_MODULES];
-        }
-      } else {
-        modulesData = [...INITIAL_MODULES];
-      }
-
-      renderModules();
-    }
-
-    function renderModules() {
-      const container = document.getElementById('modulesContainer');
-      const query = (document.getElementById('searchInput').value || '').toLowerCase().trim();
-      container.innerHTML = '';
-
-      let visibleCount = 0;
-
-      modulesData.forEach(module => {
-        // Category Filter
-        if (currentFilter !== 'semua' && module.category !== currentFilter) {
-          return;
-        }
-
-        // Search Filter
-        const matchesQuery = module.title.toLowerCase().includes(query) ||
-                             module.code.toLowerCase().includes(query) ||
-                             module.desc.toLowerCase().includes(query);
-
-        if (!matchesQuery) {
-          return;
-        }
-
-        visibleCount++;
-
-        const card = document.createElement('div');
-        card.className = "group bg-white rounded-2xl border border-slate-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between overflow-hidden relative";
-
-        card.innerHTML = `
-          <!-- Card Top Color accent banner -->
-          <div class="h-2 w-full bg-gradient-to-r ${module.color}"></div>
-
-          <div class="p-5 flex-1 flex flex-col justify-between">
-            <div>
-              <!-- Header tag -->
-              <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-black font-display tracking-wider ${module.badgeColor}">
-                  MODUL ${module.code}
-                </span>
-                <span class="text-[11px] text-slate-400 font-medium">MPU24491</span>
-              </div>
-
-              <!-- Icon & Title -->
-              <div class="flex items-start space-x-3 mb-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br ${module.color} text-white flex items-center justify-center shrink-0 text-base shadow-md group-hover:scale-110 transition duration-200">
-                  <i class="fa-solid ${module.icon}"></i>
+    <header class="sticky top-0 z-50 glass-card border-b border-purple-100 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            <!-- Brand Logo with JPPKK image -->
+            <a href="#" class="flex items-center gap-3 group">
+                <img src="jppkk.jpg" alt="Logo JPPKK" class="h-10 sm:h-12 w-auto object-contain rounded-lg" onerror="this.style.display='none'">
+                <div class="h-8 w-px bg-purple-200 hidden sm:block"></div>
+                <div class="w-10 h-10 sm:w-11 sm:h-11 bg-gradient-to-tr from-brand-700 via-brand-600 to-purple-500 rounded-2xl flex items-center justify-center text-white shadow-md shadow-brand-200 group-hover:scale-105 transition-transform duration-300 shrink-0">
+                    <i data-lucide="compass" class="w-6 h-6"></i>
                 </div>
                 <div>
-                  <h3 class="font-display font-bold text-slate-800 text-base group-hover:text-red-900 transition leading-snug">
-                    ${module.title}
-                  </h3>
+                    <span class="text-[10px] sm:text-xs font-extrabold text-brand-600 tracking-wider uppercase block">Persekutuan Pengakap Malaysia</span>
+                    <h1 class="text-base sm:text-lg font-black text-slate-900 leading-none">Kelanasiswa Malaysia <span class="text-brand-600">POLYCC</span></h1>
                 </div>
-              </div>
+            </a>
 
-              <!-- Brief description snippet -->
-              <p class="text-xs text-slate-500 line-clamp-3 mb-4 leading-relaxed">
-                ${module.desc}
-              </p>
+            <!-- Quick Info Badge -->
+            <div class="hidden md:flex items-center gap-2 bg-purple-50 border border-purple-200 px-3 py-1.5 rounded-full text-xs font-bold text-brand-700">
+                <i data-lucide="info" class="w-4 h-4 text-brand-600"></i>
+                <span>Portal Informasi Slaid Rasmi</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative bg-gradient-to-b from-purple-100/90 via-purple-50/50 to-slate-50 py-8 sm:py-12 bg-grid-pattern border-b border-purple-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Left Title Banner with KSM Logo -->
+                <div class="flex items-center gap-4 text-left">
+                    <img src="ksm1.png" alt="Logo KSM" class="h-20 sm:h-24 w-auto object-contain drop-shadow-md hover:scale-105 transition duration-300 shrink-0" onerror="this.src='https://placehold.co/100x120/8b5cf6/ffffff?text=KSM'">
+                    <div>
+                        <span class="bg-brand-100 text-brand-800 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-1.5 border border-purple-200">
+                            Taklimat & Panduan Rasmi
+                        </span>
+                        <h1 class="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">
+                            Portal Blog Informasi
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-700 to-purple-600 block">
+                                Kelanasiswa Malaysia (KSM) POLYCC
+                            </span>
+                        </h1>
+                        <p class="text-xs sm:text-sm text-slate-600 mt-1">
+                            Pilih tab maklumat di bawah untuk melihat infografik slaid rasmi.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Helper Badge -->
+                <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl shadow-sm border border-purple-100 text-xs text-slate-600 shrink-0">
+                    <i data-lucide="zoom-in" class="w-4 h-4 text-brand-600"></i>
+                    <span>Klik sebarang imej untuk pembesaran skrin penuh</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="sticky top-20 z-40 bg-white/95 backdrop-blur-md border-b border-purple-100 shadow-sm py-3">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Scrollable Tab Container -->
+            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 pt-1" id="tabNavContainer">
+                <button onclick="switchTab('penubuhan')" id="tab-btn-penubuhan" class="tab-btn active-tab flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-brand-600 text-white shadow-md shadow-brand-200">
+                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                    <span>Penubuhan KSM</span>
+                </button>
+
+                <button onclick="switchTab('apa-itu')" id="tab-btn-apa-itu" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
+                    <i data-lucide="help-circle" class="w-4 h-4"></i>
+                    <span>Apa itu Pengakap Kelana</span>
+                </button>
+
+                <button onclick="switchTab('organisasi')" id="tab-btn-organisasi" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
+                    <i data-lucide="sitemap" class="w-4 h-4"></i>
+                    <span>Struktur Organisasi</span>
+                </button>
+
+                <button onclick="switchTab('unit')" id="tab-btn-unit" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
+                    <i data-lucide="users" class="w-4 h-4"></i>
+                    <span>Unit Pengakap Kelana</span>
+                </button>
+
+                <button onclick="switchTab('proses')" id="tab-btn-proses" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
+                    <i data-lucide="git-merge" class="w-4 h-4"></i>
+                    <span>Proses Pelaksanaan Pengakap Kelana POLYCC</span>
+                </button>
+
+                <button onclick="switchTab('manfaat')" id="tab-btn-manfaat" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
+                    <i data-lucide="gift" class="w-4 h-4"></i>
+                    <span>Manfaat kepada Pelajar</span>
+                </button>
+
+                <button onclick="switchTab('kelayakan')" id="tab-btn-kelayakan" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
+                    <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                    <span>Kelayakan</span>
+                </button>
+
+                <button onclick="switchTab('pemetaan')" id="tab-btn-pemetaan" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
+                    <i data-lucide="award" class="w-4 h-4"></i>
+                    <span>Pemetaan kepada Anugerah</span>
+                </button>
+
+                <!-- Dropdown Menu Bahan PdP -->
+                <div class="relative inline-block">
+                    <button type="button" onclick="togglePdpMenu(event)" id="pdpMenuBtn" class="flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-gradient-to-r from-purple-600 to-brand-600 text-white shadow-md shadow-brand-200 hover:opacity-90 hover:scale-[1.02]">
+                        <i data-lucide="book-open" class="w-4 h-4"></i>
+                        <span>Bahan PdP</span>
+                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 opacity-90 transition-transform duration-200" id="pdpChevron"></i>
+                    </button>
+                </div>
+
+                <button onclick="switchTab('hubungi')" id="tab-btn-hubungi" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
+                    <i data-lucide="phone-call" class="w-4 h-4"></i>
+                    <span>Hubungi</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Popover Pilihan Bahan PdP -->
+    <div id="pdpMenuDropdown" class="hidden fixed z-50 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-purple-200 p-2 min-w-[230px] transition-all duration-200">
+        <div class="px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-brand-600 border-b border-purple-100 mb-1 flex items-center justify-between">
+            <span>Pilihan Portal PdP</span>
+            <i data-lucide="book-open" class="w-3 h-3 text-brand-500"></i>
+        </div>
+        <a href="https://farihan-ptss.github.io/pengakap_kelana1" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-700 hover:bg-purple-50 hover:text-brand-700 transition group">
+            <span class="flex items-center gap-2.5">
+                <i data-lucide="book-marked" class="w-4 h-4 text-brand-600 group-hover:scale-110 transition-transform"></i>
+                <span>Nota Pengajaran Pengakap Kelana 1</span>
+            </span>
+            <i data-lucide="external-link" class="w-3.5 h-3.5 text-slate-400 group-hover:text-brand-600"></i>
+        </a>
+        <a href="https://farihan-ptss.github.io/pengakap_kelana2" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-700 hover:bg-purple-50 hover:text-brand-700 transition group">
+            <span class="flex items-center gap-2.5">
+                <i data-lucide="book-marked" class="w-4 h-4 text-purple-600 group-hover:scale-110 transition-transform"></i>
+                <span>Nota Pengajaran Pengakap Kelana 2</span>
+            </span>
+            <i data-lucide="external-link" class="w-3.5 h-3.5 text-slate-400 group-hover:text-purple-600"></i>
+        </a>
+    </div>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
+
+        <!-- TAB 1: PENUBUHAN KSM -->
+        <div id="tab-content-penubuhan" class="tab-content space-y-6">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-purple-100 shadow-md space-y-6">
+                <div class="flex items-center justify-between border-b border-purple-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand-600 text-white rounded-xl flex items-center justify-center font-black">
+                            <i data-lucide="file-text" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 1</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900">Penubuhan KSM</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide Images Stack -->
+                <div class="space-y-6">
+                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef22a4.jpg', 'Penubuhan Kelanasiswa Malaysia (KSM) di Politeknik & Kolej Komuniti')">
+                        <img src="image_ef22a4.jpg" alt="Penubuhan KSM POLYCC Cover" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/7c3aed/ffffff?text=Penubuhan+Kelanasiswa+Malaysia+(KSM)'">
+                    </div>
+
+                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef2550.jpg', 'Pengenalan Penubuhan KSM')">
+                        <img src="image_ef2550.jpg" alt="Pengenalan Kelanasiswa Malaysia" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Pengenalan+Penubuhan+KSM'">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: APA ITU PENGAKAP KELANA -->
+        <div id="tab-content-apa-itu" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-purple-100 shadow-md space-y-6">
+                <div class="flex items-center justify-between border-b border-purple-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand-600 text-white rounded-xl flex items-center justify-center font-black">
+                            <i data-lucide="help-circle" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 2</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900">Apa itu Pengakap Kelana</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide Image Container -->
+                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef258b.jpg', 'Apa itu Pengakap Kelana')">
+                    <img src="image_ef258b.jpg" alt="Apa itu Pengakap Kelana" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Apa+itu+Pengakap+Kelana'">
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: STRUKTUR ORGANISASI -->
+        <div id="tab-content-organisasi" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-purple-100 shadow-md space-y-6">
+                <div class="flex items-center justify-between border-b border-purple-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand-600 text-white rounded-xl flex items-center justify-center font-black">
+                            <i data-lucide="sitemap" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 3</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900">Struktur Organisasi</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide Image Container -->
+                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef25c5.jpg', 'Struktur Organisasi')">
+                    <img src="image_ef25c5.jpg" alt="Struktur Organisasi Kelanasiswa Malaysia" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Struktur+Organisasi'">
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: UNIT PENGAKAP KELANA -->
+        <div id="tab-content-unit" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-purple-100 shadow-md space-y-6">
+                <div class="flex items-center justify-between border-b border-purple-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand-600 text-white rounded-xl flex items-center justify-center font-black">
+                            <i data-lucide="users" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 4</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900">Unit Pengakap Kelana</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide Image Container -->
+                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef2625.jpg', 'Unit Pengakap Kelana (Darat, Laut, Udara)')">
+                    <img src="image_ef2625.jpg" alt="Unit Pengakap Kelana Darat Laut Udara" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Unit+Pengakap+Kelana+(Darat,+Laut,+Udara)'">
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: PROSES PELAKSANAAN PENGAKAP KELANA POLYCC -->
+        <div id="tab-content-proses" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-purple-100 shadow-md space-y-6">
+                <div class="flex items-center justify-between border-b border-purple-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand-600 text-white rounded-xl flex items-center justify-center font-black">
+                            <i data-lucide="git-merge" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 5</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900">Proses Pelaksanaan Pengakap Kelana POLYCC</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stack of Process & Implementation Images -->
+                <div class="space-y-6">
+                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef25ea.jpg', 'Proses Pelaksanaan Pengakap Kelana POLYCC (6 Fasa)')">
+                        <img src="image_ef25ea.jpg" alt="6 Fasa Proses Pelaksanaan" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=6+Fasa+Proses+Pelaksanaan'">
+                    </div>
+
+                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef265f.jpg', 'Pelaksanaan Pengakap Kelana di Politeknik / Kolej Komuniti')">
+                        <img src="image_ef265f.jpg" alt="Pelaksanaan di Politeknik / Kolej Komuniti" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Pelaksanaan+di+Politeknik+/+Kolej+Komuniti'">
+                    </div>
+
+                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef2911.jpg', 'Kaedah Pelaksanaan & Penilaian')">
+                        <img src="image_ef2911.jpg" alt="Kaedah Pelaksanaan dan Penilaian" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Kaedah+Pelaksanaan+and+Penilaian'">
+                    </div>
+
+                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef296d.jpg', 'Kandungan Kursus (Silabus 1 & 2)')">
+                        <img src="image_ef296d.jpg" alt="Kandungan Kursus Semester 1 dan 2" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Kandungan+Kursus+Semester+1+dan+2'">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: MANFAAT KEPADA PELAJAR -->
+        <div id="tab-content-manfaat" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-purple-100 shadow-md space-y-6">
+                <div class="flex items-center justify-between border-b border-purple-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand-600 text-white rounded-xl flex items-center justify-center font-black">
+                            <i data-lucide="gift" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 6</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900">Manfaat kepada Pelajar</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide Image Container -->
+                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef294b.jpg', 'Manfaat kepada Pelajar & Pemetaan PLKN 3.0')">
+                    <img src="image_ef294b.jpg" alt="Manfaat Pelajar dan Integrasi PLKN 3.0" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Manfaat+kepada+Pelajar'">
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 7: KELAYAKAN -->
+        <div id="tab-content-kelayakan" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-purple-100 shadow-md space-y-6">
+                <div class="flex items-center justify-between border-b border-purple-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand-600 text-white rounded-xl flex items-center justify-center font-black">
+                            <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 7</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900">Kelayakan</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide Image Container -->
+                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef258b.jpg', 'Kelayakan Pengakap Kelana')">
+                    <img src="image_ef258b.jpg" alt="Kelayakan Umur dan Pendaftaran Pengakap Kelana" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Kelayakan+Ahlian+Pengakap+Kelana'">
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 8: PEMETAAN KEPADA ANUGERAH -->
+        <div id="tab-content-pemetaan" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-purple-100 shadow-md space-y-6">
+                <div class="flex items-center justify-between border-b border-purple-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand-600 text-white rounded-xl flex items-center justify-center font-black">
+                            <i data-lucide="award" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 8</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900">Pemetaan kepada Anugerah</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide Image Container -->
+                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef294b.jpg', 'Pemetaan Penilaian MPU dengan Elemen PLKN 3.0 & Anugerah')">
+                    <img src="image_ef294b.jpg" alt="Pemetaan penilaian MPU dengan elemen PLKN 3.0" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Pemetaan+Penilaian+MPU+dan+Anugerah'">
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 9: HUBUNGI -->
+        <div id="tab-content-hubungi" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-purple-100 shadow-md space-y-6">
+                <div class="flex items-center justify-between border-b border-purple-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand-600 text-white rounded-xl flex items-center justify-center font-black">
+                            <i data-lucide="phone-call" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Perhubungan</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900">Hubungi Kami</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Penyelaras Utama Card -->
+                    <div class="bg-purple-50/60 rounded-2xl p-6 border border-purple-100 space-y-4">
+                        <h3 class="font-extrabold text-slate-900 text-base flex items-center gap-2 border-b border-purple-200 pb-2">
+                            <i data-lucide="user-check" class="w-5 h-5 text-brand-600"></i>
+                            Penyelaras Utama KSM POLYCC
+                        </h3>
+                        <div class="space-y-3 text-xs sm:text-sm text-slate-700">
+                            <div class="bg-white p-4 rounded-xl border border-purple-100 shadow-xs">
+                                <p class="font-bold text-brand-900 text-sm">Ts. Dr. Norhanani Abd Rahman</p>
+                                <p class="text-slate-500 text-xs mt-0.5">Politeknik Port Dickson</p>
+                                <div class="mt-2 flex items-center gap-2 text-brand-700 text-xs font-medium">
+                                    <i data-lucide="map-pin" class="w-3.5 h-3.5 shrink-0 text-brand-600"></i>
+                                    <span>KM 14, Jalan Pantai, 71050 Si Rusa, Negeri Sembilan</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-xl border border-purple-100 shadow-xs">
+                                <p class="font-bold text-brand-900 text-sm">Pn. Farihan Elyana Zahari</p>
+                                <p class="text-slate-500 text-xs mt-0.5">Politeknik Tuanku Syed Sirajuddin</p>
+                                <div class="mt-2 flex items-center gap-2 text-brand-700 text-xs font-medium">
+                                    <i data-lucide="map-pin" class="w-3.5 h-3.5 shrink-0 text-brand-600"></i>
+                                    <span>Pauh Putra, 02600 Arau, Perlis</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Organisasi Induk Card -->
+                    <div class="bg-purple-50/60 rounded-2xl p-6 border border-purple-100 space-y-4">
+                        <h3 class="font-extrabold text-slate-900 text-base flex items-center gap-2 border-b border-purple-200 pb-2">
+                            <i data-lucide="building-2" class="w-5 h-5 text-brand-600"></i>
+                            Organisasi Induk & Rujukan
+                        </h3>
+                        <div class="space-y-3 text-xs sm:text-sm text-slate-700">
+                            <div class="bg-white p-4 rounded-xl border border-purple-100 shadow-xs">
+                                <p class="font-bold text-brand-900 text-sm">Jabatan Pendidikan Politeknik & Kolej Komuniti (JPPKK)</p>
+                                <p class="text-slate-500 text-xs mt-0.5">Kementerian Pendidikan Tinggi</p>
+                                <div class="mt-2 space-y-1 text-xs">
+                                    <p class="flex items-center gap-2 text-slate-600">
+                                        <i data-lucide="globe" class="w-3.5 h-3.5 text-brand-600"></i>
+                                        <span>https://mypolycc.mohe.gov.my</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-xl border border-purple-100 shadow-xs">
+                                <p class="font-bold text-brand-900 text-sm">Persekutuan Pengakap Malaysia (PPM)</p>
+                                <p class="text-slate-500 text-xs mt-0.5">Rumah Pengakap, Jalan Hang Jebat, Kuala Lumpur</p>
+                                <div class="mt-2 space-y-1 text-xs">
+                                    <p class="flex items-center gap-2 text-slate-600">
+                                        <i data-lucide="globe" class="w-3.5 h-3.5 text-brand-600"></i>
+                                        <span>https://pengakapmalaysia.org</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="lightboxModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md hidden flex items-center justify-center p-4" onclick="closeLightbox()">
+        <div class="relative max-w-5xl w-full bg-slate-900 rounded-3xl p-3 sm:p-5 border border-purple-500/30 shadow-2xl flex flex-col items-center" onclick="event.stopPropagation()">
+            <!-- Modal Header -->
+            <div class="w-full flex items-center justify-between pb-3 px-2 border-b border-slate-800">
+                <h3 id="lightboxTitle" class="text-xs sm:text-base font-bold text-purple-200 truncate">Paparan Pembesar Slaid</h3>
+                <button onclick="closeLightbox()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <!-- Image Frame -->
+            <div class="w-full py-2 overflow-auto max-h-[80vh] flex justify-center">
+                <img id="lightboxImg" src="" alt="Paparan Pembesar Slaid" class="max-w-full h-auto object-contain rounded-xl shadow-lg">
+            </div>
+            <!-- Modal Footer -->
+            <div class="w-full pt-2 px-2 text-center text-xs text-slate-400">
+                Tekan di luar gambar atau ikon X untuk tutup
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-slate-900 text-white py-10 mt-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-slate-800 pb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center font-bold">
+                        <i data-lucide="compass" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-base">Kelanasiswa Malaysia POLYCC</h4>
+                        <p class="text-xs text-slate-400">Jabatan Pendidikan Politeknik & Kolej Komuniti (JPPKK)</p>
+                    </div>
+                </div>
+
+                <div class="text-xs text-slate-400 text-center md:text-right">
+                    <p class="font-bold text-purple-300">Disediakan Oleh:</p>
+                    <p>Ts. Dr. Norhanani Abd Rahman (Politeknik Port Dickson)</p>
+                    <p>Pn. Farihan Elyana Zahari (Politeknik Tuanku Syed Sirajuddin)</p>
+                </div>
             </div>
 
-            <!-- Action Buttons Area -->
-            <div class="pt-3 border-t border-slate-100 mt-2 space-y-2">
-              <!-- Primary site link button -->
-              <a 
-                href="${escapeHtml(module.url)}" 
-                target="${module.url.startsWith('http') ? '_blank' : '_self'}"
-                rel="noopener noreferrer"
-                class="w-full py-2.5 px-4 bg-gradient-to-r from-red-800 to-rose-900 hover:from-red-900 hover:to-rose-950 text-white rounded-xl text-xs font-bold tracking-wide flex items-center justify-center gap-2 shadow-sm transition active:scale-95"
-              >
-                <span>Buka Laman Seterusnya</span>
-                <i class="fa-solid fa-arrow-right text-[11px] group-hover:translate-x-1 transition duration-200"></i>
-              </a>
-
-              <!-- Secondary Quick Overview Modal Button -->
-              <button 
-                onclick="openOverviewModal(${module.id})" 
-                class="w-full py-2 px-3 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 flex items-center justify-center gap-1.5 transition"
-              >
-                <i class="fa-solid fa-book-open-reader text-slate-400"></i>
-                <span>Ringkasan & Objektif</span>
-              </button>
+            <div class="pt-6 text-center text-xs text-slate-500">
+                &copy; 2026 Portal Blog Informasi Kelanasiswa Malaysia POLYCC. Hak Cipta Terpelihara.
             </div>
-          </div>
-        `;
+        </div>
+    </footer>
 
-        container.appendChild(card);
-      });
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            lucide.createIcons();
+        });
 
-      // Handle empty search display
-      const emptyDiv = document.getElementById('emptySearch');
-      if (visibleCount === 0) {
-        emptyDiv.classList.remove('hidden');
-      } else {
-        emptyDiv.classList.add('hidden');
-      }
-    }
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            // Hide all tab content divs
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.add('hidden');
+            });
 
-    function setFilter(category) {
-      currentFilter = category;
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        if (btn.getAttribute('data-category') === category) {
-          btn.className = "filter-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg border transition bg-rose-900 text-white border-rose-900";
-        } else {
-          btn.className = "filter-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-100 transition";
+            // Deactivate all tab buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-brand-600', 'text-white', 'shadow-md', 'shadow-brand-200');
+                btn.classList.add('bg-slate-100', 'text-slate-600');
+            });
+
+            // Show selected tab content
+            const activeContent = document.getElementById('tab-content-' + tabId);
+            if (activeContent) {
+                activeContent.classList.remove('hidden');
+            }
+
+            // Activate selected tab button
+            const activeBtn = document.getElementById('tab-btn-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-100', 'text-slate-600');
+                activeBtn.classList.add('bg-brand-600', 'text-white', 'shadow-md', 'shadow-brand-200');
+                
+                // Scroll button into view smoothly if needed
+                activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
         }
-      });
-      renderModules();
-    }
 
-    function filterModules() {
-      renderModules();
-    }
+        // Open Lightbox Modal
+        function openLightbox(imgSrc, titleText) {
+            const modal = document.getElementById("lightboxModal");
+            const modalImg = document.getElementById("lightboxImg");
+            const modalTitle = document.getElementById("lightboxTitle");
 
-    function openOverviewModal(id) {
-      const module = modulesData.find(m => m.id === id);
-      if (!module) return;
-
-      activeModalModuleId = id;
-      document.getElementById('modalCode').textContent = `Modul ${module.code}`;
-      document.getElementById('modalTitle').textContent = module.title;
-      document.getElementById('modalDesc').textContent = module.desc;
-
-      const iconDiv = document.getElementById('modalIcon');
-      iconDiv.className = `w-10 h-10 rounded-lg bg-gradient-to-br ${module.color} text-white flex items-center justify-center text-xl`;
-      iconDiv.innerHTML = `<i class="fa-solid ${module.icon}"></i>`;
-
-      const ul = document.getElementById('modalKeypoints');
-      ul.innerHTML = '';
-      module.keypoints.forEach(point => {
-        const li = document.createElement('li');
-        li.className = "flex items-start space-x-2";
-        li.innerHTML = `
-          <i class="fa-solid fa-circle-check text-emerald-500 mt-1 text-xs shrink-0"></i>
-          <span class="text-xs text-slate-700">${point}</span>
-        `;
-        ul.appendChild(li);
-      });
-
-      document.getElementById('overviewModal').classList.remove('hidden');
-    }
-
-    function closeOverviewModal() {
-      document.getElementById('overviewModal').classList.add('hidden');
-      activeModalModuleId = null;
-    }
-
-    function launchCurrentModuleLink() {
-      if (!activeModalModuleId) return;
-      const module = modulesData.find(m => m.id === activeModalModuleId);
-      if (module) {
-        if (module.url.startsWith('http')) {
-          window.open(module.url, '_blank', 'noopener,noreferrer');
-        } else {
-          // If placeholder anchor or internal relative link
-          showToast(`Mengarahkan ke: ${module.url}`, "info");
-          setTimeout(() => {
-            window.location.hash = module.url;
-          }, 300);
+            modalImg.src = imgSrc;
+            modalTitle.innerText = titleText || 'Paparan Pembesar Slaid';
+            modal.classList.remove("hidden");
+            document.body.style.overflow = "hidden";
         }
-      }
-      closeOverviewModal();
-    }
 
-    function openConfigModal() {
-      const container = document.getElementById('urlConfigList');
-      container.innerHTML = '';
-
-      modulesData.forEach(m => {
-        const item = document.createElement('div');
-        item.className = "p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5";
-        item.innerHTML = `
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-800">${m.code} ${m.title}</span>
-            <span class="text-[10px] text-slate-400 font-mono">ID: #${m.id}</span>
-          </div>
-          <div class="relative">
-            <input 
-              type="text" 
-              id="cfg_url_${m.id}" 
-              value="${escapeHtml(m.url)}" 
-              placeholder="cth: https://sites.google.com/view/kelana2-modul${m.id}"
-              class="w-full text-xs px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-700 focus:outline-none focus:ring-1 focus:ring-red-600 font-mono"
-            >
-          </div>
-        `;
-        container.appendChild(item);
-      });
-
-      document.getElementById('configModal').classList.remove('hidden');
-    }
-
-    function closeConfigModal() {
-      document.getElementById('configModal').classList.add('hidden');
-    }
-
-    function saveConfigUrls() {
-      const newUrls = {};
-      modulesData.forEach(m => {
-        const input = document.getElementById(`cfg_url_${m.id}`);
-        if (input) {
-          const val = input.value.trim() || `#modul-${m.id}`;
-          newUrls[m.id] = val;
-          m.url = val;
+        // Close Lightbox Modal
+        function closeLightbox() {
+            const modal = document.getElementById("lightboxModal");
+            modal.classList.add("hidden");
+            document.body.style.overflow = "auto";
         }
-      });
 
-      localStorage.setItem('mpu24491_urls', JSON.stringify(newUrls));
-      closeConfigModal();
-      renderModules();
-      showToast("Pautan modul berjaya disimpan!", "success");
-    }
+        // Toggle Bahan PdP Popover Menu
+        function togglePdpMenu(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById('pdpMenuDropdown');
+            const btn = document.getElementById('pdpMenuBtn');
+            const chevron = document.getElementById('pdpChevron');
+            const isHidden = dropdown.classList.contains('hidden');
 
-    function resetDefaultUrls() {
-      INITIAL_MODULES.forEach(im => {
-        const input = document.getElementById(`cfg_url_${im.id}`);
-        if (input) {
-          input.value = im.url;
+            if (isHidden) {
+                const rect = btn.getBoundingClientRect();
+                dropdown.style.top = (rect.bottom + 8) + 'px';
+                dropdown.style.left = Math.max(10, Math.min(rect.left, window.innerWidth - 240)) + 'px';
+                dropdown.classList.remove('hidden');
+                if (chevron) chevron.style.transform = 'rotate(180deg)';
+            } else {
+                dropdown.classList.add('hidden');
+                if (chevron) chevron.style.transform = 'rotate(0deg)';
+            }
         }
-      });
-      showToast("Pautan diset semula ke nilai lalai. Klik 'Simpan' untuk mengesahkan.", "info");
-    }
 
-    let toastTimeout;
-    function showToast(message, type = 'success') {
-      const toast = document.getElementById('toastNotification');
-      const msg = document.getElementById('toastMsg');
-      const icon = document.getElementById('toastIcon');
+        // Close dropdown when clicking outside or scrolling
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('pdpMenuDropdown');
+            const btn = document.getElementById('pdpMenuBtn');
+            const chevron = document.getElementById('pdpChevron');
+            if (dropdown && !dropdown.classList.contains('hidden')) {
+                if (!dropdown.contains(e.target) && !btn.contains(e.target)) {
+                    dropdown.classList.add('hidden');
+                    if (chevron) chevron.style.transform = 'rotate(0deg)';
+                }
+            }
+        });
 
-      clearTimeout(toastTimeout);
-      msg.textContent = message;
-
-      if (type === 'success') {
-        icon.className = "fa-solid fa-circle-check text-emerald-400 text-base";
-      } else if (type === 'info') {
-        icon.className = "fa-solid fa-circle-info text-blue-400 text-base";
-      } else {
-        icon.className = "fa-solid fa-circle-exclamation text-amber-400 text-base";
-      }
-
-      toast.classList.remove('translate-y-20', 'opacity-0');
-      toast.classList.add('translate-y-0', 'opacity-100');
-
-      toastTimeout = setTimeout(() => {
-        toast.classList.remove('translate-y-0', 'opacity-100');
-        toast.classList.add('translate-y-20', 'opacity-0');
-      }, 3000);
-    }
-
-    function escapeHtml(string) {
-      if (!string) return '';
-      return String(string)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-
-    // Modal click outside to dismiss
-    window.addEventListener('click', (e) => {
-      const overviewModal = document.getElementById('overviewModal');
-      const configModal = document.getElementById('configModal');
-      if (e.target === overviewModal) closeOverviewModal();
-      if (e.target === configModal) closeConfigModal();
-    });
-
-    // Close on Escape key
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeOverviewModal();
-        closeConfigModal();
-      }
-    });
-
-    // Initialize on page load
-    window.onload = function() {
-      initApp();
-    };
-  </script>
+        window.addEventListener('resize', function() {
+            const dropdown = document.getElementById('pdpMenuDropdown');
+            if (dropdown && !dropdown.classList.contains('hidden')) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    </script>
 </body>
 </html>
