@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hub Pembelajaran Interaktif: 8.0 Rancangan Pengembaraan</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            forest: {
+              50: '#f2f9f4',
+              100: '#e1f2e6',
+              200: '#c5e5cf',
+              500: '#2d8a57',
+              600: '#227246',
+              700: '#1c5a38',
+              800: '#18472e',
+              900: '#143b27',
+            },
+            amberwood: {
+              500: '#d97706',
+              600: '#b45309',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom scrollbar and smooth transitions */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .custom-gradient {
+      background: linear-gradient(135deg, #143b27 0%, #1c5a38 60%, #2d8a57 100%);
+    }
+    .badge-glow {
+      box-shadow: 0 0 15px rgba(45, 138, 87, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- Top Announcement / Breadcrumb Bar -->
+  <header class="custom-gradient text-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        <!-- Logo & Title -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-300 shadow-inner">
+            <i data-lucide="compass" class="w-6 h-6 sm:w-7 sm:h-7 animate-pulse"></i>
+          </div>
+          <div>
+            <span class="text-xs uppercase tracking-wider font-semibold text-emerald-300">Pengakap Kelana Politeknik 2</span>
+            <h1 class="text-lg sm:text-2xl font-bold font-heading tracking-tight leading-none text-white">
+              8.0 Rancangan Pengembaraan
+            </h1>
+          </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <button onclick="switchTab('overview')" id="nav-overview" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all bg-emerald-700/60 text-white shadow-sm flex items-center gap-1.5">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Utama
+          </button>
+          <button onclick="switchTab('topic81')" id="nav-topic81" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all text-emerald-100 hover:bg-emerald-700/40 hover:text-white flex items-center gap-1.5">
+            <i data-lucide="file-text" class="w-4 h-4"></i> 8.1 Penulisan Laporan
+          </button>
+          <button onclick="switchTab('topic82')" id="nav-topic82" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all text-emerald-100 hover:bg-emerald-700/40 hover:text-white flex items-center gap-1.5">
+            <i data-lucide="check-square" class="w-4 h-4"></i> 8.2 Pengurusan Fasa
+          </button>
+          <button onclick="switchTab('topic83')" id="nav-topic83" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all text-emerald-100 hover:bg-emerald-700/40 hover:text-white flex items-center gap-1.5">
+            <i data-lucide="cloud-sun" class="w-4 h-4"></i> 8.3 Kaji Cuaca
+          </button>
+          <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all text-emerald-100 hover:bg-emerald-700/40 hover:text-white flex items-center gap-1.5">
+            <i data-lucide="award" class="w-4 h-4"></i> Ujian & Sijil
+          </button>
+        </nav>
+
+        <!-- Sound toggle & Mobile menu button -->
+        <div class="flex items-center space-x-2">
+          <button onclick="toggleAudioFeedback()" id="audioToggleBtn" title="Kesan Bunyi Antara Muka" class="p-2 rounded-lg bg-emerald-900/60 hover:bg-emerald-800 text-emerald-300 border border-emerald-700/50 transition">
+            <i data-lucide="volume-2" id="audioIcon" class="w-5 h-5"></i>
+          </button>
+          <button onclick="toggleMobileNav()" class="md:hidden p-2 rounded-lg bg-emerald-900/60 hover:bg-emerald-800 text-white">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-forest-900/95 border-t border-emerald-800/80 px-4 pt-2 pb-4 space-y-2">
+      <button onclick="switchTab('overview'); toggleMobileNav();" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-emerald-100 hover:bg-emerald-800 flex items-center gap-2">
+        <i data-lucide="layout-dashboard" class="w-4 h-4 text-emerald-400"></i> Halaman Utama
+      </button>
+      <button onclick="switchTab('topic81'); toggleMobileNav();" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-emerald-100 hover:bg-emerald-800 flex items-center gap-2">
+        <i data-lucide="file-text" class="w-4 h-4 text-emerald-400"></i> 8.1 Kaedah Penulisan Laporan
+      </button>
+      <button onclick="switchTab('topic82'); toggleMobileNav();" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-emerald-100 hover:bg-emerald-800 flex items-center gap-2">
+        <i data-lucide="check-square" class="w-4 h-4 text-emerald-400"></i> 8.2 Pengurusan Sebelum, Semasa & Selepas
+      </button>
+      <button onclick="switchTab('topic83'); toggleMobileNav();" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-emerald-100 hover:bg-emerald-800 flex items-center gap-2">
+        <i data-lucide="cloud-sun" class="w-4 h-4 text-emerald-400"></i> 8.3 Ilmu Kaji Cuaca
+      </button>
+      <button onclick="switchTab('quiz'); toggleMobileNav();" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-emerald-100 hover:bg-emerald-800 flex items-center gap-2">
+        <i data-lucide="award" class="w-4 h-4 text-emerald-400"></i> Kuiz & Sijil Pengembara
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ========================================== -->
+    <!-- SECTION 1: OVERVIEW DASHBOARD             -->
+    <!-- ========================================== -->
+    <section id="tab-overview" class="space-y-8 animate-fadeIn">
+      <!-- Hero Banner -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-forest-900 via-forest-800 to-emerald-800 text-white p-6 sm:p-10 shadow-xl border border-emerald-600/30">
+        <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold mb-4">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Pembelajaran Berasaskan Aktiviti & Pengalaman
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-extrabold font-heading text-white tracking-tight leading-tight">
+            Kuasai Seni & Disiplin Pengembaraan Luar
+          </h2>
+          <p class="mt-3 text-slate-200 text-sm sm:text-base leading-relaxed">
+            Selamat datang ke <strong>Hub Pembelajaran Interaktif 8.0 Rancangan Pengembaraan</strong>. Pelajari kemahiran dokumentasi ekspedisi, protokol pengurusan holistik dari fasa persediaan hingga pos-mortem, serta tafsiran fenomena atmosfera untuk keselamatan maksimum.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <button onclick="switchTab('topic81')" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold transition flex items-center gap-2 shadow-lg shadow-emerald-900/30">
+              Mula Belajar <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+            <button onclick="switchTab('topic82')" class="px-5 py-2.5 rounded-xl bg-forest-700/80 hover:bg-forest-700 text-emerald-200 text-sm font-semibold border border-emerald-600/40 transition flex items-center gap-2">
+              <i data-lucide="backpack" class="w-4 h-4"></i> Semak Alatan 10 Essentials
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Metrics & Progress Tracker -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center space-x-4">
+          <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
+            <i data-lucide="book-open" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="text-xs uppercase font-medium text-slate-500">Status Modul</div>
+            <div class="text-xl font-bold font-heading text-slate-800" id="progressStatusText">3 Subtopik Utama</div>
+            <div class="w-28 bg-slate-100 rounded-full h-1.5 mt-1.5 overflow-hidden">
+              <div id="moduleProgressBar" class="bg-emerald-500 h-1.5 rounded-full transition-all duration-500" style="width: 35%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center space-x-4">
+          <div class="p-3 bg-amber-50 text-amber-600 rounded-xl">
+            <i data-lucide="clipboard-check" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="text-xs uppercase font-medium text-slate-500">Senarai Semak Alatan</div>
+            <div class="text-xl font-bold font-heading text-slate-800" id="overviewChecklistCount">0 / 12 Siap</div>
+            <p class="text-xs text-slate-500 mt-1">Uji kesediaan beg galas anda</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center space-x-4">
+          <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
+            <i data-lucide="cloud-rain" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="text-xs uppercase font-medium text-slate-500">Simulasi Cuaca</div>
+            <div class="text-xl font-bold font-heading text-slate-800">10 Corak Awan</div>
+            <p class="text-xs text-slate-500 mt-1">Panduan visual kaji cuaca fizikal</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Primary Topic Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Card 8.1 -->
+        <div class="group bg-white rounded-3xl p-6 border border-slate-200/80 hover:border-emerald-500/50 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-105 transition-transform">
+              8.1
+            </div>
+            <h3 class="text-lg font-bold font-heading text-slate-900 group-hover:text-emerald-700 transition-colors">
+              Kaedah Penulisan Laporan Pengembaraan
+            </h3>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+              Kuasai format rasmi, log harian perjalanan, lakaran peta kontur, pemetaan masa, rekod flora/fauna, serta perakaunan perbelanjaan ekspedisi.
+            </p>
+            <ul class="mt-4 space-y-2 text-xs text-slate-600">
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> Format Laporan Lengkap</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> Alat Pembina Log Interaktif (Jana Dokumen)</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> Contoh Catatan Buku Log Sebenar</li>
+            </ul>
+          </div>
+          <button onclick="switchTab('topic81')" class="mt-6 w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-emerald-600 hover:text-white text-slate-700 font-semibold text-xs transition flex items-center justify-center gap-2">
+            Terokai 8.1 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <!-- Card 8.2 -->
+        <div class="group bg-white rounded-3xl p-6 border border-slate-200/80 hover:border-emerald-500/50 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-105 transition-transform">
+              8.2
+            </div>
+            <h3 class="text-lg font-bold font-heading text-slate-900 group-hover:text-emerald-700 transition-colors">
+              Pengurusan Sebelum, Semasa & Selepas
+            </h3>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+              Panduan pengurusan risiko: dari kertas kerja dan kebenaran permit, pengurusan keselamatan dan Leave No Trace (LNT), hingga pos-mortem.
+            </p>
+            <ul class="mt-4 space-y-2 text-xs text-slate-600">
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-600"></i> Garis Masa 3 Fasa Kritikal</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-600"></i> 7 Prinsip Leave No Trace (LNT)</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-600"></i> Kalkulator & Senarai Semak Beg Galas</li>
+            </ul>
+          </div>
+          <button onclick="switchTab('topic82')" class="mt-6 w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-emerald-600 hover:text-white text-slate-700 font-semibold text-xs transition flex items-center justify-center gap-2">
+            Terokai 8.2 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <!-- Card 8.3 -->
+        <div class="group bg-white rounded-3xl p-6 border border-slate-200/80 hover:border-emerald-500/50 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-105 transition-transform">
+              8.3
+            </div>
+            <h3 class="text-lg font-bold font-heading text-slate-900 group-hover:text-emerald-700 transition-colors">
+              Ilmu Kaji Cuaca (Meteorologi Luar)
+            </h3>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+              Kenal pasti jenis awan, pergerakan angin, tekanan altitud, dan tanda semula jadi hutan untuk membuat keputusan taktikal keselamatan.
+            </p>
+            <ul class="mt-4 space-y-2 text-xs text-slate-600">
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-blue-600"></i> Klasifikasi 10 Bentuk Awan</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-blue-600"></i> Tanda Cuaca Flora, Fauna & Langit</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-blue-600"></i> Simulator Keputusan Cuaca Ekstrem</li>
+            </ul>
+          </div>
+          <button onclick="switchTab('topic83')" class="mt-6 w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-emerald-600 hover:text-white text-slate-700 font-semibold text-xs transition flex items-center justify-center gap-2">
+            Terokai 8.3 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Interactive Quiz Teaser & Safety Quote -->
+      <div class="bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-teal-500/10 rounded-3xl p-6 border border-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <div class="p-3 bg-amber-500 text-white rounded-2xl shadow-md">
+            <i data-lucide="shield-alert" class="w-7 h-7"></i>
+          </div>
+          <div>
+            <h4 class="font-heading font-bold text-slate-900 text-base">Falsafah Pengembara Sejati</h4>
+            <p class="text-xs sm:text-sm text-slate-600">"Hanya tinggalkan jejak kaki, hanya ambil gambar kenangan, hanya bunuh masa." — Sentiasa utamakan keselamatan nyawa berbanding puncak matlamat.</p>
+          </div>
+        </div>
+        <button onclick="switchTab('quiz')" class="whitespace-nowrap px-5 py-2.5 rounded-xl bg-forest-700 hover:bg-forest-800 text-white font-medium text-xs sm:text-sm transition flex items-center gap-2">
+          Uji Kefahaman <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 2: 8.1 PENULISAN LAPORAN          -->
+    <!-- ========================================== -->
+    <section id="tab-topic81" class="hidden space-y-8 animate-fadeIn">
+      <!-- Section Header -->
+      <div class="border-b border-slate-200 pb-5">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-semibold mb-2">
+          Subtopik 8.1
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold font-heading text-slate-900">
+          Kaedah Penulisan Laporan Pengembaraan
+        </h2>
+        <p class="text-slate-600 text-sm mt-1 max-w-3xl">
+          Laporan pengembaraan merupakan rekod rasmi, ilmiah dan saintifik yang mendokumentasikan setiap peristiwa, penemuan lapangan, lakaran laluan, masa, serta pengurusan kewangan secara terperinci.
+        </p>
+      </div>
+
+      <!-- 4 Pillars of Report Writing Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3">
+            <i data-lucide="layers" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-slate-800 text-sm">1. Ketepatan Fakta</h4>
+          <p class="text-xs text-slate-600 mt-1">Catatan masa (jam & minit), koordinat GPS / tanda grid peta, cuaca fizikal dan jarak sebenar (km).</p>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-3">
+            <i data-lucide="map" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-slate-800 text-sm">2. Lakaran & Peta</h4>
+          <p class="text-xs text-slate-600 mt-1">Peta lakaran perjalanan (strip map), petunjuk (legenda), bearing kompas (azimuth) dan mercu tanda penting.</p>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-3">
+            <i data-lucide="clock" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-slate-800 text-sm">3. Log Kronologi</h4>
+          <p class="text-xs text-slate-600 mt-1">Mengikut urutan waktu: waktu bertolak, masa rehat, tapak perkhemahan, cabaran laluan dan penemuan flora/fauna.</p>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-3">
+            <i data-lucide="file-check" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-slate-800 text-sm">4. Refleksi & Cadangan</h4>
+          <p class="text-xs text-slate-600 mt-1">Penilaian SWOT ekspedisi, masalah yang dihadapi, cadangan penambahbaikan, dan perincian belanjawan.</p>
+        </div>
+      </div>
+
+      <!-- Tabbed Viewer: Struktur Format vs Buku Log Interaktif -->
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="border-b border-slate-200 bg-slate-50/70 p-4 sm:px-6 flex flex-wrap gap-2 items-center justify-between">
+          <span class="font-heading font-bold text-slate-800 text-sm sm:text-base flex items-center gap-2">
+            <i data-lucide="book-open-check" class="w-5 h-5 text-emerald-600"></i> Panduan Komponen Laporan Rasmi
+          </span>
+          <div class="flex gap-1.5 bg-slate-200/80 p-1 rounded-xl">
+            <button onclick="switchReportSubTab('structure')" id="subtab-btn-structure" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-emerald-800 shadow-sm transition">
+              Susunan Format Laporan
+            </button>
+            <button onclick="switchReportSubTab('logbook')" id="subtab-btn-logbook" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">
+              Jana Laporan Pengembaraan (Buku Log)
+            </button>
+          </div>
+        </div>
+
+        <!-- Subtab Content: Struktur Format -->
+        <div id="subtab-content-structure" class="p-6 sm:p-8 space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-1 space-y-3">
+              <h3 class="font-heading font-bold text-slate-900 text-base">Komponen Mengikut Bab</h3>
+              <p class="text-xs text-slate-500 leading-relaxed">
+                Setiap laporan pengembaraan yang berkualiti untuk penilaian kokurikulum (contoh: Anugerah Remaja Perdana / Lencana Pengakap Raja / Ujian Ekspedisi Kadet) mesti mematuhi piawaian berikut:
+              </p>
+              
+              <div class="space-y-2 mt-4" id="componentAccordionList">
+                <div onclick="selectReportComponent(0)" class="report-comp-item active cursor-pointer p-3 rounded-xl border border-emerald-500 bg-emerald-50/70 text-slate-800 transition">
+                  <span class="text-xs font-bold text-emerald-700">BAHAGIAN 1</span>
+                  <div class="font-semibold text-sm">Halaman Hadapan & Penghargaan</div>
+                </div>
+                <div onclick="selectReportComponent(1)" class="report-comp-item cursor-pointer p-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-800 transition">
+                  <span class="text-xs font-bold text-slate-500">BAHAGIAN 2</span>
+                  <div class="font-semibold text-sm">Objektif, Ahli Pasukan & Peta Laluan</div>
+                </div>
+                <div onclick="selectReportComponent(2)" class="report-comp-item cursor-pointer p-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-800 transition">
+                  <span class="text-xs font-bold text-slate-500">BAHAGIAN 3</span>
+                  <div class="font-semibold text-sm">Catatan Log Harian (Waktu & Cuaca)</div>
+                </div>
+                <div onclick="selectReportComponent(3)" class="report-comp-item cursor-pointer p-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-800 transition">
+                  <span class="text-xs font-bold text-slate-500">BAHAGIAN 4</span>
+                  <div class="font-semibold text-sm">Penyata Kewangan & Resit Perbelanjaan</div>
+                </div>
+                <div onclick="selectReportComponent(4)" class="report-comp-item cursor-pointer p-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-800 transition">
+                  <span class="text-xs font-bold text-slate-500">BAHAGIAN 5</span>
+                  <div class="font-semibold text-sm">Penilaian, Cadangan & Lampiran</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic Detail Pane -->
+            <div class="lg:col-span-2 bg-slate-50/80 rounded-2xl p-6 border border-slate-200/90 flex flex-col justify-between">
+              <div id="reportComponentDetail">
+                <!-- Dynamically populated by JS -->
+              </div>
+              <div class="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+                <span>Tips Penguji: "Gunakan tulisan tangan kemas atau cetakan kemas dengan foto asli."</span>
+                <span class="font-semibold text-emerald-700" id="compStepCounter">1 dari 5 Bahagian</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subtab Content: Interactive Log Generator -->
+        <div id="subtab-content-logbook" class="hidden p-6 sm:p-8 space-y-6">
+          <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 flex items-start gap-3">
+            <i data-lucide="info" class="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0"></i>
+            <p class="text-xs sm:text-sm text-emerald-900 leading-relaxed">
+              <strong>Simulasi Pembina Laporan:</strong> Masukkan butiran ekspedisi anda di bawah untuk menjana draf laporan pengembaraan yang sedia untuk disalin atau dicetak mengikut format standard.
+            </p>
+          </div>
+
+          <form id="expeditionReportForm" onsubmit="event.preventDefault(); generateExpeditionReport();" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nama Pengembaraan / Ekspedisi</label>
+              <input type="text" id="repName" value="Ekspedisi Jejak Rimba Gunung Nuang" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none" required>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Lokasi & Laluan Terlibat</label>
+              <input type="text" id="repLocation" value="Hulu Langat - Kem Lolo - Kem Pacat - Puncak Nuang" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none" required>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Tarikh & Tempoh</label>
+              <input type="text" id="repDates" value="12 - 14 Oktober (3 Hari 2 Malam)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none" required>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ketua Ekspedisi & Ahli Pasukan</label>
+              <input type="text" id="repLeader" value="Ahmad Daniel (Ketua), 6 Orang Peserta" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none" required>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Entri Log Utama (Waktu, Jarak & Catatan Peristiwa)</label>
+              <textarea id="repLogEntries" rows="4" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none font-mono text-xs">
+07:30 - Taklimat keselamatan di Pos Renjer & pendaftaran nama.
+08:15 - Memulakan pendakian melalui jalan paip tanah merah (Cuaca: Cerah, 26°C).
+11:45 - Tiba di Kem Lolo; menyeberangi sungai dengan tali keselamatan. Rehat makan tengah hari.
+14:30 - Melintasi trek curam berbatu ke Kem Pacat (Awan Cumulus berarak tebal).
+17:00 - Pasang khemah di tapak selamat, membersihkan parit perlindungan hujan.</textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Cabaran / Isu Lapangan</label>
+              <input type="text" id="repIssues" value="Hujan renyai bermula jam 18:00, pacat banyak di kawasan lembap sungai." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Cadangan Penambahbaikan</label>
+              <input type="text" id="repRecommendations" value="Gunakan gaiters anti-pacat & sediakan flysheet tambahan saiz 4x6m." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            </div>
+            <div class="sm:col-span-2 flex justify-end gap-3 pt-2">
+              <button type="submit" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm transition flex items-center gap-2 shadow-md">
+                <i data-lucide="sparkles" class="w-4 h-4"></i> Jana Format Laporan
+              </button>
+            </div>
+          </form>
+
+          <!-- Generated Preview Area -->
+          <div id="generatedReportOutput" class="hidden mt-6 bg-slate-900 text-slate-100 p-6 rounded-2xl border border-slate-700 font-mono text-xs overflow-x-auto relative">
+            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-700">
+              <span class="text-emerald-400 font-bold">HASIL DRAF LAPORAN LENGKAP:</span>
+              <button onclick="copyGeneratedReport()" id="copyRepBtn" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg border border-slate-600 transition flex items-center gap-1.5">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin Teks
+              </button>
+            </div>
+            <pre id="reportPreContent" class="whitespace-pre-wrap leading-relaxed text-slate-300"></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 3: 8.2 PENGURUSAN FASA            -->
+    <!-- ========================================== -->
+    <section id="tab-topic82" class="hidden space-y-8 animate-fadeIn">
+      <!-- Section Header -->
+      <div class="border-b border-slate-200 pb-5">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-semibold mb-2">
+          Subtopik 8.2
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold font-heading text-slate-900">
+          Pengurusan Sebelum, Semasa dan Selepas Pengembaraan
+        </h2>
+        <p class="text-slate-600 text-sm mt-1 max-w-3xl">
+          Kejayaan sesuatu ekspedisi bergantung 80% kepada disiplin perancangan awal, 10% ketahanan semasa di lapangan, dan 10% ketelitian dokumentasi serta pasca-analisis.
+        </p>
+      </div>
+
+      <!-- 3-Phase Interactive Journey Tabs -->
+      <div class="flex border-b border-slate-200 gap-2 sm:gap-4 overflow-x-auto pb-1">
+        <button onclick="switchPhaseTab('sebelum')" id="btn-phase-sebelum" class="phase-btn px-4 py-3 border-b-2 border-emerald-600 text-emerald-800 font-bold text-sm sm:text-base flex items-center gap-2 whitespace-nowrap">
+          <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center">1</span>
+          Fasa Sebelum (Persediaan & Permit)
+        </button>
+        <button onclick="switchPhaseTab('semasa')" id="btn-phase-semasa" class="phase-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 font-medium text-sm sm:text-base flex items-center gap-2 whitespace-nowrap">
+          <span class="w-6 h-6 rounded-full bg-slate-300 text-slate-700 text-xs flex items-center justify-center">2</span>
+          Fasa Semasa (SOP & Lapangan)
+        </button>
+        <button onclick="switchPhaseTab('selepas')" id="btn-phase-selepas" class="phase-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 font-medium text-sm sm:text-base flex items-center gap-2 whitespace-nowrap">
+          <span class="w-6 h-6 rounded-full bg-slate-300 text-slate-700 text-xs flex items-center justify-center">3</span>
+          Fasa Selepas (Pos-Mortem & Laporan)
+        </button>
+      </div>
+
+      <!-- Phase 1: SEBELUM -->
+      <div id="phase-content-sebelum" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Card 1 -->
+          <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-3">
+              <i data-lucide="file-signature" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base">Kertas Kerja & Kebenaran</h4>
+            <ul class="text-xs text-slate-600 mt-2 space-y-1.5 leading-relaxed">
+              <li>• Menyediakan kertas kerja lengkap (Objektif, Tentatif, Bajet).</li>
+              <li>• Surat kebenaran Pengetua / PPD / JPN (jika sekolah).</li>
+              <li>• Permit Jabatan Perhutanan Negeri (jika hutan simpan).</li>
+              <li>• Makluman Balai Polis & Renjer Hutan berdekatan.</li>
+              <li>• Borang kebenaran bertulis ibu bapa/penjaga dan deklarasi kesihatan.</li>
+            </ul>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center mb-3">
+              <i data-lucide="activity" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base">Latihan Fizikal & Mental</h4>
+            <ul class="text-xs text-slate-600 mt-2 space-y-1.5 leading-relaxed">
+              <li>• Latihan kardiovaskular minimum 3-4 minggu sebelum ekspedisi.</li>
+              <li>• Latihan memikul beban (rucking) dengan beg galas berpasir.</li>
+              <li>• Ujian kecergasan fizikal (National Physical Fitness Test).</li>
+              <li>• Kursus pertolongan cemas asas (CPR, rawatan patah, gigitan serangga).</li>
+            </ul>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center mb-3">
+              <i data-lucide="layers" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base">Logistik & Ration Makanan</h4>
+            <ul class="text-xs text-slate-600 mt-2 space-y-1.5 leading-relaxed">
+              <li>• Pengiraan kalori makanan (3,000 - 3,500 kcal sehari/individu).</li>
+              <li>• Makanan kering, ringan, tidak mudah basi dan bernutrisi tinggi.</li>
+              <li>• Pembahagian beban seimbang kumpulan (khemah, fly/groundsheet, dapur).</li>
+              <li>• Rancang sumber air bersih (water points) di laluan pendakian.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Interactive 10 Essentials Backpack Packing Checklist -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-3">
+            <div>
+              <h3 class="font-heading font-bold text-slate-900 text-lg flex items-center gap-2">
+                <i data-lucide="backpack" class="w-5 h-5 text-emerald-600"></i> Senarai Semak 10 Alatan Asas (10 Essentials)
+              </h3>
+              <p class="text-xs text-slate-500">Tandakan alatan yang telah anda pek untuk melihat peratusan kesediaan beg galas anda.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span id="packPercentage" class="text-sm font-bold text-emerald-700 px-3 py-1 bg-emerald-50 rounded-full border border-emerald-200">
+                0% Lengkap
+              </span>
+              <button onclick="resetPackingChecklist()" class="text-xs px-3 py-1 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-600">
+                Tetap Semula
+              </button>
+            </div>
+          </div>
+
+          <!-- Packing Checkboxes Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 mt-5" id="packingChecklistContainer">
+            <!-- Populated dynamically via JS -->
+          </div>
+
+          <!-- Backpack Weight Advice Bar -->
+          <div class="mt-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 flex items-start gap-3">
+            <i data-lucide="scale" class="w-5 h-5 text-amber-700 mt-0.5 flex-shrink-0"></i>
+            <div class="text-xs text-amber-900 leading-relaxed">
+              <strong>Hukum Emas Berat Beg Galas (Backpacking Gold Standard):</strong> Berat keseluruhan beg galas tidak boleh melebihi <strong>20% hingga 25% berat badan</strong> pengembara. Contoh: Jika berat anda 60kg, berat beg maksimum anda adalah sekitar 12kg - 15kg sahaja!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2: SEMASA -->
+      <div id="phase-content-semasa" class="hidden space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Disiplin Lapangan & Buddy System -->
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+            <h3 class="font-heading font-bold text-slate-900 text-lg flex items-center gap-2">
+              <i data-lucide="users" class="w-5 h-5 text-emerald-600"></i> Sistem 'Buddy' & Susunan Barisan
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Dalam pergerakan hutan atau banjaran, disiplin barisan wajib dipatuhi untuk mengelakkan risiko peserta tersesat atau tercicir.
+            </p>
+            <div class="space-y-3 pt-2">
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-xs text-emerald-700 uppercase">1. Pemandu Arah (Lead / Pointer)</span>
+                <p class="text-xs text-slate-600 mt-0.5">Berada di barisan paling hadapan. Membaca peta, tanda laluan (trail marker), memeriksa pokok tumbang atau sarang lebah.</p>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-xs text-blue-700 uppercase">2. Barisan Tengah (Peserta Lemah & 'Buddy')</span>
+                <p class="text-xs text-slate-600 mt-0.5">Peserta berpasangan 2 orang (Buddy System). Peserta yang paling perlahan diletakkan di bahagian hadapan/tengah supaya rentak kawalan tidak tertinggal.</p>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-xs text-amber-700 uppercase">3. Pengawal Belakang (Sweeper)</span>
+                <p class="text-xs text-slate-600 mt-0.5">Individu berpengalaman tinggi dan cergas. Memastikan tiada sesiapa ditinggalkan di belakang, membawa peti ubat dan alat komunikasi.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Leave No Trace (LNT) 7 Prinsip -->
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+            <h3 class="font-heading font-bold text-slate-900 text-lg flex items-center gap-2">
+              <i data-lucide="trees" class="w-5 h-5 text-emerald-600"></i> Etika Alam: 7 Prinsip Leave No Trace (LNT)
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Prinsip etika antarabangsa pemuliharaan alam sekitar untuk semua pendaki dan pengembara:
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-700">
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200 font-medium">1. Rancang & sedia awal</div>
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200 font-medium">2. Berjalan & berkhemah di laluan mampan</div>
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200 font-medium">3. Lupus sisa dengan betul (Bawa balik sampah)</div>
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200 font-medium">4. Biarkan apa yang dijumpai (Jaga flora/fauna)</div>
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200 font-medium">5. Minimumkan impak unggun api</div>
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200 font-medium">6. Hormati hidupan liar & haiwan</div>
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200 font-medium sm:col-span-2 text-center">7. Peka & bertimbang rasa terhadap pengunjung lain</div>
+            </div>
+            <div class="p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-800 leading-relaxed">
+              <strong>SOP KECEMASAN HUTAN:</strong> Jika sesat, amalkan prinsip <strong>S.T.O.P.</strong> (Stop, Think, Observe, Plan). Jangan panik meredah hutan tanpa halatuju!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3: SELEPAS -->
+      <div id="phase-content-selepas" class="hidden space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center mb-3">
+              <i data-lucide="message-square" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base">Sesi Pos-Mortem / Debriefing</h4>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Dilakukan dalam tempoh 24 - 48 jam selepas tamat ekspedisi. Menilai kekuatan, kelemahan, insiden kesihatan, kecekapan masa dan dinamik kerjasama kumpulan.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center mb-3">
+              <i data-lucide="wrench" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base">Penyelenggaraan Alatan</h4>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Mencuci dan mengeringkan khemah (mengelakkan kulat), menyelenggara dapur gas, mencuci kasut kembara, memeriksa inventori yang rosak atau hilang.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-3">
+              <i data-lucide="mail-check" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base">Penutupan & Penghargaan</h4>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Menghantar surat penghargaan kepada pihak berkuasa, pemilik tapak, pihak penaja, dan melengkapkan penyata akaun kewangan serta resit rasmi.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 text-white p-6 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h4 class="font-heading font-bold text-lg text-emerald-400">Hubung Kait 8.1 dan 8.2</h4>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+              Catatan semasa di lapangan (8.2) merupakan sumber primer paling berharga untuk menghasilkan Laporan Pengembaraan (8.1) yang tulen, saintifik dan bermutu tinggi.
+            </p>
+          </div>
+          <button onclick="switchTab('topic83')" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-xs sm:text-sm whitespace-nowrap transition flex items-center gap-2">
+            Teruskan Ke Kaji Cuaca <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 4: 8.3 ILMU KAJI CUACA            -->
+    <!-- ========================================== -->
+    <section id="tab-topic83" class="hidden space-y-8 animate-fadeIn">
+      <!-- Section Header -->
+      <div class="border-b border-slate-200 pb-5">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-900 text-xs font-semibold mb-2">
+          Subtopik 8.3
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold font-heading text-slate-900">
+          Ilmu Kaji Cuaca (Meteorologi Pengembara)
+        </h2>
+        <p class="text-slate-600 text-sm mt-1 max-w-3xl">
+          Di dalam hutan tropika dan kawasan pergunungan, cuaca boleh berubah dalam masa 15 hingga 30 minit. Kemahiran membaca awan dan tanda semula jadi dapat menyelamatkan nyawa daripada kepala air, ribut petir dan hipotermia.
+        </p>
+      </div>
+
+      <!-- Cloud Classification Interactive Atlas -->
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div>
+            <h3 class="font-heading font-bold text-slate-900 text-lg flex items-center gap-2">
+              <i data-lucide="cloud" class="w-5 h-5 text-blue-600"></i> Atlas Awan & Amaran Lapangan
+            </h3>
+            <p class="text-xs text-slate-500">Klik jenis awan untuk melihat ciri ketinggian, tafsiran cuaca dan tindakan keselamatan pendaki.</p>
+          </div>
+          <!-- Level Filter Buttons -->
+          <div class="flex gap-1 bg-slate-100 p-1 rounded-xl">
+            <button onclick="filterClouds('all')" id="btn-cloud-all" class="cloud-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-white text-slate-800 shadow-sm">Semua</button>
+            <button onclick="filterClouds('tinggi')" id="btn-cloud-tinggi" class="cloud-filter-btn px-3 py-1 rounded-lg text-xs font-semibold text-slate-600">Tinggi</button>
+            <button onclick="filterClouds('sederhana')" id="btn-cloud-sederhana" class="cloud-filter-btn px-3 py-1 rounded-lg text-xs font-semibold text-slate-600">Sederhana</button>
+            <button onclick="filterClouds('rendah')" id="btn-cloud-rendah" class="cloud-filter-btn px-3 py-1 rounded-lg text-xs font-semibold text-slate-600">Rendah / Menegak</button>
+          </div>
+        </div>
+
+        <!-- Cloud Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="cloudsContainer">
+          <!-- Dynamically inserted via JS -->
+        </div>
+
+        <!-- Selected Cloud Detail Modal / Expand Panel -->
+        <div id="cloudDetailPanel" class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-3">
+              <div class="p-3 bg-blue-100 text-blue-700 rounded-xl" id="cloudDetailIcon">
+                <i data-lucide="cloud-lightning" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <span class="text-xs font-bold text-blue-700 uppercase" id="cloudDetailLevel">Paling Bahaya Bagi Pendaki</span>
+                <h4 class="font-heading font-bold text-slate-900 text-lg" id="cloudDetailName">Cumulonimbus (Cb)</h4>
+              </div>
+            </div>
+            <span class="text-xs px-2.5 py-1 rounded-full font-bold bg-red-100 text-red-700" id="cloudDetailRisk">Bahaya Tinggi: Ribut Petir</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 mt-3 leading-relaxed" id="cloudDetailDesc">
+            Awan gergasi menara dengan puncak berbentuk landasan (anvil head). Menyebabkan ribut petir lebat, kilat, angin kencang (microburst) dan risiko fenomena kepala air mendadak di lembah sungai.
+          </p>
+          <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="p-3 rounded-xl bg-white border border-slate-200">
+              <span class="font-bold text-slate-900">Tanda Pengenal:</span>
+              <p class="text-slate-600 mt-0.5" id="cloudDetailVisual">Warna asas hitam kelabu pekat, langit menggelap secara drastik pada waktu tengah hari ke petang.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900">
+              <span class="font-bold">Tindakan Pendaki:</span>
+              <p class="mt-0.5" id="cloudDetailAction">Jauhi puncak rabung terdedah, jauhi tebing sungai berisiko kepala air, dan pasang 'storm fly' khemah segera.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Natural Signs & Weather Lore (Tanda Semula Jadi) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+          <h3 class="font-heading font-bold text-slate-900 text-lg flex items-center gap-2">
+            <i data-lucide="eye" class="w-5 h-5 text-amber-600"></i> Petunjuk Cuaca Semula Jadi (Bio-Indikator)
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Pengembara hutan tropika boleh memanfaatkan gerak geri fauna dan flora apabila gajet elektronik kehabisan bateri:
+          </p>
+          <div class="space-y-3 pt-1">
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+              <span class="text-xl">🐜</span>
+              <div class="text-xs">
+                <span class="font-bold text-slate-800">Semut Bergerak Tinggi & Burung Terbang Rendah</span>
+                <p class="text-slate-600 mt-0.5">Tekanan udara rendah menyebabkan serangga terbang rendah (kerana ketumpatan udara nipis) dan semut berhijrah ke dahan tinggi = Petanda hujan lebat bakal tiba.</p>
+              </div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+              <span class="text-xl">🦗</span>
+              <div class="text-xs">
+                <span class="font-bold text-slate-800">Hutan Tiba-tiba Hening (Sunyi Sepi)</span>
+                <p class="text-slate-600 mt-0.5">Jika cengkerik, ungka dan unggas hutan senyap mendadak pada waktu siang, ia menandakan ribut ganas atau bahaya pemangsa sedang mendekat.</p>
+              </div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+              <span class="text-xl">💧</span>
+              <div class="text-xs">
+                <span class="font-bold text-slate-800">Embun Tebal Pagi di Daun Khemah</span>
+                <p class="text-slate-600 mt-0.5">Embun pagi yang lebat diiringi kabus nipis yang hilang sebaik matahari naik = Petunjuk hari tersebut cerah dan stabil untuk pendakian jauh.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weather Decision Simulator -->
+        <div class="bg-gradient-to-br from-slate-900 via-forest-900 to-slate-900 text-white rounded-3xl p-6 border border-emerald-700/50 shadow-md flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+                Simulasi Taktikal Cuaca
+              </span>
+              <span class="text-xs text-slate-400" id="simQuestionCounter">Senario 1 dari 3</span>
+            </div>
+            <h4 class="font-heading font-bold text-lg text-white mt-3" id="simTitle">
+              Awan Hitam Menara & Air Sungai Berkeladak
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed" id="simDesc">
+              Pasukan anda tiba di seberang anak sungai jam 2:30 petang. Anda perhatikan awan Cumulonimbus menjulang di hulu bukit, dan warna air sungai bertukar menjadi keruh kekuningan bersama ranting terapung. Apakah tindakan utama anda?
+            </p>
+            <div class="mt-4 space-y-2" id="simOptionsContainer">
+              <!-- Dynamically populated options -->
+            </div>
+          </div>
+
+          <div id="simFeedback" class="mt-4 p-3 rounded-xl bg-white/10 text-xs hidden">
+            <!-- Dynamic feedback message -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 5: KUIZ & SIJIL PENGEMBARAAN      -->
+    <!-- ========================================== -->
+    <section id="tab-quiz" class="hidden space-y-8 animate-fadeIn">
+      <!-- Section Header -->
+      <div class="border-b border-slate-200 pb-5">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-900 text-xs font-semibold mb-2">
+          Penilaian & Pensijilan
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold font-heading text-slate-900">
+          Ujian Kefahaman Pengembaraan & Kaji Cuaca
+        </h2>
+        <p class="text-slate-600 text-sm mt-1 max-w-3xl">
+          Uji kefahaman anda merangkumi ketiga-tiga subtopik (8.1, 8.2, dan 8.3). Capai markah 80% ke atas untuk membuka <strong>Lencana Pengembara Cekap</strong> dan jana sijil pengiktirafan digital.
+        </p>
+      </div>
+
+      <!-- Quiz Box Container -->
+      <div id="quizContainerBox" class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8">
+        <!-- Progress Bar -->
+        <div class="flex items-center justify-between text-xs font-semibold text-slate-500 mb-2">
+          <span id="quizQuestionIdx">Soalan 1 daripada 5</span>
+          <span id="quizScoreTracker">Skor: 0</span>
+        </div>
+        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-6">
+          <div id="quizBarFill" class="bg-emerald-500 h-full rounded-full transition-all duration-300" style="width: 20%"></div>
+        </div>
+
+        <!-- Question text -->
+        <div class="mb-6">
+          <span class="text-xs uppercase font-bold text-emerald-700 tracking-wider" id="quizSubtopicLabel">Topik 8.1: Penulisan Laporan</span>
+          <h3 class="text-base sm:text-xl font-bold font-heading text-slate-900 mt-1" id="quizQuestionText">
+            Apakah komponen yang wajib direkodkan dalam buku log perjalanan mengikut format saintifik pengembaraan?
+          </h3>
+        </div>
+
+        <!-- Options Container -->
+        <div class="space-y-3" id="quizAnswersContainer">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Explanation Alert (Appears after answer) -->
+        <div id="quizExplanationBox" class="hidden mt-5 p-4 rounded-2xl text-xs sm:text-sm leading-relaxed">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Next / Action Button -->
+        <div class="mt-6 flex justify-end">
+          <button id="quizNextBtn" onclick="nextQuizQuestion()" disabled class="px-6 py-2.5 rounded-xl bg-slate-300 text-slate-500 font-semibold text-sm cursor-not-allowed transition flex items-center gap-2">
+            Soalan Seterusnya <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quiz Results & Certificate Container (Hidden until complete) -->
+      <div id="quizResultView" class="hidden space-y-6">
+        <div class="bg-white rounded-3xl border border-slate-200 shadow-lg p-6 sm:p-8 text-center max-w-2xl mx-auto">
+          <div class="w-20 h-20 rounded-3xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 badge-glow">
+            <i data-lucide="award" class="w-10 h-10"></i>
+          </div>
+          <h3 class="text-2xl font-bold font-heading text-slate-900" id="resultTitle">Tahniah! Anda Lulus Cemerlang</h3>
+          <p class="text-slate-600 text-sm mt-1" id="resultSubtitle">Anda telah menguasai kemahiran asas perancangan pengembaraan.</p>
+          
+          <div class="my-6 inline-flex items-center gap-4 px-6 py-3 bg-slate-50 rounded-2xl border border-slate-200">
+            <div>
+              <div class="text-xs text-slate-500 uppercase font-bold">Skor Akhir</div>
+              <div class="text-2xl font-extrabold text-emerald-700" id="finalScoreVal">100%</div>
+            </div>
+            <div class="h-8 w-px bg-slate-300"></div>
+            <div>
+              <div class="text-xs text-slate-500 uppercase font-bold">Status</div>
+              <div class="text-sm font-bold text-emerald-700" id="finalStatusBadge">Lencana Diperoleh</div>
+            </div>
+          </div>
+
+          <!-- Certificate Generator Input -->
+          <div class="mt-4 pt-4 border-t border-slate-200 space-y-3">
+            <label class="block text-xs font-bold text-slate-700 uppercase">Nama Anda Untuk Sijil Digital</label>
+            <div class="flex gap-2 max-w-md mx-auto">
+              <input type="text" id="certStudentName" placeholder="Contoh: Muhammad Harith" class="flex-grow px-3 py-2 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+              <button onclick="renderDigitalCertificate()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-semibold transition">
+                Jana Sijil
+              </button>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <button onclick="restartQuiz()" class="text-xs text-slate-500 hover:text-slate-800 underline">
+              Ambil Semula Kuiz
+            </button>
+          </div>
+        </div>
+
+        <!-- Printable / Viewable Digital Certificate Canvas Card -->
+        <div id="printableCertificate" class="hidden bg-gradient-to-r from-amber-50 via-emerald-50 to-teal-50 border-4 border-double border-emerald-700 rounded-3xl p-8 max-w-3xl mx-auto shadow-2xl relative text-center">
+          <div class="absolute top-4 left-4 text-emerald-800 opacity-20">
+            <i data-lucide="compass" class="w-16 h-16"></i>
+          </div>
+          <div class="text-xs uppercase tracking-widest font-extrabold text-emerald-800">Sijil Penghargaan & Kompetensi</div>
+          <h2 class="text-3xl font-extrabold font-heading text-forest-900 mt-2">PENGEMBARA BERDISIPLIN TINGGI</h2>
+          <p class="text-xs text-slate-600 mt-1">Dengan ini diperakui bahawa</p>
+          <div class="text-2xl font-bold font-serif text-slate-900 border-b-2 border-emerald-700 pb-1 max-w-sm mx-auto my-3" id="certNameDisplay">
+            Peserta Berwibawa
+          </div>
+          <p class="text-xs text-slate-700 max-w-xl mx-auto leading-relaxed">
+            Telah berjaya menyelesaikan modul interaktif kurikulum <strong>8.0 Rancangan Pengembaraan</strong> merangkumi <em>8.1 Penulisan Laporan</em>, <em>8.2 Pengurusan Tiga Fasa</em>, dan <em>8.3 Ilmu Kaji Cuaca & Awan</em>.
+          </p>
+          <div class="mt-8 flex justify-between items-end max-w-md mx-auto text-xs text-slate-600 pt-4 border-t border-slate-300">
+            <div>
+              <div class="font-bold text-slate-900">Hub Pembelajaran Interaktif</div>
+              <div>Kokurikulum & Rekreasi</div>
+            </div>
+            <div class="w-12 h-12 rounded-full border border-emerald-600 bg-emerald-100 flex items-center justify-center text-emerald-800 font-bold text-xs">
+              LULUS
+            </div>
+            <div>
+              <div class="font-bold text-slate-900" id="certDateDisplay">September 2026</div>
+              <div>Gred: Cemerlang (A)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-forest-900 text-slate-400 text-xs py-8 border-t border-emerald-950 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-2">
+        <i data-lucide="compass" class="w-4 h-4 text-emerald-400"></i>
+        <span class="text-slate-200 font-medium">Hak Milik @2026 : Pn Farihan Elyana binti Zahari(PTSS)</span>
+      </div>
+      <p class="text-center sm:text-right text-slate-400">
+        Dirangka mengikut sukatan pengembaraan, pendidikan rekreasi luar & keselamatan hutan.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    /* ========================================================
+       STATE & AUDIO ENGINE (Synthesizer via Web Audio API)
+       ======================================================== */
+    let audioEnabled = true;
+    let audioCtx = null;
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playTone(freq, type = 'sine', duration = 0.1) {
+      if (!audioEnabled) return;
+      try {
+        initAudioContext();
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        console.warn('Audio feedback blocked or not supported', e);
+      }
+    }
+
+    function toggleAudioFeedback() {
+      audioEnabled = !audioEnabled;
+      const icon = document.getElementById('audioIcon');
+      if (audioEnabled) {
+        icon.setAttribute('data-lucide', 'volume-2');
+        playTone(587.33, 'triangle', 0.15); // D5
+      } else {
+        icon.setAttribute('data-lucide', 'volume-x');
+      }
+      lucide.createIcons();
+    }
+
+    /* ========================================================
+       NAVIGATION & TABS LOGIC
+       ======================================================== */
+    function switchTab(tabId) {
+      playTone(440, 'sine', 0.08); // A4
+      const tabs = ['overview', 'topic81', 'topic82', 'topic83', 'quiz'];
+      
+      tabs.forEach(id => {
+        const sec = document.getElementById(`tab-${id}`);
+        const nav = document.getElementById(`nav-${id}`);
+        if (id === tabId) {
+          sec.classList.remove('hidden');
+          if (nav) {
+            nav.className = 'nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all bg-emerald-700/60 text-white shadow-sm flex items-center gap-1.5';
+          }
+        } else {
+          sec.classList.add('hidden');
+          if (nav) {
+            nav.className = 'nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all text-emerald-100 hover:bg-emerald-700/40 hover:text-white flex items-center gap-1.5';
+          }
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleMobileNav() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    }
+
+    /* ========================================================
+       SUBTOPIC 8.1 DATA & BEHAVIOR (PENULISAN LAPORAN)
+       ======================================================== */
+    const reportComponentsData = [
+      {
+        part: "BAHAGIAN 1",
+        title: "Halaman Hadapan & Penghargaan",
+        items: [
+          "Tajuk Ekspedisi yang jelas, tarikh, lokasi, serta nama unit/kumpulan.",
+          "Muka depan berkualiti dengan nama penyusun, nombor keahlian, dan jata/logo rasmi.",
+          "Penghargaan rasmi kepada pengetua, renjer hutan, polis, jurupandu arah dan penaja."
+        ],
+        tip: "Muka hadapan adalah pandangan pertama penilai; pastikan ada tandatangan pengesahan pemimpin."
+      },
+      {
+        part: "BAHAGIAN 2",
+        title: "Objektif, Ahli Pasukan & Peta Laluan",
+        items: [
+          "Matlamat pengembaraan (contoh: Menguji ketahanan fizikal, kajian geologi sungai).",
+          "Struktur organisasi ekspedisi (Ketua, Timbalan, Jurumudi/Navigator, Kuartermaster, First Aider).",
+          "Peta lakaran laluan (Strip Map): Memaparkan bearing kompas, sungai, punca air, dan anggaran jarak km."
+        ],
+        tip: "Gunakan simbol piawai peta topografi untuk menandakan tapak perkhemahan dan punca air."
+      },
+      {
+        part: "BAHAGIAN 3",
+        title: "Catatan Log Harian (Waktu & Cuaca)",
+        items: [
+          "Jadual 4 lajur utama: [Masa/Waktu] | [Lokasi/Koordinat] | [Cuaca/Awan] | [Catatan Aktiviti & Flora/Fauna].",
+          "Catatan perlu ditulis serta-merta di lapangan dalam buku saku kalis air, bukan direka selepas pulang.",
+          "Menyertakan insiden menarik, kesukaran mendaki tebing, atau perjumpaan jejak hidupan liar."
+        ],
+        tip: "Log yang baik mencatatkan perubahan suhu dan keadaan angin bagi setiap 2-3 jam."
+      },
+      {
+        part: "BAHAGIAN 4",
+        title: "Penyata Kewangan & Resit Perbelanjaan",
+        items: [
+          "Penyata Kira-Kira Pendapatan vs Perbelanjaan (Yuran peserta, tajaan, permit masuk).",
+          "Kategori kos: Pengangkutan, makanan/ration kering, kit perubatan, sewaan peralatan dan permit renjer.",
+          "Resit asal atau salinan fotokopi hendaklah dilekatkan kemas sebagai bukti audit."
+        ],
+        tip: "Pastikan baki akhir penyata ditandatangani oleh Bendahari dan Ketua Ekspedisi."
+      },
+      {
+        part: "BAHAGIAN 5",
+        title: "Penilaian, Cadangan & Lampiran",
+        items: [
+          "Analisis SWOT (Kekuatan, Kelemahan, Peluang, Ancaman) sepanjang kembara.",
+          "Cadangan penambahbaikan untuk pasukan ekspedisi seterusnya.",
+          "Lampiran: Foto aktiviti berlabel tarikh/waktu, spesimen daun kering atau lakaran kontur tanah."
+        ],
+        tip: "Elakkan foto 'selfie' semata-mata; utamakan foto aksi teknikal seperti memasang khemah dan membaca kompas."
+      }
+    ];
+
+    function selectReportComponent(index) {
+      playTone(523.25, 'sine', 0.05);
+      const container = document.getElementById('reportComponentDetail');
+      const data = reportComponentsData[index];
+      
+      // Update sidebar visual
+      const items = document.querySelectorAll('.report-comp-item');
+      items.forEach((el, idx) => {
+        if (idx === index) {
+          el.className = 'report-comp-item active cursor-pointer p-3 rounded-xl border border-emerald-500 bg-emerald-50/70 text-slate-800 transition';
+          el.querySelector('span').className = 'text-xs font-bold text-emerald-700';
+        } else {
+          el.className = 'report-comp-item cursor-pointer p-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-800 transition';
+          el.querySelector('span').className = 'text-xs font-bold text-slate-500';
+        }
+      });
+
+      document.getElementById('compStepCounter').textContent = `${index + 1} dari 5 Bahagian`;
+
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div class="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">
+            ${data.part}
+          </div>
+          <h3 class="text-xl font-bold font-heading text-slate-900">${data.title}</h3>
+          <div class="space-y-2.5 pt-2">
+            ${data.items.map(it => `
+              <div class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0"></i>
+                <span>${it}</span>
+              </div>
+            `).join('')}
+          </div>
+          <div class="mt-4 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start gap-2">
+            <i data-lucide="lightbulb" class="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0"></i>
+            <div><strong>Nasihat Jurulatih:</strong> ${data.tip}</div>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    function switchReportSubTab(sub) {
+      playTone(493.88, 'sine', 0.05);
+      const structView = document.getElementById('subtab-content-structure');
+      const logView = document.getElementById('subtab-content-logbook');
+      const btnStruct = document.getElementById('subtab-btn-structure');
+      const btnLog = document.getElementById('subtab-btn-logbook');
+
+      if (sub === 'structure') {
+        structView.classList.remove('hidden');
+        logView.classList.add('hidden');
+        btnStruct.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-emerald-800 shadow-sm transition';
+        btnLog.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition';
+      } else {
+        structView.classList.add('hidden');
+        logView.classList.remove('hidden');
+        btnLog.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-emerald-800 shadow-sm transition';
+        btnStruct.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition';
+      }
+    }
+
+    function generateExpeditionReport() {
+      playTone(659.25, 'triangle', 0.12);
+      const name = document.getElementById('repName').value;
+      const loc = document.getElementById('repLocation').value;
+      const dates = document.getElementById('repDates').value;
+      const leader = document.getElementById('repLeader').value;
+      const log = document.getElementById('repLogEntries').value;
+      const issues = document.getElementById('repIssues').value;
+      const reco = document.getElementById('repRecommendations').value;
+
+      const template = `===============================================================
+LAPORAN RASMI PENGEMBARAAN (REKOD LOG DAN EKSPEDISI)
+KOD MODUL: 8.1 KAEDAH PENULISAN LAPORAN
+===============================================================
+
+1.0 MAKLUMAT ASAS EKSPEDISI
+---------------------------------------------------------------
+Nama Ekspedisi    : ${name}
+Lokasi Laluan     : ${loc}
+Tarikh & Tempoh   : ${dates}
+Ketua & Pasukan   : ${leader}
+
+2.0 REKOD BUKU LOG PERJALANAN (WAKTU & KRONOLOGI LAPANGAN)
+---------------------------------------------------------------
+${log}
+
+3.0 REFLEKSI & ANALISIS RISIKO (SWOT LAPANGAN)
+---------------------------------------------------------------
+Cabaran Lapangan  : ${issues}
+Cadangan Solusi   : ${reco}
+
+4.0 PENGESAHAN DOKUMEN
+---------------------------------------------------------------
+Disediakan oleh: ____________________ (Ketua Ekspedisi)
+Disahkan oleh  : ____________________ (Guru Penasihat / Jurulatih)
+Tarikh Hantar  : ${new Date().toLocaleDateString('ms-MY')}
+===============================================================`;
+
+      document.getElementById('reportPreContent').textContent = template;
+      document.getElementById('generatedReportOutput').classList.remove('hidden');
+      document.getElementById('generatedReportOutput').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyGeneratedReport() {
+      playTone(783.99, 'sine', 0.08);
+      const text = document.getElementById('reportPreContent').textContent;
+      const dummy = document.createElement('textarea');
+      document.body.appendChild(dummy);
+      dummy.value = text;
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
+
+      const btn = document.getElementById('copyRepBtn');
+      btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Berjaya Disalin!`;
+      lucide.createIcons();
+      setTimeout(() => {
+        btn.innerHTML = `<i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin Teks`;
+        lucide.createIcons();
+      }, 2000);
+    }
+
+    /* ========================================================
+       SUBTOPIC 8.2 DATA & BEHAVIOR (PENGURUSAN FASA & CHECKLIST)
+       ======================================================== */
+    const packingEssentials = [
+      { id: 'p1', name: 'Kompas Silvan & Peta Topografi Kalis Air', cat: 'Navigasi' },
+      { id: 'p2', name: 'Lampu Suluh Kepala (Headlamp) + Bateri Tambahan', cat: 'Pencahayaan' },
+      { id: 'p3', name: 'Peti Pertolongan Cemas Lengkap (First Aid Kit)', cat: 'Perubatan' },
+      { id: 'p4', name: 'Mancis Kalis Air / Firesteel Starter', cat: 'Api' },
+      { id: 'p5', name: 'Pisau Lipat Pelbagai Guna (Multitool)', cat: 'Peralatan' },
+      { id: 'p6', name: 'Bekalan Makanan Kering Lebih 1 Hari (Emergency Ration)', cat: 'Nutrisi' },
+      { id: 'p7', name: 'Botol Air + Tablet Penapis Klorin / Filter Katadyn', cat: 'Hidrasi' },
+      { id: 'p8', name: 'Baju Hujan (Poncho/Raincoat) & Baju Sejuk Lapisan', cat: 'Pakaian' },
+      { id: 'p9', name: 'Wisel Kecemasan Frekuensi Tinggi (Pealess Whistle)', cat: 'Isyarat' },
+      { id: 'p10', name: 'Khemah Ringan / Flysheet & Groundsheet Kalis Air', cat: 'Perlindungan' },
+      { id: 'p11', name: 'Beg Plastik Sampah Tebal (Trash Bag untuk LNT)', cat: 'Alam Sekitar' },
+      { id: 'p12', name: 'Powerbank Kalis Air & Telefon Satelit/Radio VHF', cat: 'Komunikasi' },
+    ];
+
+    let packedState = {};
+
+    function initPackingChecklist() {
+      const container = document.getElementById('packingChecklistContainer');
+      container.innerHTML = packingEssentials.map(item => `
+        <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:border-emerald-400 bg-slate-50/50 cursor-pointer transition select-none">
+          <input type="checkbox" onchange="togglePackItem('${item.id}')" ${packedState[item.id] ? 'checked' : ''} class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+          <div class="text-xs">
+            <span class="font-bold text-slate-800 block">${item.name}</span>
+            <span class="text-[10px] uppercase font-semibold text-emerald-700 bg-emerald-100/70 px-1.5 py-0.5 rounded">${item.cat}</span>
+          </div>
+        </label>
+      `).join('');
+      updatePackCounter();
+    }
+
+    function togglePackItem(id) {
+      playTone(523.25, 'triangle', 0.05);
+      packedState[id] = !packedState[id];
+      updatePackCounter();
+    }
+
+    function updatePackCounter() {
+      const total = packingEssentials.length;
+      const count = Object.values(packedState).filter(Boolean).length;
+      const pct = Math.round((count / total) * 100);
+      
+      document.getElementById('packPercentage').textContent = `${pct}% Lengkap (${count}/${total})`;
+      document.getElementById('overviewChecklistCount').textContent = `${count} / ${total} Siap`;
+      
+      // Update main overview progress
+      const baseModScore = 33;
+      const checklistPart = (count / total) * 33;
+      const totalProgress = Math.min(100, Math.round(baseModScore + checklistPart));
+      document.getElementById('moduleProgressBar').style.width = `${totalProgress}%`;
+    }
+
+    function resetPackingChecklist() {
+      playTone(392, 'sine', 0.1);
+      packedState = {};
+      initPackingChecklist();
+    }
+
+    function switchPhaseTab(phase) {
+      playTone(500, 'sine', 0.05);
+      ['sebelum', 'semasa', 'selepas'].forEach(p => {
+        const content = document.getElementById(`phase-content-${p}`);
+        const btn = document.getElementById(`btn-phase-${p}`);
+        if (p === phase) {
+          content.classList.remove('hidden');
+          btn.className = 'phase-btn px-4 py-3 border-b-2 border-emerald-600 text-emerald-800 font-bold text-sm sm:text-base flex items-center gap-2 whitespace-nowrap';
+          btn.querySelector('span').className = 'w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center';
+        } else {
+          content.classList.add('hidden');
+          btn.className = 'phase-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 font-medium text-sm sm:text-base flex items-center gap-2 whitespace-nowrap';
+          btn.querySelector('span').className = 'w-6 h-6 rounded-full bg-slate-200 text-slate-700 text-xs flex items-center justify-center';
+        }
+      });
+    }
+
+    /* ========================================================
+       SUBTOPIC 8.3 DATA & BEHAVIOR (ILMU KAJI CUACA)
+       ======================================================== */
+    const cloudsDatabase = [
+      {
+        id: 'cb',
+        level: 'rendah',
+        name: 'Cumulonimbus (Cb)',
+        altName: 'Awan Ribut / Menara Petir',
+        altitude: '500m - 12,000m (Menegak)',
+        risk: 'BAHAYA TINGGI: KEPALA AIR & PETIR',
+        riskColor: 'bg-red-100 text-red-700',
+        desc: 'Awan tegak gergasi berbentuk bunga kubis atau landasan besi (anvil head). Bahaya terbesar di pergunungan kerana menghasilkan panahan kilat, ribut angin dan banjir kilat.',
+        visual: 'Tapak sangat gelap dan bergumpal naik tinggi ke atmosfera.',
+        action: 'Tinggalkan kawasan sungai, turun dari puncak terdedah, elak berteduh bawah pokok tunggal.'
+      },
+      {
+        id: 'ci',
+        level: 'tinggi',
+        name: 'Cirrus (Ci)',
+        altName: 'Awan Ekor Kuda / Bulu Burung',
+        altitude: '6,000m - 12,000m',
+        risk: 'AMARAN AWAL: CUACA BERUBAH DALAM 24 JAM',
+        riskColor: 'bg-amber-100 text-amber-800',
+        desc: 'Awan nipis memanjang seperti helaian sutera atau bulu pelepah putih. Terbentuk daripada hablur ais kerana berada di lapisan altitud beku.',
+        visual: 'Langit kelihatan berurat putih sutera; matahari masih bersinar terang.',
+        action: 'Cuaca semasa masih baik, tetapi petanda zon tekanan rendah (front hangat) bakal tiba esok.'
+      },
+      {
+        id: 'cu',
+        level: 'rendah',
+        name: 'Cumulus (Cu)',
+        altName: 'Awan Gumpalan Putih (Kapas)',
+        altitude: '500m - 2,000m',
+        risk: 'SELAMAT: CUACA CERAH / STABIL',
+        riskColor: 'bg-emerald-100 text-emerald-800',
+        desc: 'Gumpalan kapas putih cerah dengan dasar rata. Sering dilihat pada pagi hari yang cerah dalam cuaca panas tropika.',
+        visual: 'Bertebaran di langit biru tanpa tapak gelap.',
+        action: 'Sangat ideal untuk pergerakan pendakian jauh dan aktiviti menyeberang sungai.'
+      },
+      {
+        id: 'as',
+        level: 'sederhana',
+        name: 'Altostratus (As)',
+        altName: 'Tabir Kelabu Suram',
+        altitude: '2,000m - 6,000m',
+        risk: 'SEDERHANA: HUJAN RENYAI BERTERUSAN',
+        riskColor: 'bg-blue-100 text-blue-800',
+        desc: 'Lapisan kelabu atau kebiruan yang menutup sebahagian besar langit. Matahari kelihatan suram seperti melalui cermin kabur.',
+        visual: 'Bayang objek di tanah tidak kelihatan jelas.',
+        action: 'Pakai baju hujan segera; pasang flysheet di tapak perkhemahan kerana hujan berpanjangan.'
+      },
+      {
+        id: 'st',
+        level: 'rendah',
+        name: 'Stratus (St)',
+        altName: 'Kabus Rendah / Selimut Kabus',
+        altitude: '0 - 1,000m',
+        risk: 'WASPADALAH: JARAK PENGLIHATAN TERHAD',
+        riskColor: 'bg-slate-200 text-slate-800',
+        desc: 'Lapisan awan mendatar seragam yang sangat rendah menyerupai kabus tebal di kawasan banjaran atau lembah.',
+        visual: 'Menyelubungi puncak bukit; titisan renyai halus (drizzle).',
+        action: 'Rapatkan barisan pendaki, gunakan wisel jika terpisah dan pasang lampu kepala (headlamp).'
+      },
+      {
+        id: 'ac',
+        level: 'sederhana',
+        name: 'Altocumulus (Ac)',
+        altName: 'Awan Sisik Ikan',
+        altitude: '2,000m - 6,000m',
+        risk: 'SEDERHANA: RIBUT PETANG MUNGKIN BERLAKU',
+        riskColor: 'bg-amber-100 text-amber-800',
+        desc: 'Kumpulan bebola atau gulungan kecil berwarna putih kelabu bersisik teratur seperti kumpulan biri-biri.',
+        visual: 'Jika muncul pada pagi hari yang hangat, menandakan ketidakstabilan atmosfera pada waktu petang.',
+        action: 'Rancang tiba di tapak perkhemahan lebih awal sebelum jam 3:00 petang.'
+      }
+    ];
+
+    function renderClouds(filter = 'all') {
+      const container = document.getElementById('cloudsContainer');
+      const filtered = filter === 'all' ? cloudsDatabase : cloudsDatabase.filter(c => c.level === filter);
+
+      container.innerHTML = filtered.map(c => `
+        <div onclick="showCloudDetail('${c.id}')" class="cloud-card cursor-pointer p-4 rounded-2xl border border-slate-200 bg-white hover:border-blue-400 hover:shadow-md transition">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500">${c.altitude}</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${c.riskColor}">${c.level.toUpperCase()}</span>
+          </div>
+          <h4 class="font-bold text-slate-900 text-base mt-2">${c.name}</h4>
+          <p class="text-xs text-slate-500 mt-0.5">${c.altName}</p>
+          <div class="mt-3 flex items-center gap-1.5 text-xs text-blue-600 font-semibold">
+            Lihat Tindakan Pengembara <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function filterClouds(lvl) {
+      playTone(480, 'sine', 0.05);
+      const btns = document.querySelectorAll('.cloud-filter-btn');
+      btns.forEach(b => {
+        if (b.id === `btn-cloud-${lvl}`) {
+          b.className = 'cloud-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-white text-slate-800 shadow-sm';
+        } else {
+          b.className = 'cloud-filter-btn px-3 py-1 rounded-lg text-xs font-semibold text-slate-600';
+        }
+      });
+      renderClouds(lvl);
+    }
+
+    function showCloudDetail(id) {
+      playTone(550, 'sine', 0.07);
+      const c = cloudsDatabase.find(x => x.id === id);
+      if (!c) return;
+      document.getElementById('cloudDetailName').textContent = c.name;
+      document.getElementById('cloudDetailLevel').textContent = `${c.altName} | Ketinggian: ${c.altitude}`;
+      document.getElementById('cloudDetailRisk').className = `text-xs px-2.5 py-1 rounded-full font-bold ${c.riskColor}`;
+      document.getElementById('cloudDetailRisk').textContent = c.risk;
+      document.getElementById('cloudDetailDesc').textContent = c.desc;
+      document.getElementById('cloudDetailVisual').textContent = c.visual;
+      document.getElementById('cloudDetailAction').textContent = c.action;
+      document.getElementById('cloudDetailPanel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    /* Weather Simulator Scenarios */
+    const simScenarios = [
+      {
+        title: "Awan Gelap Menara & Kepala Air",
+        desc: "Pasukan anda tiba di seberang anak sungai jam 2:30 petang. Anda perhatikan awan Cumulonimbus menjulang di puncak bukit, dan warna air sungai bertukar menjadi keruh kekuningan bersama ranting dan daun terapung pantas.",
+        options: [
+          { text: "Cepat-cepat meredah sungai sebelum air naik paras dada.", correct: false, reason: "SALAH & MERBAHAYA! Perubahan warna air dan ranting ialah petanda mutlak kepala air (flash flood) bakal melanda dalam beberapa saat." },
+          { text: "Berhenti segera, berundur ke tebing tinggi sekurang-kurangnya 15-20 meter dari sungai, dan tunggu sehingga air surut.", correct: true, reason: "TEPAT SEKALI! Sentiasa jauhi lembah sungai apabila ada tanda awal kepala air. Nyawa lebih berharga daripada jadual perjalanan." },
+          { text: "Pasang khemah di atas beting pasir di tengah sungai untuk berteduh.", correct: false, reason: "SALAH! Beting pasir akan ditenggelami air deras serta-merta apabila kepala air tiba." }
+        ]
+      },
+      {
+        title: "Kilat & Petir di Puncak Terbuka",
+        desc: "Anda dan rakan berada 200 meter dari rabung puncak gunung berbatu. Angin bertiup sangat kencang, langit menggelap mendadak, dan bulu roma di tangan anda tiba-tiba meremang tegak ke atas.",
+        options: [
+          { text: "Duduk membongkok (Lightning Crouch) di tempat rendah, rapatkan kaki dan elakkan baring di tanah.", correct: true, reason: "TEPAT! Bulu roma meremang menandakan cas elektrostatik tinggi di udara. Segera tinggalkan kawasan rabung terbuka dan elakkan pokok tunggal." },
+          { text: "Berdiri tegak sambil mengangkat tiang 'trekking pole' aluminium untuk mencari arah kompas.", correct: false, reason: "SALAH! Objek logam dan posisi tinggi menarik panahan kilat terus ke tubuh anda!" },
+          { text: "Berlari sepantas mungkin ke bawah sebatang pokok pine yang paling tinggi di rabung.", correct: false, reason: "SALAH! Pokok tertinggi adalah sasaran utama sambaran kilat (side-flash hazard)." }
+        ]
+      },
+      {
+        title: "Kabus Tebal Menyelubungi Laluan (Whiteout)",
+        desc: "Jam 5:00 petang di kawasan laluan mossy forest. Kabus Stratus tebal menyebabkan jarak penglihatan kurang daripada 3 meter. Dua orang peserta mula terpisah dari barisan utama.",
+        options: [
+          { text: "Suruh semua orang berlari mencari peserta yang hilang.", correct: false, reason: "SALAH! Berlari dalam kabus tebal akan menyebabkan lebih ramai peserta sesat dan terjatuh gaung." },
+          { text: "Tiup wisel kecemasan 3 kali secara berkala, hentikan barisan (S.T.O.P), dan gunakan lampu kepala.", correct: true, reason: "TEPAT SEKALI! Tiupan wisel 3 tiupan pendek adalah isyarat kecemasan antarabangsa. Jangan gerakkan seluruh pasukan." },
+          { text: "Teruskan perjalanan ke tapak kem dan tunggu mereka sampai sendiri.", correct: false, reason: "SALAH! Mengabaikan peserta hilang melanggar protokol asas Buddy System dan pengurusan risiko." }
+        ]
+      }
+    ];
+
+    let currentSimIdx = 0;
+
+    function loadSimulatorScenario(idx) {
+      const s = simScenarios[idx];
+      document.getElementById('simQuestionCounter').textContent = `Senario ${idx + 1} dari ${simScenarios.length}`;
+      document.getElementById('simTitle').textContent = s.title;
+      document.getElementById('simDesc').textContent = s.desc;
+      
+      const optContainer = document.getElementById('simOptionsContainer');
+      optContainer.innerHTML = s.options.map((opt, i) => `
+        <button onclick="handleSimChoice(${i})" class="w-full text-left p-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-xs sm:text-sm text-slate-100 transition flex items-start gap-2.5">
+          <span class="font-bold text-emerald-400">${String.fromCharCode(65 + i)}.</span>
+          <span>${opt.text}</span>
+        </button>
+      `).join('');
+      
+      const fb = document.getElementById('simFeedback');
+      fb.classList.add('hidden');
+    }
+
+    function handleSimChoice(choiceIdx) {
+      const s = simScenarios[currentSimIdx];
+      const opt = s.options[choiceIdx];
+      const fb = document.getElementById('simFeedback');
+      fb.classList.remove('hidden');
+
+      if (opt.correct) {
+        playTone(659.25, 'triangle', 0.15); // E5
+        fb.className = 'mt-4 p-3 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-200 text-xs leading-relaxed';
+        fb.innerHTML = `<strong>TINDAKAN BIJAK!</strong> ${opt.reason} 
+          <div class="mt-2 text-right">
+            <button onclick="nextSimScenario()" class="px-3 py-1 rounded bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs">Senario Seterusnya &rarr;</button>
+          </div>`;
+      } else {
+        playTone(220, 'sawtooth', 0.2); // A3 warning
+        fb.className = 'mt-4 p-3 rounded-xl bg-red-950/80 border border-red-500/50 text-red-200 text-xs leading-relaxed';
+        fb.innerHTML = `<strong>BERBAHAYA:</strong> ${opt.reason}`;
+      }
+    }
+
+    function nextSimScenario() {
+      currentSimIdx = (currentSimIdx + 1) % simScenarios.length;
+      loadSimulatorScenario(currentSimIdx);
+    }
+
+    /* ========================================================
+       SECTION 5: KUIZ & SIJIL INTERAKTIF
+       ======================================================== */
+    const quizQuestions = [
+      {
+        subtopic: "Subtopik 8.1: Penulisan Laporan",
+        question: "Apakah komponen penting yang membezakan buku log perjalanan ilmiah daripada diari santai harian?",
+        answers: [
+          "Catatan tepat waktu, koordinat/mercu tanda, keadaan cuaca fizikal dan lakaran laluan (strip map).",
+          "Gambar swafoto (selfie) peserta di setiap hentian.",
+          "Hanya mencatatkan senarai nama ahli kumpulan sahaja.",
+          "Hanya merekodkan menu makanan sarapan pagi."
+        ],
+        correct: 0,
+        explanation: "Buku log pengembaraan yang saintifik wajib mengandungi catatan kronologi waktu, tanda grid/mercu tanda geografi, perubahan cuaca, dan lakaran laluan berjarak untuk tujuan rekod dan keselamatan."
+      },
+      {
+        subtopic: "Subtopik 8.2: Pengurusan Fasa Sebelum",
+        question: "Mengapakah berat keseluruhan beg galas (backpack) disyorkan tidak melebihi 20% - 25% berat badan pengembara?",
+        answers: [
+          "Supaya beg kelihatan lebih kemas dalam gambar.",
+          "Untuk mematuhi saiz kabin penerbangan komersial.",
+          "Mengelakkan kecederaan sendi lutut, keletihan melampau, dan mengekalkan pusat graviti imbangan badan.",
+          "Supaya ada ruang untuk memungut batu hutan sebagai cenderamata."
+        ],
+        correct: 2,
+        explanation: "Beban melebihi 25% berat badan memberi tekanan tinggi pada lumbar tulang belakang dan ligamen lutut, sekali gus meningkatkan risiko jatuh di lereng curam."
+      },
+      {
+        subtopic: "Subtopik 8.2: Pengurusan Fasa Semasa",
+        question: "Apakah peranan utama 'Sweeper' (Pengawal Belakang) dalam susunan formasi pergerakan kumpulan kembara?",
+        answers: [
+          "Membawa kamera untuk mengambil gambar pemandangan dari belakang.",
+          "Memastikan tiada peserta tercicir, membawa peti kecemasan, dan mengawal rentak barisan dari belakang.",
+          "Berlari ke hadapan untuk memasang khemah terlebih dahulu.",
+          "Mencari makanan hutan untuk makan tengah hari."
+        ],
+        correct: 1,
+        explanation: "Sweeper mestilah individu yang mahir, tenang dan berstamina tinggi. Beliau memastikan tiada sesiapa yang hilang di belakang serta menangani sebarang insiden kecemasan spontan."
+      },
+      {
+        subtopic: "Subtopik 8.3: Ilmu Kaji Cuaca",
+        question: "Awan jenis apakah yang paling digeruni oleh pendaki di banjaran kerana dikaitkan dengan risiko kilat, ribut petir, dan kepala air?",
+        answers: [
+          "Cirrus (Ci)",
+          "Altocumulus (Ac)",
+          "Cumulonimbus (Cb)",
+          "Stratus nipis (St)"
+        ],
+        correct: 2,
+        explanation: "Cumulonimbus (Cb) adalah awan ribut petak menegak gergasi. Kehadirannya menandakan hujan lebat berkeamatan tinggi yang mencetuskan kepala air di lurah sungai."
+      },
+      {
+        subtopic: "Subtopik 8.2: Pengurusan Fasa Selepas",
+        question: "Bila dan mengapakah sesi 'Pos-Mortem' (Debriefing) wajib diadakan sebaik selesai ekspedisi?",
+        answers: [
+          "Sebulan selepas ekspedisi apabila semua orang sudah lupa masalah yang berlaku.",
+          "Dalam tempoh 24 - 48 jam untuk menilai kekuatan, kelemahan, kesihatan peserta dan pengurusan kewangan.",
+          "Hanya perlu dibuat jika ada peserta yang cedera parah sahaja.",
+          "Tidak perlu diadakan sekiranya semua peserta berjaya sampai ke puncak."
+        ],
+        correct: 1,
+        explanation: "Pos-mortem dalam tempoh 24-48 jam memastikan maklum balas masih segar, akaun perbelanjaan disahkan segera, dan penambahbaikan SOP dapat direkodkan secara rasmi."
+      }
+    ];
+
+    let currentQuizIndex = 0;
+    let quizScore = 0;
+    let selectedAnswer = null;
+
+    function renderQuizQuestion() {
+      const q = quizQuestions[currentQuizIndex];
+      document.getElementById('quizQuestionIdx').textContent = `Soalan ${currentQuizIndex + 1} daripada ${quizQuestions.length}`;
+      document.getElementById('quizScoreTracker').textContent = `Skor: ${quizScore}`;
+      document.getElementById('quizBarFill').style.width = `${((currentQuizIndex + 1) / quizQuestions.length) * 100}%`;
+      
+      document.getElementById('quizSubtopicLabel').textContent = q.subtopic;
+      document.getElementById('quizQuestionText').textContent = q.question;
+
+      const container = document.getElementById('quizAnswersContainer');
+      selectedAnswer = null;
+      document.getElementById('quizExplanationBox').className = 'hidden mt-5 p-4 rounded-2xl text-xs sm:text-sm leading-relaxed';
+
+      const nextBtn = document.getElementById('quizNextBtn');
+      nextBtn.disabled = true;
+      nextBtn.className = 'px-6 py-2.5 rounded-xl bg-slate-300 text-slate-500 font-semibold text-sm cursor-not-allowed transition flex items-center gap-2';
+
+      container.innerHTML = q.answers.map((ans, idx) => `
+        <button onclick="handleQuizAnswerSelection(${idx})" id="quiz-opt-${idx}" class="quiz-option-btn w-full text-left p-4 rounded-2xl border border-slate-200 hover:border-emerald-500 bg-white hover:bg-emerald-50/30 transition text-xs sm:text-sm text-slate-800 font-medium flex items-start gap-3">
+          <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-700 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">${String.fromCharCode(65 + idx)}</span>
+          <span class="flex-grow">${ans}</span>
+        </button>
+      `).join('');
+    }
+
+    function handleQuizAnswerSelection(idx) {
+      if (selectedAnswer !== null) return; // Prevent changing after answer
+      selectedAnswer = idx;
+      const q = quizQuestions[currentQuizIndex];
+      const isCorrect = idx === q.correct;
+
+      const optBtns = document.querySelectorAll('.quiz-option-btn');
+      optBtns.forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.correct) {
+          btn.className = 'quiz-option-btn w-full text-left p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 text-xs sm:text-sm font-semibold flex items-start gap-3';
+          btn.querySelector('span').className = 'w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5';
+        } else if (i === idx && !isCorrect) {
+          btn.className = 'quiz-option-btn w-full text-left p-4 rounded-2xl border-2 border-red-500 bg-red-50 text-red-900 text-xs sm:text-sm font-semibold flex items-start gap-3';
+          btn.querySelector('span').className = 'w-6 h-6 rounded-full bg-red-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5';
+        } else {
+          btn.className = 'quiz-option-btn opacity-50 w-full text-left p-4 rounded-2xl border border-slate-200 bg-white text-xs sm:text-sm text-slate-400 flex items-start gap-3';
+        }
+      });
+
+      const expBox = document.getElementById('quizExplanationBox');
+      expBox.classList.remove('hidden');
+
+      if (isCorrect) {
+        playTone(659.25, 'triangle', 0.15); // E5
+        quizScore += 20;
+        document.getElementById('quizScoreTracker').textContent = `Skor: ${quizScore}`;
+        expBox.className = 'mt-5 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs sm:text-sm leading-relaxed';
+        expBox.innerHTML = `<strong>JAWAPAN TEPAT!</strong> ${q.explanation}`;
+      } else {
+        playTone(220, 'sawtooth', 0.2); // A3
+        expBox.className = 'mt-5 p-4 rounded-2xl bg-red-50 border border-red-200 text-red-900 text-xs sm:text-sm leading-relaxed';
+        expBox.innerHTML = `<strong>KURANG TEPAT:</strong> ${q.explanation}`;
+      }
+
+      const nextBtn = document.getElementById('quizNextBtn');
+      nextBtn.disabled = false;
+      nextBtn.className = 'px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition flex items-center gap-2 shadow-md';
+      
+      if (currentQuizIndex === quizQuestions.length - 1) {
+        nextBtn.innerHTML = `Tamatkan Kuiz & Lihat Keputusan <i data-lucide="award" class="w-4 h-4"></i>`;
+        lucide.createIcons();
+      }
+    }
+
+    function nextQuizQuestion() {
+      playTone(523.25, 'sine', 0.05);
+      if (currentQuizIndex < quizQuestions.length - 1) {
+        currentQuizIndex++;
+        renderQuizQuestion();
+      } else {
+        showQuizResults();
+      }
+    }
+
+    function showQuizResults() {
+      playTone(783.99, 'triangle', 0.25); // G5
+      document.getElementById('quizContainerBox').classList.add('hidden');
+      document.getElementById('quizResultView').classList.remove('hidden');
+
+      document.getElementById('finalScoreVal').textContent = `${quizScore}%`;
+      const pass = quizScore >= 80;
+
+      if (pass) {
+        document.getElementById('resultTitle').textContent = "Tahniah! Anda Pengembara Cekap";
+        document.getElementById('resultSubtitle').textContent = "Anda telah melepasi standard penguasaan 8.0 Rancangan Pengembaraan dengan cemerlang.";
+        document.getElementById('finalStatusBadge').textContent = "Lulus Cemerlang (Lencana Emas)";
+        document.getElementById('finalStatusBadge').className = "text-sm font-bold text-emerald-700";
+      } else {
+        document.getElementById('resultTitle').textContent = "Usaha Baik! Sila Ulang Kaji";
+        document.getElementById('resultSubtitle').textContent = "Capai sekurang-kurangnya 80% untuk melayakkan anda menerima sijil pengiktirafan penuh.";
+        document.getElementById('finalStatusBadge').textContent = "Perlu Pengukuhan";
+        document.getElementById('finalStatusBadge').className = "text-sm font-bold text-amber-700";
+      }
+    }
+
+    function restartQuiz() {
+      playTone(440, 'sine', 0.08);
+      currentQuizIndex = 0;
+      quizScore = 0;
+      selectedAnswer = null;
+      document.getElementById('quizResultView').classList.add('hidden');
+      document.getElementById('printableCertificate').classList.add('hidden');
+      document.getElementById('quizContainerBox').classList.remove('hidden');
+      renderQuizQuestion();
+    }
+
+    function renderDigitalCertificate() {
+      playTone(880, 'sine', 0.2); // A5 high chime
+      const nameInput = document.getElementById('certStudentName').value.trim();
+      const studentName = nameInput || "Peserta Berdisiplin";
+
+      document.getElementById('certNameDisplay').textContent = studentName;
+      const today = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('certDateDisplay').textContent = today.toLocaleDateString('ms-MY', options);
+
+      const certEl = document.getElementById('printableCertificate');
+      certEl.classList.remove('hidden');
+      certEl.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /* ========================================================
+       APPLICATION INITIALIZATION ON WINDOW LOAD
+       ======================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      // 1. Initialize Lucide Icons
+      lucide.createIcons();
+
+      // 2. Load 8.1 default component
+      selectReportComponent(0);
+
+      // 3. Load 8.2 packing checklist
+      initPackingChecklist();
+
+      // 4. Load 8.3 clouds and simulator
+      renderClouds('all');
+      loadSimulatorScenario(0);
+
+      // 5. Load Quiz initial question
+      renderQuizQuestion();
+    });
+  </script>
+</body>
+</html>

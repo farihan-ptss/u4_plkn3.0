@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hub Interaktif: 6.0 Program Perkhidmatan Masyarakat</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Google Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+            },
+            civic: {
+              blue: '#0284c7',
+              amber: '#f59e0b',
+              purple: '#8b5cf6',
+              rose: '#f43f5e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      scroll-behavior: smooth;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: #cbd5e1;
+      border-radius: 9999px;
+    }
+    .gradient-mesh {
+      background: radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+                  radial-gradient(at 100% 100%, rgba(2, 132, 199, 0.12) 0px, transparent 50%),
+                  radial-gradient(at 50% 50%, rgba(245, 158, 11, 0.08) 0px, transparent 50%);
+    }
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printArea, #printArea * {
+        visibility: visible;
+      }
+      #printArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-emerald-500 selection:text-white">
+
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md shadow-emerald-500/20">
+            <i data-lucide="compass" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Pengakap Kelana Politeknik 2</span>
+            <h1 class="text-lg font-extrabold text-slate-900 leading-tight">Unit 6.0: Perkhidmatan Masyarakat</h1>
+          </div>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-1 text-sm font-medium text-slate-600">
+          <button onclick="switchTab('modul')" class="nav-btn px-3 py-2 rounded-lg hover:text-emerald-600 hover:bg-emerald-50 transition flex items-center gap-1.5 active-nav" data-target="modul">
+            <i data-lucide="book-open" class="w-4 h-4"></i> Modul Nota
+          </button>
+          <button onclick="switchTab('aliran-kerja')" class="nav-btn px-3 py-2 rounded-lg hover:text-emerald-600 hover:bg-emerald-50 transition flex items-center gap-1.5" data-target="aliran-kerja">
+            <i data-lucide="workflow" class="w-4 h-4"></i> Aliran Fasa Aktiviti
+          </button>
+          <button onclick="switchTab('simulator')" class="nav-btn px-3 py-2 rounded-lg hover:text-emerald-600 hover:bg-emerald-50 transition flex items-center gap-1.5" data-target="simulator">
+            <i data-lucide="sliders" class="w-4 h-4"></i> Simulator Projek
+          </button>
+          <button onclick="switchTab('jana-kertas')" class="nav-btn px-3 py-2 rounded-lg hover:text-emerald-600 hover:bg-emerald-50 transition flex items-center gap-1.5" data-target="jana-kertas">
+            <i data-lucide="file-text" class="w-4 h-4"></i> Jana Kertas Cadangan
+          </button>
+          <button onclick="switchTab('sijil')" class="nav-btn px-3 py-2 rounded-lg hover:text-emerald-600 hover:bg-emerald-50 transition flex items-center gap-1.5" data-target="sijil">
+            <i data-lucide="award" class="w-4 h-4"></i> Sijil Digital
+          </button>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <button onclick="toggleAudioFx()" id="audioToggleBtn" title="Kesan Bunyi Interaktif" class="p-2 rounded-lg text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 transition">
+            <i data-lucide="volume-2" id="audioIcon" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mobile Navigation Sub-bar -->
+    <div class="md:hidden flex overflow-x-auto gap-2 px-4 py-2 border-t border-slate-100 bg-white custom-scrollbar text-xs font-semibold">
+      <button onclick="switchTab('modul')" class="whitespace-nowrap px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700">Modul</button>
+      <button onclick="switchTab('aliran-kerja')" class="whitespace-nowrap px-3 py-1.5 rounded-full text-slate-600">Aliran Fasa</button>
+      <button onclick="switchTab('simulator')" class="whitespace-nowrap px-3 py-1.5 rounded-full text-slate-600">Simulator</button>
+      <button onclick="switchTab('jana-kertas')" class="whitespace-nowrap px-3 py-1.5 rounded-full text-slate-600">Kertas Cadangan</button>
+      <button onclick="switchTab('sijil')" class="whitespace-nowrap px-3 py-1.5 rounded-full text-slate-600">Sijil</button>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-800 via-teal-900 to-slate-900 text-white p-6 sm:p-10 shadow-xl shadow-emerald-950/10">
+      <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute top-0 right-1/4 w-48 h-48 bg-sky-400/20 rounded-full blur-2xl pointer-events-none"></div>
+      
+      <div class="relative z-10 max-w-3xl space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-emerald-300 text-xs font-medium border border-white/10">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span>Pengakap Kelana Politeknik 2 &bull; Cogan Kata: "Berkhidmat"</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-snug">
+          Semai Khidmat, Perhebat Impak Komuniti Kita.
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          Ketahui panduan komprehensif aliran fasa <strong>Sebelum</strong>, <strong>Semasa</strong>, dan <strong>Selepas</strong> aktiviti komuniti, simulasi bajet sukarelawan Kelana, dan jana kertas cadangan rasmi projek perkhidmatan anda.
+        </p>
+
+        <div class="pt-2 flex flex-wrap gap-4 text-xs sm:text-sm">
+          <div class="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10 flex items-center gap-2">
+            <i data-lucide="workflow" class="w-4 h-4 text-emerald-400"></i>
+            <span>Aliran Fasa: Sebelum &bull; Semasa &bull; Selepas</span>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10 flex items-center gap-2">
+            <i data-lucide="target" class="w-4 h-4 text-sky-400"></i>
+            <span>Simulasi Bajet & Impak</span>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10 flex items-center gap-2">
+            <i data-lucide="printer" class="w-4 h-4 text-amber-400"></i>
+            <span>Penjana Kertas Cadangan & Sijil</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tabContentWrapper">
+
+      <!-- ================= TAB 1: MODUL NOTA INTERAKTIF ================= -->
+      <section id="tab-modul" class="tab-panel space-y-8">
+        <!-- Sub-pilihan kategori nota -->
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-4">
+          <div>
+            <h3 class="text-xl font-bold text-slate-900">Eksplorasi Konsep & Fakta Teras</h3>
+            <p class="text-xs text-slate-500">Pilih topik pembelajaran untuk melihat huraian terperinci, contoh situasi dan panduan Pengakap Kelana.</p>
+          </div>
+          <div class="flex flex-wrap gap-2 text-xs font-semibold" id="modulFilterBtns">
+            <button onclick="filterModul('all')" class="modul-filter px-3.5 py-1.5 rounded-full bg-emerald-600 text-white shadow-sm">Semua</button>
+            <button onclick="filterModul('konsep')" class="modul-filter px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200">Konsep & Matlamat</button>
+            <button onclick="filterModul('fasa')" class="modul-filter px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200">Kitaran Aliran</button>
+            <button onclick="filterModul('bidang')" class="modul-filter px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200">Bidang Tumpuan</button>
+            <button onclick="filterModul('faedah')" class="modul-filter px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200">Faedah & Impak</button>
+          </div>
+        </div>
+
+        <!-- Kad Modul Interaktif Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="modulGrid">
+          
+          <!-- Kad 1: Konsep -->
+          <div class="modul-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition group" data-category="konsep">
+            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <i data-lucide="hand-heart" class="w-6 h-6"></i>
+            </div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-emerald-600">6.1 Konsep Teras</span>
+            <h4 class="text-lg font-bold text-slate-900 mt-1 mb-2">Apakah Perkhidmatan Masyarakat?</h4>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">
+              Kerja amali atau kebajikan yang dijalankan secara <strong>sukarela</strong> berteraskan semangat kepengakapan Kelana tanpa mengharapkan sebarang ganjaran material demi kemaslahatan komuniti.
+            </p>
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1.5 text-slate-600">
+              <div class="flex items-center gap-1.5 text-emerald-700 font-medium">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i> Prinsip "Berkhidmat" (Service)
+              </div>
+              <div class="flex items-center gap-1.5 text-emerald-700 font-medium">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i> Menyelesaikan isu komuniti setempat
+              </div>
+            </div>
+          </div>
+
+          <!-- Kad 2: Kitaran Aliran Aktiviti -->
+          <div class="modul-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition group" data-category="fasa">
+            <div class="w-12 h-12 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <i data-lucide="workflow" class="w-6 h-6"></i>
+            </div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-sky-600">6.2 Pengurusan Sistematik</span>
+            <h4 class="text-lg font-bold text-slate-900 mt-1 mb-2">Aliran 3 Peringkat Aktiviti</h4>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">
+              Pengurusan projek khidmat komuniti terbahagi kepada: <strong>Sebelum Aktiviti</strong> (Perancangan & Kebenaran), <strong>Semasa Aktiviti</strong> (Pelaksanaan & Pemantauan), serta <strong>Selepas Aktiviti</strong> (Refleksi & Pelaporan).
+            </p>
+            <button onclick="switchTab('aliran-kerja')" class="w-full text-xs font-semibold py-2 px-3 rounded-lg bg-sky-50 text-sky-700 hover:bg-sky-100 transition flex items-center justify-center gap-1.5">
+              <span>Buka Aliran Kerja Lengkap</span>
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Kad 3: Bidang Tumpuan -->
+          <div class="modul-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition group" data-category="bidang">
+            <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <i data-lucide="layers" class="w-6 h-6"></i>
+            </div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-amber-600">6.3 Bidang Utama</span>
+            <h4 class="text-lg font-bold text-slate-900 mt-1 mb-2">4 Bidang Perkhidmatan</h4>
+            <div class="space-y-2 mt-2">
+              <div class="flex items-center gap-2 p-2 rounded-lg bg-slate-50 text-xs">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span><strong>Alam Sekitar:</strong> Pembersihan pantai, penanaman pokok bakau.</span>
+              </div>
+              <div class="flex items-center gap-2 p-2 rounded-lg bg-slate-50 text-xs">
+                <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                <span><strong>Kebajikan:</strong> Bantuan pascabanjir, santuni warga emas/asnaf.</span>
+              </div>
+              <div class="flex items-center gap-2 p-2 rounded-lg bg-slate-50 text-xs">
+                <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                <span><strong>Kesihatan & Keselamatan:</strong> Gotong-royong denggi & kesedaran CPR.</span>
+              </div>
+              <div class="flex items-center gap-2 p-2 rounded-lg bg-slate-50 text-xs">
+                <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                <span><strong>Pendidikan Komuniti:</strong> Literasi digital & kelas bimbingan adik angkat.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kad 4: Faedah kepada Diri -->
+          <div class="modul-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition group" data-category="faedah">
+            <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <i data-lucide="user-check" class="w-6 h-6"></i>
+            </div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-purple-600">6.4 Faedah Individu</span>
+            <h4 class="text-lg font-bold text-slate-900 mt-1 mb-2">Impak Terhadap Kelana</h4>
+            <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside">
+              <li>Mengasah kepimpinan diri, komunikasi efektif dan pengurusan krisis.</li>
+              <li>Memperkukuh Buku Log Kelana (Badges & Pengiktirafan BP Guild/Scouts).</li>
+              <li>Melahirkan insan berdaya tahan yang sentiasa bersedia berkhidmat.</li>
+            </ul>
+          </div>
+
+          <!-- Kad 5: Faedah kepada Masyarakat & Negara -->
+          <div class="modul-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition group" data-category="faedah">
+            <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <i data-lucide="globe-2" class="w-6 h-6"></i>
+            </div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-rose-600">6.4 Faedah Komuniti</span>
+            <h4 class="text-lg font-bold text-slate-900 mt-1 mb-2">Impak Masyarakat & Negara</h4>
+            <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside">
+              <li>Merapatkan jurang antara warga institusi Politeknik dengan komuniti luar.</li>
+              <li>Membina persekitaran hidup yang bersih, inklusif dan harmoni.</li>
+              <li>Menyemai budaya sukarelawan profesional bertaraf modal insan unggul.</li>
+            </ul>
+          </div>
+
+          <!-- Kad 6: Cabaran & Strategi Mengatasi -->
+          <div class="modul-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition group" data-category="konsep">
+            <div class="w-12 h-12 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <i data-lucide="shield-alert" class="w-6 h-6"></i>
+            </div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-teal-600">6.5 Realiti Pelaksanaan</span>
+            <h4 class="text-lg font-bold text-slate-900 mt-1 mb-2">Cabaran & Solusi Kelana</h4>
+            <div class="text-sm text-slate-600 space-y-2">
+              <div class="p-2 rounded-lg bg-slate-50">
+                <span class="font-semibold text-rose-600">Cabaran:</span> Kekangan logistik & cuaca buruk di tapak khidmat.
+              </div>
+              <div class="p-2 rounded-lg bg-emerald-50 text-emerald-800">
+                <span class="font-semibold text-emerald-700">Penyelesaian:</span> Menyediakan 'Plan B', taklimat mitigasi risiko (HIRARC) serta jalinan rapat bersama JKKK/NGO setempat.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 border border-emerald-100">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+            <div>
+              <h4 class="font-bold text-slate-900 flex items-center gap-2">
+                <i data-lucide="zap" class="w-5 h-5 text-amber-500"></i> Kad Imbasan Pengakap Kelana
+              </h4>
+              <p class="text-xs text-slate-600">Klik pada kad untuk mendedahkan jawapan atau huraian etika perkhidmatan.</p>
+            </div>
+            <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full w-max">3 Kad Tersedia</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Kad Imbasan 1 -->
+            <div onclick="flipCard(this)" class="cursor-pointer bg-white p-5 rounded-xl border border-slate-200 shadow-sm min-h-[160px] flex flex-col justify-between transition transform hover:-translate-y-1">
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">Prinsip Kelana</span>
+                <p class="text-sm font-semibold text-slate-800 mt-2 front-text">Apakah maksud moto 'Berkhidmat' dalam konteks Pengakap Kelana Politeknik?</p>
+                <div class="hidden back-text text-sm text-emerald-700 font-medium space-y-1">
+                  <p>Kesediaan memberi sumbangan tenaga dan kepakaran secara ikhlas kepada masyarakat, rakan sebaya, dan negara tanpa menuntut balasan faedah peribadi.</p>
+                </div>
+              </div>
+              <div class="text-[11px] text-slate-400 font-medium flex items-center gap-1 justify-end pt-3 border-t border-slate-100">
+                <i data-lucide="repeat" class="w-3.5 h-3.5"></i> Tekan untuk terbalikkan
+              </div>
+            </div>
+
+            <!-- Kad Imbasan 2 -->
+            <div onclick="flipCard(this)" class="cursor-pointer bg-white p-5 rounded-xl border border-slate-200 shadow-sm min-h-[160px] flex flex-col justify-between transition transform hover:-translate-y-1">
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-sky-600 bg-sky-50 px-2 py-0.5 rounded">Prapelaksanaan</span>
+                <p class="text-sm font-semibold text-slate-800 mt-2 front-text">Mengapakah kelulusan rasmi Penasihat & Politeknik wajib sebelum program bermula?</p>
+                <div class="hidden back-text text-sm text-sky-800 font-medium space-y-1">
+                  <p>Menjamin <strong>pematuhan undang-undang</strong>, perlindungan insurans pelajar, kebenaran pelepasan rasmi, dan pengesahan rekod kokurikulum institusi.</p>
+                </div>
+              </div>
+              <div class="text-[11px] text-slate-400 font-medium flex items-center gap-1 justify-end pt-3 border-t border-slate-100">
+                <i data-lucide="repeat" class="w-3.5 h-3.5"></i> Tekan untuk terbalikkan
+              </div>
+            </div>
+
+            <!-- Kad Imbasan 3 -->
+            <div onclick="flipCard(this)" class="cursor-pointer bg-white p-5 rounded-xl border border-slate-200 shadow-sm min-h-[160px] flex flex-col justify-between transition transform hover:-translate-y-1">
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-2 py-0.5 rounded">Pasca Aktiviti</span>
+                <p class="text-sm font-semibold text-slate-800 mt-2 front-text">Apakah elemen terpenting dalam laporan akhir aktiviti khidmat masyarakat Kelana?</p>
+                <div class="hidden back-text text-sm text-amber-900 font-medium space-y-1">
+                  <p>Laporan penuh bertulis berserta <strong>penyata kewangan berresit</strong>, gambar bukti aktiviti, maklum balas penerima manfaat, dan catatan Buku Log Kelana.</p>
+                </div>
+              </div>
+              <div class="text-[11px] text-slate-400 font-medium flex items-center gap-1 justify-end pt-3 border-t border-slate-100">
+                <i data-lucide="repeat" class="w-3.5 h-3.5"></i> Tekan untuk terbalikkan
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 2: ALIRAN FASA AKTIVITI (SEBELUM, SEMASA, SELEPAS) ================= -->
+      <section id="tab-aliran-kerja" class="tab-panel hidden space-y-8">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+          <div class="border-b border-slate-200 pb-5 mb-6">
+            <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Carta Alir Prosedur Operasi Standard (SOP)</span>
+            <h3 class="text-2xl font-black text-slate-900 mt-1">Aliran Kerja Program: Sebelum, Semasa & Selepas</h3>
+            <p class="text-sm text-slate-600 mt-1">
+              Garis panduan berstruktur bagi Pengakap Kelana Politeknik 2 untuk menguruskan program perkhidmatan masyarakat secara telus, selamat dan berimpak tinggi.
+            </p>
+          </div>
+
+          <!-- Navigasi 3 Fasa Tab Mini -->
+          <div class="flex flex-wrap gap-2 p-1.5 bg-slate-100 rounded-2xl mb-8">
+            <button onclick="switchPhase('sebelum')" id="btnPhaseSebelum" class="phase-toggle-btn flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-white text-emerald-700 shadow-sm flex items-center justify-center gap-2 transition">
+              <span class="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center text-xs">1</span>
+              <span>Sebelum Aktiviti (Perancangan)</span>
+            </button>
+            <button onclick="switchPhase('semasa')" id="btnPhaseSemasa" class="phase-toggle-btn flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold text-slate-600 hover:text-slate-900 flex items-center justify-center gap-2 transition">
+              <span class="w-6 h-6 rounded-lg bg-slate-200 text-slate-700 flex items-center justify-center text-xs">2</span>
+              <span>Semasa Aktiviti (Pelaksanaan)</span>
+            </button>
+            <button onclick="switchPhase('selepas')" id="btnPhaseSelepas" class="phase-toggle-btn flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold text-slate-600 hover:text-slate-900 flex items-center justify-center gap-2 transition">
+              <span class="w-6 h-6 rounded-lg bg-slate-200 text-slate-700 flex items-center justify-center text-xs">3</span>
+              <span>Selepas Aktiviti (Refleksi & Pelaporan)</span>
+            </button>
+          </div>
+
+          <!-- KANDUNGAN FASA 1: SEBELUM AKTIVITI -->
+          <div id="phaseContentSebelum" class="phase-panel space-y-6">
+            <div class="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-5 flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex-shrink-0 flex items-center justify-center shadow-md">
+                <i data-lucide="clipboard-list" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="text-base font-bold text-emerald-950">Fasa 1: Sebelum Aktiviti (Pra-Pelaksanaan)</h4>
+                <p class="text-xs sm:text-sm text-emerald-800 mt-1 leading-relaxed">
+                  Fasa ini merupakan asas kejayaan projek. Pengakap Kelana wajib melakukan tinjauan keperluan komuniti, menyusun struktur organisasi dan mendapatkan segala kelulusan bertulis.
+                </p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <!-- Langkah 1 -->
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3 relative hover:border-emerald-400 transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800">Langkah 1.1</span>
+                  <i data-lucide="search" class="w-4 h-4 text-emerald-600"></i>
+                </div>
+                <h5 class="font-bold text-slate-900 text-sm">Tinjauan Keperluan (Need Assessment)</h5>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Menghubungi ketua kampung, penghulu, atau pihak pengurusan tapak untuk mengenal pasti isu mendesak (contoh: saliran tersumbat, mengecat, bantuan mangsa bencana).
+                </p>
+                <div class="text-[11px] bg-slate-50 p-2.5 rounded-lg border border-slate-100 text-slate-600 font-medium">
+                  &bull; Lawatan tapak awal (Recce)<br>&bull; Analisis risiko keselamatan (HIRARC)
+                </div>
+              </div>
+
+              <!-- Langkah 2 -->
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3 relative hover:border-emerald-400 transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800">Langkah 1.2</span>
+                  <i data-lucide="file-check-2" class="w-4 h-4 text-emerald-600"></i>
+                </div>
+                <h5 class="font-bold text-slate-900 text-sm">Kertas Cadangan & Kelulusan</h5>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Merangka draf kertas kerja projek merangkumi objektif, atur cara, anggaran belanjawan, dan senarai jawatankuasa kerja sukarelawan Kelana.
+                </p>
+                <div class="text-[11px] bg-slate-50 p-2.5 rounded-lg border border-slate-100 text-slate-600 font-medium">
+                  &bull; Semakan Guru Penasihat/Pensyarah<br>&bull; Surat kelulusan Pengarah Politeknik 2
+                </div>
+              </div>
+
+              <!-- Langkah 3 -->
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3 relative hover:border-emerald-400 transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800">Langkah 1.3</span>
+                  <i data-lucide="truck" class="w-4 h-4 text-emerald-600"></i>
+                </div>
+                <h5 class="font-bold text-slate-900 text-sm">Logistik, Dana & Borang Kebenaran</h5>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Mengurus perolehan alatan, tempahan kenderaan, penyediaan peti pertolongan cemas, dan mengedarkan borang akuan pelepasan/kebenaran peserta.
+                </p>
+                <div class="text-[11px] bg-slate-50 p-2.5 rounded-lg border border-slate-100 text-slate-600 font-medium">
+                  &bull; Kit First-Aid lengkap & ubat asas<br>&bull; Taklimat awal peranan ahli kumpulan
+                </div>
+              </div>
+            </div>
+
+            <!-- Interaktif Checklist Fasa Sebelum -->
+            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+              <h5 class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+                <i data-lucide="check-square" class="w-4 h-4 text-emerald-600"></i> Senarai Semak Sebelum Berangkat (Interaktif):
+              </h5>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                <label class="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer">
+                  <input type="checkbox" checked class="rounded text-emerald-600 focus:ring-emerald-500">
+                  <span>Surat Kebenaran Rasmi</span>
+                </label>
+                <label class="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer">
+                  <input type="checkbox" checked class="rounded text-emerald-600 focus:ring-emerald-500">
+                  <span>Peti Pertolongan Cemas</span>
+                </label>
+                <label class="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer">
+                  <input type="checkbox" checked class="rounded text-emerald-600 focus:ring-emerald-500">
+                  <span>Alatan Kerja & PPE</span>
+                </label>
+                <label class="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer">
+                  <input type="checkbox" checked class="rounded text-emerald-600 focus:ring-emerald-500">
+                  <span>Nombor Telefon Kecemasan</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- KANDUNGAN FASA 2: SEMASA AKTIVITI -->
+          <div id="phaseContentSemasa" class="phase-panel hidden space-y-6">
+            <div class="bg-sky-50/70 border border-sky-200 rounded-2xl p-5 flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-sky-600 text-white flex-shrink-0 flex items-center justify-center shadow-md">
+                <i data-lucide="activity" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="text-base font-bold text-sky-950">Fasa 2: Semasa Aktiviti (Pelaksanaan & Pemantauan)</h4>
+                <p class="text-xs sm:text-sm text-sky-800 mt-1 leading-relaxed">
+                  Fasa aksi sebenar di lapangan. Pengakap Kelana menterjemahkan disiplin, kepimpinan, dan kerjasama berpasukan serta sentiasa menitikberatkan aspek keselamatan dan etika sopan.
+                </p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <!-- Langkah 1 -->
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3 relative hover:border-sky-400 transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-sky-100 text-sky-800">Langkah 2.1</span>
+                  <i data-lucide="megaphone" class="w-4 h-4 text-sky-600"></i>
+                </div>
+                <h5 class="font-bold text-slate-900 text-sm">Taklimat Tapak & Zon Kerja</h5>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Ketua projek mengadakan sesi 'Safety Briefing', pembahagian patrol/zon kerja (sektor A, B, C), dan penetapan waktu rehat serta waktu berkumpul.
+                </p>
+                <div class="text-[11px] bg-slate-50 p-2.5 rounded-lg border border-slate-100 text-slate-600 font-medium">
+                  &bull; Semakan kehadiran peserta<br>&bull; Penerangan laluan kecemasan & 'Safety Marshals'
+                </div>
+              </div>
+
+              <!-- Langkah 2 -->
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3 relative hover:border-sky-400 transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-sky-100 text-sky-800">Langkah 2.2</span>
+                  <i data-lucide="users" class="w-4 h-4 text-sky-600"></i>
+                </div>
+                <h5 class="font-bold text-slate-900 text-sm">Amali Khidmat & Interaksi Mesra</h5>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Menjalankan tugas pembersihan, baik pulih atau bantuan dengan tekun. Menyantuni penduduk dengan berbudi bahasa, menjaga imej uniform Pengakap Kelana Politeknik.
+                </p>
+                <div class="text-[11px] bg-slate-50 p-2.5 rounded-lg border border-slate-100 text-slate-600 font-medium">
+                  &bull; Amalan kerja selamat (guna sarung tangan)<br>&bull; Hormati adat resam dan privasi komuniti
+                </div>
+              </div>
+
+              <!-- Langkah 3 -->
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3 relative hover:border-sky-400 transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-sky-100 text-sky-800">Langkah 2.3</span>
+                  <i data-lucide="camera" class="w-4 h-4 text-sky-600"></i>
+                </div>
+                <h5 class="font-bold text-slate-900 text-sm">Pemantauan & Dokumentasi</h5>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Pegawai pemantau memastikan kebajikan peserta (air minuman, makanan, kecederaan ringan) dan mengambil foto/video 'sebelum' dan 'selepas'.
+                </p>
+                <div class="text-[11px] bg-slate-50 p-2.5 rounded-lg border border-slate-100 text-slate-600 font-medium">
+                  &bull; Catatan borang maklum balas komuniti<br>&bull; Dokumentasi foto resolusi tinggi
+                </div>
+              </div>
+            </div>
+
+            <!-- Panduan Semasa Bertugas -->
+            <div class="p-5 rounded-2xl bg-sky-50/50 border border-sky-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <i data-lucide="shield-alert" class="w-8 h-8 text-sky-600 flex-shrink-0"></i>
+                <div class="text-xs text-sky-950">
+                  <span class="font-bold block">Peringatan Etika Semasa Aktiviti:</span>
+                  Dilarang merakam atau memuat naik visual penerima bantuan yang boleh menjejaskan aib mereka. Jaga kerahsiaan dan hormati maruah komuniti.
+                </div>
+              </div>
+              <button onclick="playTone(550, 'sine', 0.1); showToast('Patuhi panduan etika perkhidmatan!');" class="whitespace-nowrap px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-sm">
+                Fahami Etika
+              </button>
+            </div>
+          </div>
+
+          <!-- KANDUNGAN FASA 3: SELEPAS AKTIVITI -->
+          <div id="phaseContentSelepas" class="phase-panel hidden space-y-6">
+            <div class="bg-amber-50/70 border border-amber-200 rounded-2xl p-5 flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-600 text-white flex-shrink-0 flex items-center justify-center shadow-md">
+                <i data-lucide="check-circle" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="text-base font-bold text-amber-950">Fasa 3: Selepas Aktiviti (Pasca-Pelaksanaan & Refleksi)</h4>
+                <p class="text-xs sm:text-sm text-amber-800 mt-1 leading-relaxed">
+                  Fasa melengkapkan kitaran projek. Melibatkan pengemasan tapak, bedah siasat (post-mortem), penyata kewangan berakauntabiliti, pengisian Buku Log Kelana, dan penghargaan.
+                </p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <!-- Langkah 1 -->
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3 relative hover:border-amber-400 transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-amber-100 text-amber-800">Langkah 3.1</span>
+                  <i data-lucide="sparkle" class="w-4 h-4 text-amber-600"></i>
+                </div>
+                <h5 class="font-bold text-slate-900 text-sm">Pembersihan Tapak & Inventori</h5>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Memastikan lokasi projek ditinggalkan dalam keadaan bersih dan selamat. Mengira baki alatan serta memulangkan aset pinjaman ke stor Kelana.
+                </p>
+                <div class="text-[11px] bg-slate-50 p-2.5 rounded-lg border border-slate-100 text-slate-600 font-medium">
+                  &bull; "Leave No Trace" (Tiada sampah ditinggalkan)<br>&bull; Pemulangan peralatan pinjaman lengkap
+                </div>
+              </div>
+
+              <!-- Langkah 2 -->
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3 relative hover:border-amber-400 transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-amber-100 text-amber-800">Langkah 3.2</span>
+                  <i data-lucide="message-square" class="w-4 h-4 text-amber-600"></i>
+                </div>
+                <h5 class="font-bold text-slate-900 text-sm">Sesi Refleksi & Post-Mortem</h5>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Perbincangan terbuka sesama ahli mengenai kekuatan, kekangan dihadapi, pengajaran moral, dan cadangan penambahbaikan untuk projek akan datang.
+                </p>
+                <div class="text-[11px] bg-slate-50 p-2.5 rounded-lg border border-slate-100 text-slate-600 font-medium">
+                  &bull; Penilaian kendiri setiap peserta<br>&bull; Pengiktirafan komitmen sukarelawan
+                </div>
+              </div>
+
+              <!-- Langkah 3 -->
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3 relative hover:border-amber-400 transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-amber-100 text-amber-800">Langkah 3.3</span>
+                  <i data-lucide="book-marked" class="w-4 h-4 text-amber-600"></i>
+                </div>
+                <h5 class="font-bold text-slate-900 text-sm">Laporan Akhir & Buku Log</h5>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Menyediakan laporan lengkap bercetak berserta penyata kewangan beraudit untuk diserahkan kepada penasihat kelab serta pengemaskinian Buku Log Kelana.
+                </p>
+                <div class="text-[11px] bg-slate-50 p-2.5 rounded-lg border border-slate-100 text-slate-600 font-medium">
+                  &bull; Surat penghargaan kepada pihak komuniti<br>&bull; Pengeluaran Sijil Penyertaan Digital
+                </div>
+              </div>
+            </div>
+
+            <!-- Butang Pantas ke Tab Seterusnya -->
+            <div class="pt-2 flex flex-wrap justify-end gap-3">
+              <button onclick="switchTab('simulator')" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs flex items-center gap-2">
+                <i data-lucide="sliders" class="w-4 h-4 text-emerald-400"></i> Uji Bajet dalam Simulator
+              </button>
+              <button onclick="switchTab('jana-kertas')" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-2">
+                <i data-lucide="file-text" class="w-4 h-4"></i> Rangka Kertas Cadangan Sekarang
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 3: SIMULATOR PROJEK ================= -->
+      <section id="tab-simulator" class="tab-panel hidden space-y-8">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+          <div class="border-b border-slate-200 pb-5 mb-6">
+            <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Simulasi Interaktif Pengurusan Kelana</span>
+            <h3 class="text-2xl font-black text-slate-900 mt-1">Simulator Projek Khidmat Komuniti</h3>
+            <p class="text-sm text-slate-600 mt-1">
+              Bertindak sebagai Ketua Pengarah Projek Pengakap Kelana Politeknik 2. Rancang agihan sumber, pilih SOP, dan lihat impak masa nyata terhadap <strong>Indeks Impak</strong>, <strong>Moral Sukarelawan</strong>, dan <strong>Keselamatan</strong>.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Form Kawalan Simulator (Left Side) -->
+            <div class="lg:col-span-7 space-y-5">
+              
+              <!-- Pilihan Senario Projek -->
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wide text-slate-700 mb-2">1. Pilih Tema Projek:</label>
+                <select id="simTheme" onchange="runSimulation()" class="w-full text-sm rounded-xl border border-slate-300 p-3 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
+                  <option value="gotong">A: Projek Konservasi Pantai & Membasmi Sisa Marin (Kelana Prihatin)</option>
+                  <option value="tuisyen">B: Program Tutor STEM & Literasi Komuniti B40 (Bakti Siswa Politeknik)</option>
+                  <option value="banjir">C: Misi Dapur Kecemasan & Pembersihan Banjir (Khidmat Bencana Kelana)</option>
+                  <option value="lanskap">D: Baik Pulih Surau & Pondok Bacaan Komuniti (Khidmat Prasarana Awam)</option>
+                </select>
+              </div>
+
+              <!-- Bilangan Sukarelawan -->
+              <div>
+                <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+                  <span>2. Bilangan Sukarelawan Kelana:</span>
+                  <span id="volunteerCountLabel" class="text-emerald-700 font-extrabold text-sm">25 Orang</span>
+                </div>
+                <input type="range" id="simVolunteers" min="5" max="80" value="25" step="5" oninput="runSimulation()" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+                <div class="flex justify-between text-[11px] text-slate-400 mt-1">
+                  <span>5 Orang (Patrol Kecil)</span>
+                  <span>40 Orang (Gabungan Krew)</span>
+                  <span>80 Orang (Misi Mega Politeknik)</span>
+                </div>
+              </div>
+
+              <!-- Agihan Bajet (Dana Maya: RM 1,000) -->
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-slate-800 uppercase tracking-wide">3. Agihan Bajet (Jumlah Dana: RM 1,000)</span>
+                  <span id="budgetWarning" class="text-xs font-bold text-emerald-600">Baki: RM 0</span>
+                </div>
+
+                <div class="space-y-3 text-xs">
+                  <div>
+                    <div class="flex justify-between mb-1">
+                      <span class="text-slate-600">Alatan, Cat, Beg Sampah & Logistik:</span>
+                      <span id="budgetEquipLabel" class="font-bold text-slate-900">RM 400</span>
+                    </div>
+                    <input type="range" id="budgetEquip" min="100" max="700" value="400" step="50" oninput="adjustBudget('equip')" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none accent-slate-700">
+                  </div>
+
+                  <div>
+                    <div class="flex justify-between mb-1">
+                      <span class="text-slate-600">Makanan, Minuman & Kebajikan Peserta:</span>
+                      <span id="budgetFoodLabel" class="font-bold text-slate-900">RM 400</span>
+                    </div>
+                    <input type="range" id="budgetFood" min="100" max="600" value="400" step="50" oninput="adjustBudget('food')" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none accent-slate-700">
+                  </div>
+
+                  <div>
+                    <div class="flex justify-between mb-1">
+                      <span class="text-slate-600">Peti Kecemasan, Insurans & Kit Keselamatan:</span>
+                      <span id="budgetSafetyLabel" class="font-bold text-slate-900">RM 200</span>
+                    </div>
+                    <input type="range" id="budgetSafety" min="0" max="400" value="200" step="50" oninput="adjustBudget('safety')" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none accent-slate-700">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pilihan SOP & Keselamatan -->
+              <div class="space-y-2">
+                <label class="block text-xs font-bold uppercase tracking-wide text-slate-700">4. Prosedur Standard (SOP Dipatuhi):</label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                  <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer">
+                    <input type="checkbox" id="checkPermission" checked onchange="runSimulation()" class="rounded text-emerald-600 focus:ring-emerald-500">
+                    <span>Surat Kebenaran Penasihat & Institusi</span>
+                  </label>
+                  <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer">
+                    <input type="checkbox" id="checkBriefing" checked onchange="runSimulation()" class="rounded text-emerald-600 focus:ring-emerald-500">
+                    <span>Taklimat Keselamatan & SOP Tapak</span>
+                  </label>
+                  <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer">
+                    <input type="checkbox" id="checkLiaison" checked onchange="runSimulation()" class="rounded text-emerald-600 focus:ring-emerald-500">
+                    <span>Kerjasama Pengerusi Komuniti/JKKK</span>
+                  </label>
+                  <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer">
+                    <input type="checkbox" id="checkReflection" checked onchange="runSimulation()" class="rounded text-emerald-600 focus:ring-emerald-500">
+                    <span>Sesi Post-Mortem & Catatan Buku Log</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel Keputusan Simulasi & Meter (Right Side) -->
+            <div class="lg:col-span-5 bg-gradient-to-b from-slate-900 to-slate-800 text-white rounded-2xl p-6 flex flex-col justify-between shadow-lg">
+              <div>
+                <div class="flex items-center justify-between border-b border-slate-700 pb-3 mb-4">
+                  <h4 class="font-bold text-sm tracking-wide text-emerald-400 flex items-center gap-1.5">
+                    <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Analisis Prestasi Projek
+                  </h4>
+                  <span id="simStatusBadge" class="text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">Cemerlang</span>
+                </div>
+
+                <!-- 3 Meter Pencapaian -->
+                <div class="space-y-4">
+                  <!-- Meter 1: Impak Komuniti -->
+                  <div>
+                    <div class="flex justify-between text-xs mb-1">
+                      <span class="text-slate-300 font-medium">Indeks Impak Komuniti</span>
+                      <span id="scoreImpactText" class="font-bold text-emerald-400">92%</span>
+                    </div>
+                    <div class="w-full bg-slate-700 rounded-full h-2.5 overflow-hidden">
+                      <div id="barImpact" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-2.5 rounded-full transition-all duration-500" style="width: 92%"></div>
+                    </div>
+                  </div>
+
+                  <!-- Meter 2: Kebajikan & Kepuasan Sukarelawan -->
+                  <div>
+                    <div class="flex justify-between text-xs mb-1">
+                      <span class="text-slate-300 font-medium">Kepuasan & Semangat Kelana</span>
+                      <span id="scoreSatisfactionText" class="font-bold text-sky-400">88%</span>
+                    </div>
+                    <div class="w-full bg-slate-700 rounded-full h-2.5 overflow-hidden">
+                      <div id="barSatisfaction" class="bg-gradient-to-r from-sky-500 to-blue-400 h-2.5 rounded-full transition-all duration-500" style="width: 88%"></div>
+                    </div>
+                  </div>
+
+                  <!-- Meter 3: Penarafan Keselamatan (Safety Index) -->
+                  <div>
+                    <div class="flex justify-between text-xs mb-1">
+                      <span class="text-slate-300 font-medium">Indeks Keselamatan & Pematuhan SOP</span>
+                      <span id="scoreSafetyText" class="font-bold text-amber-400">95%</span>
+                    </div>
+                    <div class="w-full bg-slate-700 rounded-full h-2.5 overflow-hidden">
+                      <div id="barSafety" class="bg-gradient-to-r from-amber-500 to-yellow-400 h-2.5 rounded-full transition-all duration-500" style="width: 95%"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Analisis Maklum Balas Kelana -->
+                <div class="mt-6 p-4 rounded-xl bg-white/5 border border-white/10">
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Ulasan Penasihat Kelana:</span>
+                  <p id="simFeedback" class="text-xs text-slate-200 mt-1 leading-relaxed">
+                    Pengurusan seimbang! Agihan dana kebajikan mencukupi untuk memelihara tenaga sukarelawan Kelana manakala pematuhan SOP keselamatan mengurangkan risiko kemalangan di lapangan.
+                  </p>
+                </div>
+              </div>
+
+              <div class="pt-4 mt-4 border-t border-slate-700/60 flex items-center justify-between text-xs">
+                <span class="text-slate-400">Penarafan Lencana Perkhidmatan:</span>
+                <span class="font-bold text-emerald-400">Tahap Cemerlang</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 4: PENJANA KERTAS CADANGAN PROJEK ================= -->
+      <section id="tab-jana-kertas" class="tab-panel hidden space-y-6">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+          <div class="border-b border-slate-200 pb-4 mb-6">
+            <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Format Rasmi Politeknik & Kelana</span>
+            <h3 class="text-2xl font-black text-slate-900 mt-1">Penjana Kertas Cadangan Projek</h3>
+            <p class="text-sm text-slate-600">
+              Isi maklumat asas di bawah untuk menghasilkan draf Kertas Cadangan Program Perkhidmatan Masyarakat berformat rasmi Pengakap Kelana Politeknik 2 yang sedia disalin atau dicetak.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nama Program / Projek:</label>
+                <input type="text" id="propName" value="Misi Bakti Siswa: Pembersihan Paya Bakau & Kelestarian Komuniti" class="w-full text-sm rounded-xl border border-slate-300 p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Anjuran / Krew Pengelola:</label>
+                <input type="text" id="propOrganizer" value="Krew Pengakap Kelana Politeknik 2" class="w-full text-sm rounded-xl border border-slate-300 p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Tarikh Cadangan:</label>
+                  <input type="date" id="propDate" value="2026-10-15" class="w-full text-sm rounded-xl border border-slate-300 p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Lokasi Aktiviti:</label>
+                  <input type="text" id="propLocation" value="Pusat Eko-Komuniti Muara Selesa" class="w-full text-sm rounded-xl border border-slate-300 p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Kumpulan Sasaran & Penerima Manfaat:</label>
+                <input type="text" id="propTarget" value="Penduduk Kampung Pesisir & 30 orang Ahli Pengakap Kelana Politeknik 2" class="w-full text-sm rounded-xl border border-slate-300 p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Objektif Utama Projek:</label>
+                <textarea id="propObjectives" rows="3" class="w-full text-sm rounded-xl border border-slate-300 p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">1. Menghayati moto 'Berkhidmat' melalui pemuliharaan khazanah alam setempat.
+2. Memperkukuh kemahiran kepimpinan dan kerjasama berpasukan Pengakap Kelana.
+3. Menyemai hubungan silaturahim erat antara warga Politeknik dan komuniti setempat.</textarea>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Anggaran Perbelanjaan:</label>
+                  <input type="text" id="propBudget" value="RM 850.00 (Makanan, Logistik & Alatan Kerja)" class="w-full text-sm rounded-xl border border-slate-300 p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ketua Projek / Penyelaras:</label>
+                  <input type="text" id="propDirector" value="Ahmad Farhan bin Rosli" class="w-full text-sm rounded-xl border border-slate-300 p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                </div>
+              </div>
+
+              <button onclick="generateProposalPreview()" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2 transition">
+                <i data-lucide="refresh-cw" class="w-4 h-4"></i> Kemas Kini Pratonton Dokumen
+              </button>
+            </div>
+
+            <!-- Kotak Pratonton Kertas Cadangan (Right side) -->
+            <div class="bg-slate-50 border border-slate-300 rounded-2xl p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <span class="text-xs font-bold text-slate-600 flex items-center gap-1.5">
+                  <i data-lucide="file-check" class="w-4 h-4 text-emerald-600"></i> Pratonton Dokumen Rasmi
+                </span>
+                <div class="flex items-center gap-1">
+                  <button onclick="copyProposalText()" class="p-2 text-slate-600 hover:text-emerald-700 rounded-lg hover:bg-white text-xs font-medium flex items-center gap-1" title="Salin Teks">
+                    <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin
+                  </button>
+                  <button onclick="printProposalDoc()" class="p-2 text-slate-600 hover:text-emerald-700 rounded-lg hover:bg-white text-xs font-medium flex items-center gap-1" title="Cetak / PDF">
+                    <i data-lucide="printer" class="w-3.5 h-3.5"></i> Cetak
+                  </button>
+                </div>
+              </div>
+
+              <!-- Isi Dokumen -->
+              <div id="proposalPrintDocument" class="bg-white p-6 my-3 rounded-xl border border-slate-200 text-slate-800 text-xs font-serif leading-relaxed shadow-sm overflow-y-auto max-h-[420px] custom-scrollbar">
+                <!-- Populated via JS -->
+              </div>
+
+              <div class="text-[11px] text-slate-400 text-center">
+                Format standard memenuhi kehendak portfolio amali perkhidmatan Pengakap Kelana Politeknik.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 5: SIJIL DIGITAL SUKARELAWAN ================= -->
+      <section id="tab-sijil" class="tab-panel hidden space-y-6">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+          <div class="max-w-2xl mx-auto text-center space-y-2 mb-8">
+            <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Pengiktirafan Bakti Siswa</span>
+            <h3 class="text-2xl font-black text-slate-900">Sijil Penghargaan Perkhidmatan Masyarakat</h3>
+            <p class="text-xs sm:text-sm text-slate-600">
+              Lengkapkan nama anda untuk menjana Sijil Pengiktirafan Khidmat Komuniti Pengakap Kelana Politeknik 2 yang disahkan secara digital.
+            </p>
+          </div>
+
+          <!-- Input Nama Pelajar -->
+          <div class="max-w-md mx-auto flex gap-2 mb-8">
+            <input type="text" id="certStudentName" placeholder="Masukkan Nama Penuh Anda..." value="NURUL AINA BINTI ZULKIFLI" class="flex-1 text-sm rounded-xl border border-slate-300 px-4 py-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none font-semibold">
+            <button onclick="updateCertificate()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition">
+              Jana Sijil
+            </button>
+          </div>
+
+          <!-- Bingkai Sijil -->
+          <div id="certificateCard" class="relative max-w-3xl mx-auto bg-gradient-to-br from-amber-50/60 via-white to-emerald-50/50 border-8 border-double border-amber-600/40 rounded-3xl p-8 sm:p-12 shadow-xl text-center overflow-hidden">
+            <!-- Hiasan Watermark -->
+            <div class="absolute -top-12 -right-12 w-48 h-48 bg-amber-500/5 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-emerald-500/5 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div class="space-y-4 relative z-10">
+              <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-tr from-emerald-700 to-teal-600 text-white flex items-center justify-center shadow-md">
+                <i data-lucide="compass" class="w-9 h-9"></i>
+              </div>
+
+              <div>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-emerald-800">PENGAKAP KELANA POLITEKNIK 2</span>
+                <h4 class="text-xl sm:text-2xl font-serif font-black text-slate-900 mt-1">SIJIL PENGHARGAAN PERKHIDMATAN MASYARAKAT</h4>
+              </div>
+
+              <p class="text-xs text-slate-500 italic">Dengan ini diperakui bahawa</p>
+
+              <div class="border-b-2 border-slate-300 pb-1 max-w-md mx-auto">
+                <h5 id="certDisplayName" class="text-lg sm:text-2xl font-extrabold text-emerald-800 tracking-wide uppercase font-serif">
+                  NURUL AINA BINTI ZULKIFLI
+                </h5>
+              </div>
+
+              <p class="text-xs text-slate-600 max-w-lg mx-auto leading-relaxed">
+                Telah menyempurnakan <strong>Modul 6.0: Program Perkhidmatan Masyarakat</strong>, menguasai tatacara aliran fasa <em>Sebelum, Semasa, dan Selepas aktiviti</em>, serta menghayati moto kepengakapan <strong>"Berkhidmat"</strong> dengan penuh dedikasi.
+              </p>
+
+              <div class="pt-6 grid grid-cols-3 items-end text-center text-xs border-t border-slate-200 text-slate-600">
+                <div>
+                  <div class="font-mono text-[11px] font-bold text-slate-400">TARIKH</div>
+                  <div id="certCurrentDate" class="font-semibold text-slate-800">30 September 2026</div>
+                </div>
+                <div>
+                  <div class="w-16 h-16 mx-auto rounded-full border-2 border-dashed border-emerald-600 flex items-center justify-center text-[10px] text-emerald-800 font-bold rotate-[-12deg]">
+                    BERKHIDMAT
+                  </div>
+                </div>
+                <div>
+                  <div class="font-mono text-[11px] font-bold text-slate-400">PENGESAHAN</div>
+                  <div class="font-semibold text-slate-800">Penasihat Kelana</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Butang Muat Turun & Kongsi -->
+          <div class="flex justify-center gap-3 mt-6">
+            <button onclick="celebrateAndPrint()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 flex items-center gap-2">
+              <i data-lucide="printer" class="w-4 h-4"></i> Cetak Sijil Digital
+            </button>
+            <button onclick="shareAchievement()" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 font-bold text-xs flex items-center gap-2">
+              <i data-lucide="share-2" class="w-4 h-4"></i> Salin Pengiktirafan
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="mt-16 bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2 font-medium text-slate-700">
+        <i data-lucide="compass" class="w-4 h-4 text-emerald-600"></i>
+        <span>Pengakap Kelana Politeknik 2 &bull; Unit 6.0 Program Perkhidmatan Masyarakat</span>
+      </div>
+      <p class="font-semibold text-slate-800">Hak Milik 2026@Pn Farihan Elyana binti Zahari</p>
+    </div>
+  </footer>
+
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-slate-900 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 border border-slate-700">
+    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toastMsg">Tindakan berjaya!</span>
+  </div>
+
+  <script>
+    // Audio FX state (Web Audio API synths without external dependencies)
+    let audioFxEnabled = true;
+    let audioCtx = null;
+
+    function playTone(freq, type = 'sine', duration = 0.15) {
+      if (!audioFxEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // Silently handle if audio policy prevents autoplay
+      }
+    }
+
+    function toggleAudioFx() {
+      audioFxEnabled = !audioFxEnabled;
+      const icon = document.getElementById('audioIcon');
+      if (audioFxEnabled) {
+        icon.setAttribute('data-lucide', 'volume-2');
+        showToast('Kesan bunyi diaktifkan.');
+        playTone(600, 'sine', 0.1);
+      } else {
+        icon.setAttribute('data-lucide', 'volume-x');
+        showToast('Kesan bunyi disenyapkan.');
+      }
+      lucide.createIcons();
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toastNotification');
+      const text = document.getElementById('toastMsg');
+      text.innerText = message;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 2600);
+    }
+
+    function switchTab(tabId) {
+      playTone(520, 'sine', 0.08);
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+      const activePanel = document.getElementById('tab-' + tabId);
+      if (activePanel) activePanel.classList.remove('hidden');
+
+      // Update Nav Buttons
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.dataset.target === tabId) {
+          btn.classList.add('text-emerald-600', 'bg-emerald-50');
+        } else {
+          btn.classList.remove('text-emerald-600', 'bg-emerald-50');
+        }
+      });
+
+      if (tabId === 'jana-kertas') {
+        generateProposalPreview();
+      }
+      lucide.createIcons();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Function to switch between flow phases: sebelum, semasa, selepas
+    function switchPhase(phaseKey) {
+      playTone(580, 'sine', 0.08);
+      document.querySelectorAll('.phase-panel').forEach(panel => panel.classList.add('hidden'));
+      
+      const targetPanel = document.getElementById('phaseContent' + phaseKey.charAt(0).toUpperCase() + phaseKey.slice(1));
+      if (targetPanel) targetPanel.classList.remove('hidden');
+
+      const buttons = {
+        sebelum: document.getElementById('btnPhaseSebelum'),
+        semasa: document.getElementById('btnPhaseSemasa'),
+        selepas: document.getElementById('btnPhaseSelepas')
+      };
+
+      Object.keys(buttons).forEach(k => {
+        if (k === phaseKey) {
+          buttons[k].className = 'phase-toggle-btn flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-white text-emerald-700 shadow-sm flex items-center justify-center gap-2 transition';
+        } else {
+          buttons[k].className = 'phase-toggle-btn flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold text-slate-600 hover:text-slate-900 flex items-center justify-center gap-2 transition';
+        }
+      });
+      lucide.createIcons();
+    }
+
+    function flipCard(el) {
+      playTone(550, 'triangle', 0.1);
+      const front = el.querySelector('.front-text');
+      const back = el.querySelector('.back-text');
+      if (front.classList.contains('hidden')) {
+        front.classList.remove('hidden');
+        back.classList.add('hidden');
+      } else {
+        front.classList.add('hidden');
+        back.classList.remove('hidden');
+      }
+    }
+
+    function filterModul(category) {
+      playTone(400, 'sine', 0.08);
+      const cards = document.querySelectorAll('.modul-card');
+      const btns = document.querySelectorAll('.modul-filter');
+      btns.forEach(b => {
+        b.classList.remove('bg-emerald-600', 'text-white');
+        b.classList.add('bg-slate-100', 'text-slate-700');
+      });
+      event.target.classList.remove('bg-slate-100', 'text-slate-700');
+      event.target.classList.add('bg-emerald-600', 'text-white');
+
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    function adjustBudget(changedField) {
+      let equip = parseInt(document.getElementById('budgetEquip').value);
+      let food = parseInt(document.getElementById('budgetFood').value);
+      let safety = parseInt(document.getElementById('budgetSafety').value);
+
+      let total = equip + food + safety;
+      const budgetWarning = document.getElementById('budgetWarning');
+
+      document.getElementById('budgetEquipLabel').innerText = 'RM ' + equip;
+      document.getElementById('budgetFoodLabel').innerText = 'RM ' + food;
+      document.getElementById('budgetSafetyLabel').innerText = 'RM ' + safety;
+
+      const balance = 1000 - total;
+      if (balance === 0) {
+        budgetWarning.innerText = 'Bajet Sempurna: RM 1,000 / RM 1,000';
+        budgetWarning.className = 'text-xs font-bold text-emerald-600';
+      } else if (balance > 0) {
+        budgetWarning.innerText = 'Baki Belum Diagih: RM ' + balance;
+        budgetWarning.className = 'text-xs font-bold text-sky-600';
+      } else {
+        budgetWarning.innerText = 'Melebihi Had: -RM ' + Math.abs(balance);
+        budgetWarning.className = 'text-xs font-bold text-rose-600';
+      }
+      runSimulation();
+    }
+
+    function runSimulation() {
+      const volunteers = parseInt(document.getElementById('simVolunteers').value);
+      document.getElementById('volunteerCountLabel').innerText = volunteers + ' Orang';
+
+      const equip = parseInt(document.getElementById('budgetEquip').value);
+      const food = parseInt(document.getElementById('budgetFood').value);
+      const safety = parseInt(document.getElementById('budgetSafety').value);
+
+      const hasPermission = document.getElementById('checkPermission').checked;
+      const hasBriefing = document.getElementById('checkBriefing').checked;
+      const hasLiaison = document.getElementById('checkLiaison').checked;
+      const hasReflection = document.getElementById('checkReflection').checked;
+
+      // Calculate Impact Index
+      let impact = 45;
+      impact += (volunteers / 80) * 25;
+      impact += (equip / 700) * 15;
+      if (hasLiaison) impact += 15;
+
+      // Calculate Satisfaction Index
+      let satisfaction = 30;
+      const foodPerHead = food / volunteers;
+      if (foodPerHead >= 12) satisfaction += 35;
+      else if (foodPerHead >= 8) satisfaction += 20;
+      else satisfaction += 5;
+      if (hasReflection) satisfaction += 20;
+      if (volunteers > 60 && equip < 300) satisfaction -= 15;
+
+      // Calculate Safety Index
+      let safetyScore = 20;
+      if (hasPermission) safetyScore += 25;
+      if (hasBriefing) safetyScore += 25;
+      if (safety >= 150) safetyScore += 25;
+      else if (safety >= 50) safetyScore += 10;
+      if (volunteers > 50 && safety < 150) safetyScore -= 15;
+
+      impact = Math.min(99, Math.max(20, Math.round(impact)));
+      satisfaction = Math.min(99, Math.max(15, Math.round(satisfaction)));
+      safetyScore = Math.min(99, Math.max(20, Math.round(safetyScore)));
+
+      document.getElementById('scoreImpactText').innerText = impact + '%';
+      document.getElementById('barImpact').style.width = impact + '%';
+
+      document.getElementById('scoreSatisfactionText').innerText = satisfaction + '%';
+      document.getElementById('barSatisfaction').style.width = satisfaction + '%';
+
+      document.getElementById('scoreSafetyText').innerText = safetyScore + '%';
+      document.getElementById('barSafety').style.width = safetyScore + '%';
+
+      const statusBadge = document.getElementById('simStatusBadge');
+      const feedback = document.getElementById('simFeedback');
+      const avg = (impact + satisfaction + safetyScore) / 3;
+
+      if (safetyScore < 60) {
+        statusBadge.className = 'text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40';
+        statusBadge.innerText = 'Risiko Tinggi';
+        feedback.innerText = 'Perhatian! Indeks keselamatan rendah. Sila pastikan peti kecemasan, taklimat tapak dan surat kebenaran rasmi lengkap sebelum meneruskan aktiviti lapangan.';
+      } else if (avg >= 82) {
+        statusBadge.className = 'text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+        statusBadge.innerText = 'Cemerlang';
+        feedback.innerText = 'Pelaksanaan luar biasa teratur! Krew Kelana berdisiplin tinggi, kebajikan terjaga, hubungan komuniti mantap, dan keselamatan berada pada tahap optimum.';
+      } else {
+        statusBadge.className = 'text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40';
+        statusBadge.innerText = 'Sederhana';
+        feedback.innerText = 'Projek berjalan baik tetapi perlukan sedikit penambahbaikan pada catuan perbekalan atau persediaan alatan kerja.';
+      }
+    }
+
+    function generateProposalPreview() {
+      const name = document.getElementById('propName').value || 'Program Khidmat Komuniti';
+      const org = document.getElementById('propOrganizer').value || 'Krew Pengakap Kelana Politeknik 2';
+      const date = document.getElementById('propDate').value || '2026-10-15';
+      const loc = document.getElementById('propLocation').value || 'Kawasan Komuniti Sasaran';
+      const target = document.getElementById('propTarget').value || 'Masyarakat Setempat & Ahli Kelana';
+      const obj = document.getElementById('propObjectives').value || 'Objektif program...';
+      const budget = document.getElementById('propBudget').value || 'RM 850.00';
+      const director = document.getElementById('propDirector').value || 'Nama Penyelaras';
+
+      const docHTML = `
+        <div class="text-center pb-4 mb-4 border-b border-slate-300">
+          <p class="font-bold uppercase tracking-widest text-slate-500 text-[10px]">Kertas Cadangan Rasmi &bull; Pengakap Kelana Politeknik 2</p>
+          <h2 class="text-base font-bold text-slate-900 uppercase mt-1">${name}</h2>
+          <p class="text-slate-600 italic text-[11px]">Anjuran: ${org}</p>
+        </div>
+
+        <div class="space-y-3">
+          <div>
+            <h4 class="font-bold text-slate-900 uppercase text-[11px] mb-1">1.0 PENGENALAN / RASIONAL</h4>
+            <p class="text-slate-700 leading-normal">
+              Program perkhidmatan masyarakat ini digagaskan berlandaskan prinsip teras Pengakap Kelana iaitu "Berkhidmat". Aktiviti ini menjadi wadah melatih mahasiswa politeknik dari segi kepimpinan amali, empati sivik, dan sumbangan bermakna kepada komuniti sekitar.
+            </p>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-slate-900 uppercase text-[11px] mb-1">2.0 OBJEKTIF PROGRAM</h4>
+            <div class="text-slate-700 pl-3 border-l-2 border-emerald-500 space-y-1">
+              ${obj.split('\n').map(line => `<p>${line}</p>`).join('')}
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 p-2.5 rounded bg-slate-50 border border-slate-200">
+            <div>
+              <span class="font-bold text-slate-900 block text-[10px]">3.0 TARIKH & LOKASI:</span>
+              <span class="text-slate-700">${date} | ${loc}</span>
+            </div>
+            <div>
+              <span class="font-bold text-slate-900 block text-[10px]">4.0 KUMPULAN SASARAN:</span>
+              <span class="text-slate-700">${target}</span>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-slate-900 uppercase text-[11px] mb-1">5.0 ALIRAN PELAKSANAAN PROJEK</h4>
+            <p class="text-slate-700 leading-normal">
+              Pelaksanaan terbahagi kepada 3 fasa: <strong>Sebelum Aktiviti</strong> (Tinjauan, Kertas Kerja, Kebenaran), <strong>Semasa Aktiviti</strong> (Taklimat Tapak, Khidmat Gotong-Royong, Dokumentasi), dan <strong>Selepas Aktiviti</strong> (Pembersihan, Post-Mortem, Laporan Kewangan & Pengisian Buku Log Kelana).
+            </p>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-slate-900 uppercase text-[11px] mb-1">6.0 ANGGARAN IMPLIKASI KEWANGAN</h4>
+            <p class="text-slate-700">Peruntukan yang dimohon: <strong>${budget}</strong> (Sumber: Tabung Kokurikulum Politeknik / Sumbangan Komuniti).</p>
+          </div>
+
+          <div class="pt-4 mt-4 border-t border-slate-300 grid grid-cols-2 gap-4 text-center">
+            <div>
+              <p class="text-slate-500 text-[10px]">Disediakan oleh:</p>
+              <div class="mt-6 font-bold text-slate-900">${director}</div>
+              <div class="text-[10px] text-slate-500">Ketua Projek Pengakap Kelana</div>
+            </div>
+            <div>
+              <p class="text-slate-500 text-[10px]">Disahkan oleh:</p>
+              <div class="mt-6 font-bold text-slate-900">PN FARIHAN ELYANA BINTI ZAHARI</div>
+              <div class="text-[10px] text-slate-500">Penasihat Pengakap Kelana Politeknik 2</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('proposalPrintDocument').innerHTML = docHTML;
+    }
+
+    function copyProposalText() {
+      const container = document.getElementById('proposalPrintDocument');
+      const textToCopy = container.innerText;
+      
+      const textarea = document.createElement('textarea');
+      textarea.value = textToCopy;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        playTone(600, 'sine', 0.1);
+        showToast('Kertas cadangan disalin ke papan keratan!');
+      } catch (err) {
+        showToast('Ralat semasa menyalin teks.');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function printProposalDoc() {
+      playTone(500, 'sine', 0.1);
+      const printContents = document.getElementById('proposalPrintDocument').innerHTML;
+
+      const printWrap = document.createElement('div');
+      printWrap.id = 'printArea';
+      printWrap.innerHTML = printContents;
+      document.body.appendChild(printWrap);
+
+      window.print();
+      document.body.removeChild(printWrap);
+    }
+
+    function updateCertificate() {
+      const name = document.getElementById('certStudentName').value.trim();
+      if (!name) {
+        showToast('Sila masukkan nama anda terlebih dahulu.');
+        return;
+      }
+      playTone(650, 'triangle', 0.15);
+      document.getElementById('certDisplayName').innerText = name.toUpperCase();
+      showToast('Sijil berjaya dikemas kini!');
+      confetti({
+        particleCount: 50,
+        spread: 50,
+        origin: { y: 0.7 }
+      });
+    }
+
+    function celebrateAndPrint() {
+      playTone(700, 'sine', 0.2);
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.5 }
+      });
+      window.print();
+    }
+
+    function shareAchievement() {
+      const name = document.getElementById('certDisplayName').innerText;
+      const text = `Saya telah berjaya menamatkan 'Modul 6.0 Program Perkhidmatan Masyarakat' bersama Pengakap Kelana Politeknik 2 sebagai ${name}!`;
+      
+      const tempInput = document.createElement('input');
+      tempInput.value = text;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+      
+      playTone(560, 'sine', 0.1);
+      showToast('Teks pengiktirafan telah disalin!');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      runSimulation();
+      generateProposalPreview();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hub Pembelajaran Interaktif: Dasar Keselamatan & Pertahanan Negara (Pengakap)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            scout: {
+              green: '#1b4332',
+              lightGreen: '#2d6a4f',
+              accent: '#d4a373',
+              gold: '#e09f3e',
+              dark: '#081c15',
+              khaki: '#fefae0',
+              cream: '#faedcd'
+            },
+            security: {
+              navy: '#0f172a',
+              blue: '#1e3a8a',
+              maroon: '#7f1d1d'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes pulse-slow {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .animate-pulse-slow {
+      animation: pulse-slow 3s infinite ease-in-out;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2d6a4f;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #1b4332;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col font-sans selection:bg-emerald-200 selection:text-emerald-900">
+
+  <header class="sticky top-0 z-40 bg-scout-dark/95 backdrop-blur-md text-white border-b border-emerald-900/60 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo & Tajuk -->
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('overview')">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-scout-gold to-yellow-300 flex items-center justify-center text-scout-dark shadow-md font-black text-xl">
+            ⚜️
+          </div>
+          <div>
+            <div class="text-xs uppercase tracking-wider text-scout-gold font-bold">Persekutuan Pengakap Malaysia</div>
+            <h1 class="text-base sm:text-lg font-bold leading-tight flex items-center gap-2">
+              Hub 1.0 Dasar Keselamatan & Pertahanan Negara
+            </h1>
+          </div>
+        </div>
+
+        <!-- Menu Desktop -->
+        <nav class="hidden md:flex space-x-1 font-medium text-sm">
+          <button onclick="switchTab('overview')" id="nav-overview" class="tab-btn px-3 py-2 rounded-lg text-emerald-100 hover:bg-scout-lightGreen transition">
+            📘 Pengenalan
+          </button>
+          <button onclick="switchTab('teras')" id="nav-teras" class="tab-btn px-3 py-2 rounded-lg text-emerald-100 hover:bg-scout-lightGreen transition">
+            🛡️ 5 Teras Keselamatan
+          </button>
+          <button onclick="switchTab('agensi')" id="nav-agensi" class="tab-btn px-3 py-2 rounded-lg text-emerald-100 hover:bg-scout-lightGreen transition">
+            🎖️ Agensi & HANRUH
+          </button>
+          <button onclick="switchTab('simulator')" id="nav-simulator" class="tab-btn px-3 py-2 rounded-lg text-emerald-100 hover:bg-scout-lightGreen transition">
+            🚨 Simulator Krisis
+          </button>
+          <button onclick="switchTab('flashcards')" id="nav-flashcards" class="tab-btn px-3 py-2 rounded-lg text-emerald-100 hover:bg-scout-lightGreen transition">
+            🃏 Glosari Pintar
+          </button>
+          <button onclick="switchTab('kuiz')" id="nav-kuiz" class="tab-btn px-3 py-2 rounded-lg bg-scout-gold text-scout-dark font-bold hover:bg-yellow-400 transition shadow">
+            ⭐ Ujian Lencana
+          </button>
+        </nav>
+
+        <!-- Butang Audio & Menu Mobile -->
+        <div class="flex items-center space-x-2">
+          <button id="soundToggleBtn" onclick="toggleSoundFx()" title="Bunyi Interaksi" class="p-2 rounded-full bg-scout-green hover:bg-scout-lightGreen text-yellow-300 text-sm border border-emerald-700">
+            🔊
+          </button>
+          <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-gray-200 hover:bg-scout-lightGreen focus:outline-none">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-scout-green border-t border-emerald-800 px-4 pt-2 pb-4 space-y-2">
+      <button onclick="switchTabMobile('overview')" class="w-full text-left px-3 py-2 rounded-lg text-white hover:bg-scout-lightGreen">📘 Pengenalan & DKPN</button>
+      <button onclick="switchTabMobile('teras')" class="w-full text-left px-3 py-2 rounded-lg text-white hover:bg-scout-lightGreen">🛡️ 5 Teras Keselamatan</button>
+      <button onclick="switchTabMobile('agensi')" class="w-full text-left px-3 py-2 rounded-lg text-white hover:bg-scout-lightGreen">🎖️ Agensi & Konsep HANRUH</button>
+      <button onclick="switchTabMobile('simulator')" class="w-full text-left px-3 py-2 rounded-lg text-white hover:bg-scout-lightGreen">🚨 Simulator Krisis Pengakap</button>
+      <button onclick="switchTabMobile('flashcards')" class="w-full text-left px-3 py-2 rounded-lg text-white hover:bg-scout-lightGreen">🃏 Glosari Pintar</button>
+      <button onclick="switchTabMobile('kuiz')" class="w-full text-left px-3 py-2 rounded-lg bg-scout-gold text-scout-dark font-bold">⭐ Ujian Pengetahuan Lencana</button>
+    </div>
+  </header>
+
+  <div class="bg-gradient-to-r from-emerald-800 via-scout-lightGreen to-teal-800 text-white text-xs sm:text-sm py-2 px-4 shadow-inner">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+        <span class="font-semibold tracking-wide uppercase">Modul Pengakap:</span>
+        <span class="text-emerald-100">Kewarganegaraan, Kedaulatan & Kesiapsiagaan Pertahanan Menyeluruh</span>
+      </div>
+      <div class="flex items-center gap-4 text-xs font-mono">
+        <span id="badgeProgressText" class="bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-600/50">Status Lencana: Belum Lengkap ⚠️</span>
+        <span class="hidden sm:inline">Motto: "Selalu Sedia"</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: PENGENALAN & LATAR BELAKANG DKPN   -->
+    <!-- ========================================== -->
+    <section id="tab-overview" class="tab-content space-y-8 block">
+      <!-- Hero Banner -->
+      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-scout-dark via-scout-green to-slate-900 text-white p-6 sm:p-10 shadow-2xl border border-emerald-700/50">
+        <div class="absolute -right-10 -bottom-10 opacity-10 text-[180px] pointer-events-none select-none">🇲🇾</div>
+        <div class="max-w-3xl relative z-10 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-scout-gold/20 text-yellow-300 border border-scout-gold/40 text-xs font-semibold uppercase tracking-wider">
+            <span>🛡️ Dasar Keselamatan Negara (DKN) & Dasar Pertahanan Negara (DPN)</span>
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+            Memelihara Kedaulatan Watandesa: Peranan Nyata Seorang Pengakap
+          </h2>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+            Keselamatan dan pertahanan negara bukan semata-mata tanggungjawab angkatan bersenjata di barisan hadapan, malah berakar umbi daripada doktrin 
+            <strong class="text-yellow-300">Pertahanan Menyeluruh (HANRUH)</strong>. Sebagai warga Pengakap yang berpegang pada Persetiaan Pengakap, kita adalah barisan bantuan awam yang berdisiplin, tangkas dan sentiasa sedia berkhidmat.
+          </p>
+          <div class="pt-2 flex flex-wrap gap-3">
+            <button onclick="switchTab('teras')" class="px-5 py-2.5 bg-scout-gold hover:bg-yellow-400 text-scout-dark font-bold rounded-xl text-sm transition shadow-lg flex items-center gap-2">
+              Terokai 5 Teras Keselamatan ➔
+            </button>
+            <button onclick="switchTab('simulator')" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl text-sm transition border border-white/20 flex items-center gap-2">
+              🚨 Jalankan Simulasi Krisis
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-2xl mb-4 font-bold">
+            📜
+          </div>
+          <h3 class="text-lg font-bold text-slate-800 mb-2">Apakah itu DKPN?</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mb-4">
+            Dasar Keselamatan dan Pertahanan Negara merangka pelan komprehensif untuk mempertahankan kebebasan, kedaulatan, integrasi wilayah serta kesejahteraan rakyat Malaysia daripada sebarang ancaman dalaman dan luaran.
+          </p>
+          <span class="text-xs font-semibold px-2 py-1 bg-blue-50 text-blue-700 rounded-md">Prinsip Asas Negara</span>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-2xl mb-4 font-bold">
+            🤝
+          </div>
+          <h3 class="text-lg font-bold text-slate-800 mb-2">Konsep HANRUH</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mb-4">
+            <strong>Pertahanan Menyeluruh</strong> menekankan penggemblengan seluruh jentera kerajaan, sektor swasta, pertubuhan bukan kerajaan (termasuk Pengakap) dan seluruh rakyat jelata dalam memelihara benteng ketahanan nasional.
+          </p>
+          <span class="text-xs font-semibold px-2 py-1 bg-emerald-50 text-emerald-800 rounded-md">Total Defence</span>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-2xl mb-4 font-bold">
+            ⚜️
+          </div>
+          <h3 class="text-lg font-bold text-slate-800 mb-2">Mandat Pengakap</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mb-4">
+            Berdasarkan Persetiaan Pengakap kedua: <em>"Menolong orang pada setiap masa"</em> dan kesetiaan kepada Raja dan Negara. Pengakap bertindak sebagai sokongan logistik, bantuan bencana awam, kecemasan dan komunikasi komuniti.
+          </p>
+          <span class="text-xs font-semibold px-2 py-1 bg-amber-50 text-amber-800 rounded-md">Persetiaan Pengakap</span>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+        <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <span>⚠️ Spektrum Ancaman Moden: Tradisional vs Bukan Tradisional</span>
+        </h3>
+        <p class="text-slate-600 text-sm mb-6">
+          Klik pada kad ancaman untuk memahami dimensi cabaran kedaulatan yang dihadapi oleh negara dan bagaimana pengakap memainkan peranan kesedaran awam.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Ancaman 1 -->
+          <div onclick="showThreatModal('wilayah')" class="cursor-pointer group p-5 rounded-xl border-2 border-slate-100 hover:border-red-400 bg-slate-50 hover:bg-red-50/50 transition">
+            <div class="text-3xl mb-2 group-hover:scale-110 transition duration-300">🗺️</div>
+            <h4 class="font-bold text-slate-800 group-hover:text-red-700">Pencerobohan Wilayah</h4>
+            <p class="text-xs text-slate-500 mt-1">Tuntutan bertindih maritim, sempadan darat & zon ekonomi eksklusif (ZEE).</p>
+            <div class="mt-3 text-xs font-bold text-red-600 flex items-center gap-1">Ketahui Lanjut <span>&rarr;</span></div>
+          </div>
+
+          <!-- Ancaman 2 -->
+          <div onclick="showThreatModal('siber')" class="cursor-pointer group p-5 rounded-xl border-2 border-slate-100 hover:border-blue-400 bg-slate-50 hover:bg-blue-50/50 transition">
+            <div class="text-3xl mb-2 group-hover:scale-110 transition duration-300">💻</div>
+            <h4 class="font-bold text-slate-800 group-hover:text-blue-700">Ancaman Siber & Data</h4>
+            <p class="text-xs text-slate-500 mt-1">Perang hibrid, godaman infrastruktur kritikal negara dan penipuan digital maklumat palsu.</p>
+            <div class="mt-3 text-xs font-bold text-blue-600 flex items-center gap-1">Ketahui Lanjut <span>&rarr;</span></div>
+          </div>
+
+          <!-- Ancaman 3 -->
+          <div onclick="showThreatModal('bencana')" class="cursor-pointer group p-5 rounded-xl border-2 border-slate-100 hover:border-amber-400 bg-slate-50 hover:bg-amber-50/50 transition">
+            <div class="text-3xl mb-2 group-hover:scale-110 transition duration-300">🌊</div>
+            <h4 class="font-bold text-slate-800 group-hover:text-amber-700">Bencana Alam & Krisis Iklim</h4>
+            <p class="text-xs text-slate-500 mt-1">Banjir besar, tanah runtuh dan perubahan iklim ekstrem yang melumpuhkan sosioekonomi.</p>
+            <div class="mt-3 text-xs font-bold text-amber-600 flex items-center gap-1">Ketahui Lanjut <span>&rarr;</span></div>
+          </div>
+
+          <!-- Ancaman 4 -->
+          <div onclick="showThreatModal('ketenteraman')" class="cursor-pointer group p-5 rounded-xl border-2 border-slate-100 hover:border-purple-400 bg-slate-50 hover:bg-purple-50/50 transition">
+            <div class="text-3xl mb-2 group-hover:scale-110 transition duration-300">🕊️</div>
+            <h4 class="font-bold text-slate-800 group-hover:text-purple-700">Perpaduan & Ketenteraman</h4>
+            <p class="text-xs text-slate-500 mt-1">Ekstremisme, polarisasi kaum/agama dan anasir subversif yang menggugat kestabilan.</p>
+            <div class="mt-3 text-xs font-bold text-purple-600 flex items-center gap-1">Ketahui Lanjut <span>&rarr;</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: 5 TERAS KESELAMATAN NEGARA (MKN)   -->
+    <!-- ========================================== -->
+    <section id="tab-teras" class="tab-content space-y-8 hidden">
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">Kerangka Strategik MKN</span>
+            <h2 class="text-2xl font-black text-slate-900 mt-2">Lima Teras Utama Keselamatan Negara</h2>
+            <p class="text-slate-600 text-sm mt-1">Pilih teras di bawah untuk meneroka huraian, instrumen pelaksanaan dan aplikasi peranan Pengakap.</p>
+          </div>
+          <div class="flex items-center gap-2 text-xs bg-slate-100 p-2 rounded-xl text-slate-600 font-mono">
+            <span>Interaktiviti: Klik butang tab teras</span>
+          </div>
+        </div>
+
+        <!-- Tab Selector for 5 Teras -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 my-6" id="terasTabButtons">
+          <button onclick="selectTeras(1)" id="terasBtn-1" class="teras-tab-btn active px-3 py-3 rounded-xl border-2 border-emerald-600 bg-emerald-50 text-emerald-900 font-bold text-xs sm:text-sm text-center transition flex flex-col items-center justify-center gap-1 shadow-sm">
+            <span class="text-xl">🗺️</span>
+            <span>Teras 1: Kedaulatan</span>
+          </button>
+          <button onclick="selectTeras(2)" id="terasBtn-2" class="teras-tab-btn px-3 py-3 rounded-xl border-2 border-slate-200 bg-white hover:border-slate-300 text-slate-700 font-medium text-xs sm:text-sm text-center transition flex flex-col items-center justify-center gap-1">
+            <span class="text-xl">🏛️</span>
+            <span>Teras 2: Sosiopolitik</span>
+          </button>
+          <button onclick="selectTeras(3)" id="terasBtn-3" class="teras-tab-btn px-3 py-3 rounded-xl border-2 border-slate-200 bg-white hover:border-slate-300 text-slate-700 font-medium text-xs sm:text-sm text-center transition flex flex-col items-center justify-center gap-1">
+            <span class="text-xl">🛡️</span>
+            <span>Teras 3: Rakyat & Hak</span>
+          </button>
+          <button onclick="selectTeras(4)" id="terasBtn-4" class="teras-tab-btn px-3 py-3 rounded-xl border-2 border-slate-200 bg-white hover:border-slate-300 text-slate-700 font-medium text-xs sm:text-sm text-center transition flex flex-col items-center justify-center gap-1">
+            <span class="text-xl">💻</span>
+            <span>Teras 4: Ruang Siber</span>
+          </button>
+          <button onclick="selectTeras(5)" id="terasBtn-5" class="teras-tab-btn px-3 py-3 rounded-xl border-2 border-slate-200 bg-white hover:border-slate-300 text-slate-700 font-medium text-xs sm:text-sm text-center transition flex flex-col items-center justify-center gap-1">
+            <span class="text-xl">🤝</span>
+            <span>Teras 5: Antarabangsa</span>
+          </button>
+        </div>
+
+        <!-- Dynamic Teras Content View -->
+        <div id="terasDisplayCard" class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl p-6 sm:p-8 shadow-xl transition-all duration-300">
+          <!-- Content dynamically rendered via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: AGENSI KESELAMATAN & PERTAHANAN    -->
+    <!-- ========================================== -->
+    <section id="tab-agensi" class="tab-content space-y-8 hidden">
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+        <div class="max-w-3xl">
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-100 px-3 py-1 rounded-full">Sinergi Keselamatan Negara</span>
+          <h2 class="text-2xl font-black text-slate-900 mt-2">Agensi Utama Pertahanan & Keselamatan Awam</h2>
+          <p class="text-slate-600 text-sm mt-1">Kenali entiti keselamatan persekutuan dan fahami titik sentuhan (touchpoints) kerjasama Pengakap dalam khidmat masyarakat dan kawalan krisis.</p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap gap-2 my-6">
+          <button onclick="filterAgensi('all')" class="agency-filter-btn px-4 py-1.5 rounded-full text-xs font-bold bg-slate-800 text-white">Semua Agensi</button>
+          <button onclick="filterAgensi('pertahanan')" class="agency-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700">Pertahanan (ATM)</button>
+          <button onclick="filterAgensi('keselamatan')" class="agency-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700">Keselamatan Awam & Ketenteraman</button>
+          <button onclick="filterAgensi('kecemasan')" class="agency-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700">Bencana & Pertahanan Awam</button>
+        </div>
+
+        <!-- Grid of Agencies -->
+        <div id="agencyGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Agencies populated by JS -->
+        </div>
+
+        <!-- HANRUH Action Flowchart -->
+        <div class="mt-10 bg-slate-50 rounded-2xl p-6 border border-slate-200">
+          <h3 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <span>🔄 Rantaian Kolaborasi HANRUH Pengakap</span>
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 text-center">
+            <div class="p-4 bg-white rounded-xl shadow-sm border border-slate-200">
+              <div class="text-2xl mb-1">📢</div>
+              <div class="font-bold text-xs uppercase text-slate-700">1. Kesiapsiagaan</div>
+              <p class="text-[11px] text-slate-500 mt-1">Latihan bantu mula, simpulan & ikatan, kawad, dan disiplin asas pengakap.</p>
+            </div>
+            <div class="p-4 bg-white rounded-xl shadow-sm border border-slate-200">
+              <div class="text-2xl mb-1">🚨</div>
+              <div class="font-bold text-xs uppercase text-slate-700">2. Mobilisasi Awam</div>
+              <p class="text-[11px] text-slate-500 mt-1">Bekerjasama dengan NADMA, APM dan Bomba semasa amaran awal kecemasan.</p>
+            </div>
+            <div class="p-4 bg-white rounded-xl shadow-sm border border-slate-200">
+              <div class="text-2xl mb-1">📦</div>
+              <div class="font-bold text-xs uppercase text-slate-700">3. Sokongan Logistik</div>
+              <p class="text-[11px] text-slate-500 mt-1">Menguruskan Pusat Pemindahan Sementara (PPS), agihan bekalan makanan & air.</p>
+            </div>
+            <div class="p-4 bg-white rounded-xl shadow-sm border border-slate-200">
+              <div class="text-2xl mb-1">🤝</div>
+              <div class="font-bold text-xs uppercase text-slate-700">4. Pemulihan Komuniti</div>
+              <p class="text-[11px] text-slate-500 mt-1">Operasi pascabencana, pembersihan fasiliti awam dan sokongan moral mangsa.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: SIMULATOR SENARIO KRISIS PENGAKAP   -->
+    <!-- ========================================== -->
+    <section id="tab-simulator" class="tab-content space-y-8 hidden">
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-red-700 bg-red-100 px-3 py-1 rounded-full">Simulasi Interaktif HANRUH</span>
+            <h2 class="text-2xl font-black text-slate-900 mt-2">Bilik Operasi Krisis Pengakap (MCO)</h2>
+            <p class="text-slate-600 text-sm mt-1">Uji kebolehan anda membuat keputusan strategik berlandaskan Dasar Keselamatan Negara dan etos Pengakap.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="bg-slate-100 px-4 py-2 rounded-xl text-center">
+              <div class="text-[10px] uppercase font-bold text-slate-500">Skor Kesiapsiagaan</div>
+              <div id="simScoreDisplay" class="text-lg font-black text-emerald-700">0 Pts</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulator Screen -->
+        <div id="simContainer" class="mt-6 bg-slate-900 text-white rounded-2xl p-6 sm:p-8 border border-slate-800 shadow-xl relative overflow-hidden">
+          <!-- Simulation state rendered via JS -->
+          <div id="simIntroState" class="space-y-4 text-center max-w-xl mx-auto py-8">
+            <div class="w-16 h-16 mx-auto rounded-full bg-red-500/20 text-red-400 flex items-center justify-center text-3xl font-black border border-red-500/40 animate-pulse">
+              ⚡
+            </div>
+            <h3 class="text-xl font-bold text-white">Misi: Operasi Bantuan Bersepadu Pengakap</h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Anda dilantik sebagai Ketua Pasukan Respon Kecemasan Kumpulan Pengakap Daerah. Tiga insiden keselamatan dan krisis berasingan telah dilaporkan. Setiap keputusan anda dinilai berdasarkan ketaatan undang-undang, keselamatan nyawa, dan sinergi bersama agensi keselamatan negara.
+            </p>
+            <button onclick="startSimulation()" class="mt-4 px-6 py-3 bg-scout-gold hover:bg-yellow-400 text-scout-dark font-extrabold rounded-xl shadow-lg transition">
+              Mulakan Simulasi Operasi Sekarang 🚀
+            </button>
+          </div>
+
+          <div id="simActiveState" class="hidden space-y-6">
+            <div class="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800 pb-3">
+              <span id="simStepIndicator">Senario 1 daripada 3</span>
+              <span id="simScenarioBadge" class="bg-red-950 text-red-300 border border-red-800 px-2 py-0.5 rounded">Tahap Ancaman: Kritikal</span>
+            </div>
+            
+            <div>
+              <h3 id="simTitle" class="text-lg sm:text-xl font-bold text-yellow-300 mb-2">Tajuk Senario</h3>
+              <p id="simDesc" class="text-slate-300 text-sm leading-relaxed">Huraian situasi krisis...</p>
+            </div>
+
+            <div class="bg-slate-800/70 p-4 rounded-xl border border-slate-700">
+              <h4 class="text-xs uppercase font-bold text-slate-400 mb-2">Tindakan Yang Perlu Diputuskan:</h4>
+              <div id="simChoices" class="space-y-3">
+                <!-- Buttons injected via JS -->
+              </div>
+            </div>
+
+            <!-- Feedback Box -->
+            <div id="simFeedback" class="hidden p-4 rounded-xl text-sm leading-relaxed">
+              <!-- Feedback message -->
+            </div>
+          </div>
+
+          <div id="simResultState" class="hidden text-center max-w-lg mx-auto py-8 space-y-4">
+            <div id="simResultIcon" class="text-5xl">🎖️</div>
+            <h3 id="simResultTitle" class="text-2xl font-bold text-white">Keputusan Operasi</h3>
+            <p id="simResultSummary" class="text-slate-300 text-sm leading-relaxed"></p>
+            <div class="pt-4 flex justify-center gap-3">
+              <button onclick="restartSimulation()" class="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-xs font-bold transition">
+                Ulang Simulasi 🔄
+              </button>
+              <button onclick="switchTab('kuiz')" class="px-5 py-2.5 bg-scout-gold hover:bg-yellow-400 text-scout-dark rounded-xl text-xs font-bold transition">
+                Teruskan ke Ujian Lencana ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: FLASHCARDS & GLOSARI PINTAR        -->
+    <!-- ========================================== -->
+    <section id="tab-flashcards" class="tab-content space-y-8 hidden">
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-purple-700 bg-purple-100 px-3 py-1 rounded-full">Kosa Kata Strategik</span>
+            <h2 class="text-2xl font-black text-slate-900 mt-2">Kad Imbasan Istilah Keselamatan & Pertahanan</h2>
+            <p class="text-slate-600 text-sm mt-1">Uji ingatan anda tentang istilah penting dalam Dasar Keselamatan Negara. Klik kad untuk membalikkan jawapan.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span id="flashcardCounter" class="text-xs font-mono font-bold text-slate-600 bg-slate-100 px-3 py-1.5 rounded-lg">Kad 1 / 6</span>
+          </div>
+        </div>
+
+        <!-- Flashcard Component -->
+        <div class="max-w-xl mx-auto my-8">
+          <div id="flashcardBox" onclick="flipFlashcard()" class="cursor-pointer min-h-[260px] bg-gradient-to-br from-emerald-800 to-scout-dark rounded-3xl p-8 text-white shadow-xl flex flex-col justify-between transition-all duration-300 transform hover:scale-[1.01] border-2 border-emerald-600/50 relative select-none">
+            <div class="flex justify-between items-center text-xs text-yellow-300 font-mono">
+              <span id="cardCategory">KATEGORI: DASAR</span>
+              <span class="flex items-center gap-1">🔄 Klik untuk balik</span>
+            </div>
+            
+            <div class="my-auto text-center py-4">
+              <div id="cardSideLabel" class="text-xs uppercase tracking-widest text-emerald-200/80 mb-2">ISTILAH</div>
+              <h3 id="cardMainText" class="text-2xl sm:text-3xl font-black text-white leading-snug">HANRUH</h3>
+            </div>
+
+            <div class="text-center text-xs text-emerald-200/70 border-t border-emerald-700/50 pt-3">
+              Kefahaman asas sukatan Lencana Pengakap Malaysia
+            </div>
+          </div>
+
+          <!-- Navigation controls -->
+          <div class="flex justify-between items-center mt-6">
+            <button onclick="prevFlashcard()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1">
+              &larr; Kad Sebelum
+            </button>
+            <button onclick="flipFlashcard()" class="px-4 py-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 rounded-xl text-xs font-bold transition">
+              Balik Kad 🔄
+            </button>
+            <button onclick="nextFlashcard()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1">
+              Kad Seterusnya &rarr;
+            </button>
+          </div>
+        </div>
+
+        <!-- Searchable Glossary Table -->
+        <div class="mt-12 pt-6 border-t border-slate-100">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+            <h3 class="text-lg font-bold text-slate-900">Glosari Pantas Istilah Pertahanan</h3>
+            <input type="text" id="glossarySearch" oninput="filterGlossary()" placeholder="Cari istilah atau kata kunci..." class="w-full sm:w-64 px-3 py-1.5 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+          </div>
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="w-full text-left text-xs sm:text-sm text-slate-700">
+              <thead class="bg-slate-100 text-slate-700 font-bold uppercase text-[11px] border-b border-slate-200">
+                <tr>
+                  <th class="py-3 px-4">Istilah / Akronim</th>
+                  <th class="py-3 px-4">Definisi Lengkap</th>
+                  <th class="py-3 px-4">Kaitan dengan Pengakap</th>
+                </tr>
+              </thead>
+              <tbody id="glossaryTableBody" class="divide-y divide-slate-100">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 6: KUIZ & SIJIL LENCANA PENGAKAP       -->
+    <!-- ========================================== -->
+    <section id="tab-kuiz" class="tab-content space-y-8 hidden">
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-scout-gold bg-yellow-100 px-3 py-1 rounded-full font-bold">Ujian Pengetahuan Digital</span>
+            <h2 class="text-2xl font-black text-slate-900 mt-2">Penilaian Lencana Dasar Keselamatan & Pertahanan Negara</h2>
+            <p class="text-slate-600 text-sm mt-1">Jawab 5 soalan objektif dengan betul (skor minimum 80%) untuk melayakkan anda menerima Sijil Pencapaian dan E-Lencana Pengakap.</p>
+          </div>
+          <div class="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-xl border border-slate-200">
+            <span class="text-xl">🏆</span>
+            <div>
+              <div class="text-[10px] uppercase font-bold text-slate-500">Gred Lulus</div>
+              <div class="text-xs font-bold text-emerald-700">4 / 5 Betul (80%)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quizScreen" class="max-w-2xl mx-auto my-6 space-y-6">
+          <div class="flex justify-between items-center text-xs font-bold text-slate-500">
+            <span id="quizQuestionNumber">Soalan 1 daripada 5</span>
+            <span id="quizScoreTracker">Skor Semasa: 0</span>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+            <div id="quizProgressBar" class="bg-scout-lightGreen h-full transition-all duration-300" style="width: 20%"></div>
+          </div>
+
+          <!-- Question Box -->
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4">
+            <h3 id="quizQuestionText" class="text-base sm:text-lg font-bold text-slate-800 leading-snug">
+              Soalan sedang dimuatkan...
+            </h3>
+            <div id="quizOptionsContainer" class="space-y-2.5 pt-2">
+              <!-- Option buttons injected via JS -->
+            </div>
+          </div>
+
+          <!-- Answer Explanation Banner (Hidden initially) -->
+          <div id="quizExplanation" class="hidden p-4 rounded-xl text-xs sm:text-sm"></div>
+
+          <div class="flex justify-end">
+            <button id="quizNextBtn" onclick="nextQuizQuestion()" class="hidden px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold shadow transition">
+              Soalan Seterusnya &rarr;
+            </button>
+          </div>
+        </div>
+
+        <!-- Certificate Container (Hidden until passed) -->
+        <div id="certificateScreen" class="hidden max-w-3xl mx-auto my-8">
+          <div class="bg-gradient-to-br from-amber-50 to-yellow-100 border-8 border-double border-yellow-700 rounded-3xl p-6 sm:p-10 shadow-2xl text-center relative overflow-hidden">
+            <div class="absolute -right-8 -bottom-8 opacity-10 text-[160px] pointer-events-none">⚜️</div>
+            
+            <div class="w-16 h-16 mx-auto mb-2 text-4xl">⚜️</div>
+            <div class="text-xs uppercase font-extrabold tracking-widest text-emerald-900">Persekutuan Pengakap Malaysia</div>
+            <h3 class="text-xl sm:text-3xl font-black text-slate-900 mt-1 uppercase font-serif">Sijil Pengiktirafan Modul</h3>
+            <div class="text-xs font-semibold text-yellow-800 uppercase tracking-widest mt-1">1.0 Dasar Keselamatan & Pertahanan Negara</div>
+
+            <div class="my-6 py-4 border-y border-yellow-300">
+              <p class="text-xs text-slate-600 mb-1">Dengan ini diperakui bahawa Ahli Pengakap:</p>
+              <input type="text" id="certUserName" value="Pemimpin / Ahli Pengakap Berhemah" class="text-center font-bold text-lg sm:text-2xl text-emerald-950 bg-transparent border-b border-dashed border-emerald-700 focus:outline-none w-full max-w-md mx-auto" title="Klik untuk sunting nama anda">
+              <p class="text-[11px] text-slate-500 mt-2">telah berjaya menguasai domain Kedaulatan Wilayah, Konsep HANRUH dan Kesedaran Strategik Negara.</p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-between items-center text-xs text-slate-600 gap-4 pt-2">
+              <div class="text-left font-mono">
+                <div>Gred: <span id="certGrade" class="font-bold text-emerald-800">CEMERLANG (100%)</span></div>
+                <div>Tarikh: <span id="certDate">30 September 2026</span></div>
+              </div>
+              <div class="inline-flex items-center gap-2 bg-emerald-900 text-yellow-300 px-4 py-2 rounded-xl font-bold shadow">
+                <span>🛡️ LENCANA DKPN DISAHKAN</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex flex-wrap justify-center gap-4">
+            <button onclick="window.print()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-2">
+              🖨️️ Cetak / Simpan Sijil PDF
+            </button>
+            <button onclick="resetQuiz()" class="px-5 py-2.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 rounded-xl text-xs font-bold transition">
+              Ulang Semula Kuiz 🔄
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="threatModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 id="modalTitle" class="text-lg font-bold text-slate-900">Maklumat Ancaman</h3>
+        <button onclick="closeThreatModal()" class="text-slate-400 hover:text-slate-700 text-xl font-bold">&times;</button>
+      </div>
+      <div id="modalBody" class="text-sm text-slate-600 space-y-3 leading-relaxed">
+        <!-- Content inserted dynamically -->
+      </div>
+      <div class="pt-3 border-t border-slate-100 flex justify-end">
+        <button onclick="closeThreatModal()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition">
+          Faham & Tutup
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-scout-dark text-slate-400 text-xs py-8 border-t border-emerald-900 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold">⚜️</div>
+        <div>
+          <div class="text-white font-bold">Modul Pembelajaran Pengakap Interaktif</div>
+          <p class="text-[11px] text-slate-400">Selaras dengan Rangka Kerja Dasar Keselamatan Negara (MKN) & Doktrin HANRUH</p>
+        </div>
+      </div>
+      <div class="text-center md:text-right text-[11px] text-slate-400">
+        "Sekali Pengakap, Selamanya Pengakap" &bull; Berkhidmat untuk Agama, Bangsa dan Tanah Air.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Audio Context Synthesizer (No external mp3 needed)
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function playBeep(freq = 440, type = 'sine', duration = 0.15) {
+      if (!soundEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // audio muted or restricted
+      }
+    }
+
+    function toggleSoundFx() {
+      soundEnabled = !soundEnabled;
+      const btn = document.getElementById('soundToggleBtn');
+      btn.innerText = soundEnabled ? '🔊' : '🔇';
+      if (soundEnabled) playBeep(600, 'sine', 0.1);
+    }
+
+    // Tab Navigation
+    function switchTab(tabId) {
+      playBeep(520, 'triangle', 0.08);
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      const activeContent = document.getElementById('tab-' + tabId);
+      if (activeContent) activeContent.classList.remove('hidden');
+
+      // Update Nav buttons styling
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        if (btn.id === 'nav-' + tabId) {
+          btn.classList.add('bg-scout-lightGreen', 'text-white', 'font-bold');
+        } else if (btn.id !== 'nav-kuiz') {
+          btn.classList.remove('bg-scout-lightGreen', 'font-bold');
+          btn.classList.add('text-emerald-100');
+        }
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleMobileMenu() {
+      const m = document.getElementById('mobileMenu');
+      m.classList.toggle('hidden');
+    }
+
+    function switchTabMobile(tabId) {
+      toggleMobileMenu();
+      switchTab(tabId);
+    }
+
+    // ==========================================
+    // DATA & LOGIC: 5 TERAS KESELAMATAN NEGARA
+    // ==========================================
+    const terasData = [
+      {
+        id: 1,
+        title: "Teras 1: Kedaulatan & Keutuhan Wilayah",
+        icon: "🗺️",
+        highlight: "Mempertahankan setiap inci sempadan tanah air di darat, maritim dan ruang udara.",
+        desc: "Kedaulatan wilayah adalah prasyarat mutlak kemerdekaan negara. Ia merangkumi penjagaan sempadan daratan, perairan Zon Ekonomi Eksklusif (ZEE), kepulauan terpencil, serta kedaulatan ruang udara daripada sebarang pencerobohan entiti asing.",
+        scoutRole: "Pengakap memupuk literasi peta topografi, kompas, kemahiran navigasi maritim/hutan, serta menjadi mata dan telinga komuniti terhadap kawasan persempadanan.",
+        actions: ["Kefahaman Geografi & Sempadan Negara", "Latihan Peta & Kompas Pengakap", "Menghormati Simbol Kedaulatan (Jalur Gemilang, Lagu Negaraku)"]
+      },
+      {
+        id: 2,
+        title: "Teras 2: Kestabilan Sosiopolitik",
+        icon: "🏛️",
+        highlight: "Memelihara keharmonian kaum, keluhuran perlembagaan dan kestabilan institusi demokrasi.",
+        desc: "Kestabilan dalaman dipelihara menerusi penghayatan Rukun Negara, sistem Raja Berperlembagaan, dan amalan Demokrasi Berparlimen. Ancaman polarisasi perkauman, kebencian agama dan berita palsu mampu melemahkan benteng pertahanan dari dalam.",
+        scoutRole: "Pergerakan Pengakap adalah wadah perpaduan merentas bangsa, agama dan latar belakang. Persaudaraan Pengakap Sejagat (World Scout Brotherhood) memperkukuh fabrik sosial negara.",
+        actions: ["Penghayatan 5 Prinsip Rukun Negara", "Integrasi Nasional melalui Jambori & Perkhemahan", "Kempen Menolak Fitnah & Ucapan Kebencian"]
+      },
+      {
+        id: 3,
+        title: "Teras 3: Keselamatan Rakyat & Kesejahteraan Awam",
+        icon: "🛡️",
+        highlight: "Melindungi nyawa, harta benda dan menjamin perlindungan menyeluruh semasa krisis.",
+        desc: "Fokus kepada jaminan kualiti hidup, keselamatan daripada jenayah jalanan, keganasan, dan kesiapsiagaan menghadapi bencana alam (seperti banjir monsun, tanah runtuh dan kebakaran hutan).",
+        scoutRole: "Pengakap bertindak sebagai barisan pertolongan pertama (First Aider), pengurusan kem sementara mangsa banjir, serta pembantu logistik sukarela yang berdisiplin tinggi.",
+        actions: ["Kemahiran Pertolongan Cemas & CPR", "Pengurusan Pusat Pemindahan Sementara (PPS)", "Lencana Kebajikan & Perkhidmatan Masyarakat"]
+      },
+      {
+        id: 4,
+        title: "Teras 4: Keselamatan Siber & Ruang Siber",
+        icon: "💻",
+        highlight: "Melindungi infrastruktur maklumat kritikal negara daripada serangan siber dan perang psikologi.",
+        desc: "Ruang siber kini menjadi medan tempur domain ke-5 pertahanan. Serangan godaman ke atas grid elektrik, data perubatan, sektor perbankan mahupun kempen maklumat palsu berupaya melumpuhkan negara dalam hitungan saat.",
+        scoutRole: "Pengakap Siber (Cyber Scout) mengamalkan etika digital berintegriti, tidak menyebarkan maklumat tidak sahih ketika krisis, dan menguasai keselamatan data peribadi.",
+        actions: ["Literasi Keselamatan Digital & Privasi", "Semakan Fakta (Fact-checking) Maklumat", "Penggunaan Komunikasi Radio Amatur Pengakap (JOTA)"]
+      },
+      {
+        id: 5,
+        title: "Teras 5: Pengiktirafan Antarabangsa & Kerjasama Serantau",
+        icon: "🤝",
+        highlight: "Mempertahankan kepentingan strategik Malaysia menerusi diplomasi pertahanan dan ASEAN.",
+        desc: "Malaysia mengamalkan dasar berkecuali, berbaik-baik dengan semua negara, dan mengukuhkan kerjasama pertahanan pelbagai hala (seperti FPDA, kerjasama peronda Selat Melaka, dan misi pengaman PBB).",
+        scoutRole: "Ahli Pengakap menjadi duta keamanan (Messengers of Peace) antarabangsa, membina jaringan persahabatan global dan mempromosikan nama baik Malaysia di persada dunia.",
+        actions: ["Inisiatif Messengers of Peace (MoP)", "Penyertaan Jambori Antarabangsa", "Pemahaman Diplomasi Kemanusiaan"]
+      }
+    ];
+
+    function selectTeras(index) {
+      playBeep(480, 'sine', 0.1);
+      const data = terasData.find(item => item.id === index);
+      if (!data) return;
+
+      // Update tabs style
+      for (let i = 1; i <= 5; i++) {
+        const btn = document.getElementById(`terasBtn-${i}`);
+        if (i === index) {
+          btn.className = "teras-tab-btn active px-3 py-3 rounded-xl border-2 border-emerald-600 bg-emerald-50 text-emerald-900 font-bold text-xs sm:text-sm text-center transition flex flex-col items-center justify-center gap-1 shadow-sm";
+        } else {
+          btn.className = "teras-tab-btn px-3 py-3 rounded-xl border-2 border-slate-200 bg-white hover:border-slate-300 text-slate-700 font-medium text-xs sm:text-sm text-center transition flex flex-col items-center justify-center gap-1";
+        }
+      }
+
+      // Render content
+      const display = document.getElementById('terasDisplayCard');
+      display.innerHTML = `
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 pb-6 border-b border-slate-700">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold mb-2">
+              <span>${data.icon} Teras Strategik MKN</span>
+            </div>
+            <h3 class="text-2xl font-black text-white">${data.title}</h3>
+            <p class="text-yellow-300 text-sm font-medium mt-1 font-mono">${data.highlight}</p>
+          </div>
+          <span class="text-4xl p-3 bg-slate-800/80 rounded-2xl border border-slate-700 shadow-inner">${data.icon}</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6 text-sm text-slate-300 leading-relaxed">
+          <div class="space-y-3">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Huraian Konseptual Pertahanan:</h4>
+            <p class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/60">${data.desc}</p>
+          </div>
+          <div class="space-y-3">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-400">Titik Peranan Ahli Pengakap:</h4>
+            <p class="bg-emerald-950/40 p-4 rounded-xl border border-emerald-800/50 text-emerald-100">${data.scoutRole}</p>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-700">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Tindakan Praktikal Sukatan Lencana:</h4>
+          <div class="flex flex-wrap gap-2">
+            ${data.actions.map(act => `<span class="bg-slate-800 text-yellow-300 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-700">✔ ${act}</span>`).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // DATA & LOGIC: AGENSI KESELAMATAN & PERTAHANAN
+    // ==========================================
+    const agensiData = [
+      {
+        nama: "Angkatan Tentera Malaysia (ATM)",
+        komponen: "Darat (TDM), Laut (TLDM), Udara (TUDM)",
+        kategori: "pertahanan",
+        logo: "🎖️",
+        tugas: "Benteng utama pertahanan kedaulatan tanah air daripada ancaman konvensional, serangan luar serta menyokong operasi kemanusiaan.",
+        perananPengakap: "Menerapkan disiplin ketenteraan ringan, kawad kaki formasi, navigasi medan dan semangat patriotisme tinggi."
+      },
+      {
+        nama: "Polis Diraja Malaysia (PDRM)",
+        komponen: "Cawangan Khas, Pasukan Gerakan Am (PGA), Trafik",
+        kategori: "keselamatan",
+        logo: "👮",
+        tugas: "Menguatkuasakan undang-undang sivil, mengekalkan ketenteraman awam, mencegah jenayah dan mengawal sempadan negara bersama ATM.",
+        perananPengakap: "Pencegahan jenayah komuniti, pengawasan keselamatan kawasan sekolah, dan keselamatan lalu lintas semasa aktiviti kepengakapan."
+      },
+      {
+        nama: "Agensi Penguatkuasaan Maritim Malaysia (APMM)",
+        komponen: "Pengawal Pantai (Malaysian Coast Guard)",
+        kategori: "pertahanan",
+        logo: "⚓",
+        tugas: "Menjaga keselamatan dan undang-undang zon maritim negara, operasi mencari dan menyelamat (SAR) maritim.",
+        perananPengakap: "Pengakap Laut menguasai ilmu ikatan marin, bot layar, isyarat semaphore dan keselamatan pesisir pantai."
+      },
+      {
+        nama: "Angkatan Pertahanan Awam Malaysia (APM)",
+        komponen: "Pertahanan Awam & Bencana",
+        kategori: "kecemasan",
+        logo: "🚒",
+        tugas: "Melatih orang awam dalam pertahanan pasif, operasi menyelamat mangsa bencana, dan pengurusan pusat bantuan krisis.",
+        perananPengakap: "Rakan strategik paling rapat Pengakap! Kerjasama latihan bantu mula (First Aid), tali-temali menyelamat, dan operasi banjir."
+      },
+      {
+        nama: "Jabatan Bomba dan Penyelamat Malaysia (JBPM)",
+        komponen: "Kecemasan Kebakaran & HAZMAT",
+        kategori: "kecemasan",
+        logo: "🔥",
+        tugas: "Memadam kebakaran, menyelamat nyawa dalam nahas jalan raya, bahan kimia berbahaya dan khidmat bantuan kecemasan teknikal.",
+        perananPengakap: "Latihan pencegahan kebakaran semasa perkhemahan, cara mematikan api memasak di hutan dan pematuhan SOP keselamatan api."
+      },
+      {
+        nama: "Majlis Keselamatan Negara (MKN)",
+        komponen: "Pusat Pengurusan Operasi Negara",
+        kategori: "keselamatan",
+        logo: "🏛️",
+        tugas: "Menyelaras dasar keselamatan komprehensif, arahan keselamatan negara (contoh: Arahan No. 20 Pengurusan Bencana) dan pertahanan hibrid.",
+        perananPengakap: "Mematuhi garis panduan arahan keselamatan negara ketika berkhidmat secara berstruktur di peringkat daerah dan negeri."
+      }
+    ];
+
+    function renderAgencies(filter = 'all') {
+      const grid = document.getElementById('agencyGrid');
+      const filtered = filter === 'all' ? agensiData : agensiData.filter(a => a.kategori === filter);
+
+      grid.innerHTML = filtered.map(ag => `
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 hover:border-emerald-600 transition shadow-sm hover:shadow-md flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-3xl p-2 bg-slate-100 rounded-xl">${ag.logo}</span>
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm leading-snug">${ag.nama}</h4>
+                <div class="text-[11px] font-semibold text-emerald-700">${ag.komponen}</div>
+              </div>
+            </div>
+            <div class="space-y-2 text-xs text-slate-600 mt-2">
+              <p><strong>Fungsi Utama:</strong> ${ag.tugas}</p>
+              <div class="p-2.5 bg-emerald-50 rounded-xl text-emerald-900 border border-emerald-100">
+                <strong>⚜️ Sinergi Pengakap:</strong> ${ag.perananPengakap}
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-slate-400 uppercase font-bold">
+            <span>Silibus Lencana Maju & Jaya</span>
+            <span class="text-emerald-700">HANRUH Awam</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterAgensi(cat) {
+      playBeep(450, 'sine', 0.08);
+      document.querySelectorAll('.agency-filter-btn').forEach(btn => {
+        btn.classList.remove('bg-slate-800', 'text-white');
+        btn.classList.add('bg-slate-100', 'text-slate-700');
+      });
+      event.target.classList.remove('bg-slate-100', 'text-slate-700');
+      event.target.classList.add('bg-slate-800', 'text-white');
+      renderAgencies(cat);
+    }
+
+    // ==========================================
+    // DATA & LOGIC: SIMULATOR KRISIS PENGAKAP
+    // ==========================================
+    const simulationScenarios = [
+      {
+        id: 1,
+        title: "Banjir Kilat Meruncing di Daerah Hulu",
+        threat: "Tahap 2: Bencana Awam & Komunikasi Terputus",
+        desc: "Hujan lebat berterusan 48 jam menyebabkan 4 buah kampung terputus hubungan jalan darat. Talian telefon tergendala. APM dan PDRM telah mengaktifkan bilik gerakan. Sebagai Pemimpin Pasukan Pengakap Remaja, apakah tindakan paling tepat berdasarkan prinsip HANRUH?",
+        choices: [
+          {
+            text: "Terus membawa bot kecil sendiri masuk ke arus deras secara bersendirian tanpa memberitahu Bilik Gerakan Bencana Daerah.",
+            correct: false,
+            feedback: "Salah & Berbahaya! Pengakap dilarang bertindak secara 'lone wolf' di kawasan arus deras tanpa koordinasi agensi rasmi (Arahan MKN No. 20)."
+          },
+          {
+            text: "Melaporkan diri ke Bilik Gerakan Pusat Pemindahan (PPS), mengaktifkan radio amatur pengakap (JOTA/VHF) untuk bantuan komunikasi, dan menyediakan pasukan logistik agihan bekalan.",
+            correct: true,
+            feedback: "Cemerlang! Ini menepati doktrin Pertahanan Menyeluruh (HANRUH) di mana Pengakap menyokong jentera kerajaan dalam koordinasi komunikasi dan bantuan kemanusiaan selamat."
+          },
+          {
+            text: "Menyebarkan gambar banjir belum disahkan di media sosial untuk menarik perhatian orang ramai.",
+            correct: false,
+            feedback: "Tidak tepat! Tindakan ini melanggar etika siber dan boleh mencetuskan panik awam yang bercanggah dengan Teras Keselamatan Siber."
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: "Penularan Berita Palsu Serangan Sempadan Semasa Perkhemahan",
+        threat: "Tahap 3: Perang Psikologi & Disinformasi Siber",
+        desc: "Semasa kontinjen daerah anda sedang berkhemah berhampiran kawasan pesisir sempadan, tular video di TikTok mendakwa tentera asing telah menceroboh pangkalan hadapan dan menyeru orang awam mengangkat senjata secara liar.",
+        choices: [
+          {
+            text: "Menenangkan peserta perkhemahan, mengesahkan maklumat hanya melalui saluran rasmi MKN/ATM/PDRM, dan mengingatkan ahli agar tidak berkongsi spekulasi liar.",
+            correct: true,
+            feedback: "Tepat Sekali! Keselamatan sosiopolitik dan ketenteraman awam bergantung kepada disiplin menolak perang psikologi dan menghormati saluran kuasa sah negara."
+          },
+          {
+            text: "Mengarahkan semua ahli pengakap bersiap siaga dengan parang perkhemahan untuk berkawal di jalan raya awam.",
+            correct: false,
+            feedback: "Salah! Pengakap bukan pasukan separa tentera penguatkuasa. Tindakan militia melanggar undang-undang perlembagaan negara."
+          }
+        ]
+      },
+      {
+        id: 3,
+        title: "Kecemasan Api Marak di Kem Latihan Awam",
+        threat: "Tahap 1: Ancaman Kebakaran & Keselamatan Nyawa",
+        desc: "Dapur memasak di tapak perkhemahan mengalami kebocoran gas LPG dan mula menyambar kanopi berhampiran kawasan penyimpanan minyak diesel jentera genset.",
+        choices: [
+          {
+            text: "Menjerit panik dan lari meninggalkan kawasan tanpa membunyikan wisel amaran.",
+            correct: false,
+            feedback: "Lemah! Sebagai pengakap, ketenangan dan protokol keselamatan nyawa (wisel amaran kebakaran) adalah tanggungjawab utama."
+          },
+          {
+            text: "Meniup wisel amaran kebakaran (tiga tiupan panjang berulang), mengarahkan evakuasi ke 'Assembly Point', menghubungi 999 (Bomba), dan menggunakan alat pemadam api serbuk kering (jika selamat).",
+            correct: true,
+            feedback: "Syabas! Menggabungkan kemahiran kepengakapan, komunikasi kecemasan dan kerjasama bersama Jabatan Bomba dan Penyelamat Malaysia."
+          }
+        ]
+      }
+    ];
+
+    let currentSimIndex = 0;
+    let simScore = 0;
+
+    function startSimulation() {
+      playBeep(650, 'triangle', 0.15);
+      currentSimIndex = 0;
+      simScore = 0;
+      document.getElementById('simIntroState').classList.add('hidden');
+      document.getElementById('simResultState').classList.add('hidden');
+      document.getElementById('simActiveState').classList.remove('hidden');
+      loadSimScenario();
+    }
+
+    function loadSimScenario() {
+      const scenario = simulationScenarios[currentSimIndex];
+      document.getElementById('simStepIndicator').innerText = `Senario ${currentSimIndex + 1} daripada ${simulationScenarios.length}`;
+      document.getElementById('simScenarioBadge').innerText = scenario.threat;
+      document.getElementById('simTitle').innerText = scenario.title;
+      document.getElementById('simDesc').innerText = scenario.desc;
+
+      const fbBox = document.getElementById('simFeedback');
+      fbBox.className = "hidden p-4 rounded-xl text-sm leading-relaxed";
+      fbBox.innerHTML = "";
+
+      const choicesBox = document.getElementById('simChoices');
+      choicesBox.innerHTML = scenario.choices.map((ch, idx) => `
+        <button onclick="handleSimChoice(${idx})" class="w-full text-left p-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-700/80 border border-slate-700 text-xs sm:text-sm text-slate-200 transition flex items-start gap-2">
+          <span class="font-mono text-scout-gold font-bold">${String.fromCharCode(65 + idx)}.</span>
+          <span>${ch.text}</span>
+        </button>
+      `).join('');
+    }
+
+    function handleSimChoice(choiceIdx) {
+      const scenario = simulationScenarios[currentSimIndex];
+      const selected = scenario.choices[choiceIdx];
+      const fbBox = document.getElementById('simFeedback');
+
+      fbBox.classList.remove('hidden');
+      if (selected.correct) {
+        playBeep(700, 'sine', 0.2);
+        simScore += 100;
+        fbBox.className = "p-4 rounded-xl text-xs sm:text-sm leading-relaxed bg-emerald-900/80 text-emerald-200 border border-emerald-600";
+        fbBox.innerHTML = `<strong>✔ KEPUTUSAN CEMERLANG:</strong> ${selected.feedback}`;
+      } else {
+        playBeep(250, 'sawtooth', 0.25);
+        fbBox.className = "p-4 rounded-xl text-xs sm:text-sm leading-relaxed bg-red-950/80 text-red-200 border border-red-700";
+        fbBox.innerHTML = `<strong>✖ KESILAPAN TAKTIKAL:</strong> ${selected.feedback}`;
+      }
+
+      document.getElementById('simScoreDisplay').innerText = `${simScore} Pts`;
+
+      // Disable choice buttons after picking
+      const buttons = document.querySelectorAll('#simChoices button');
+      buttons.forEach(b => b.disabled = true);
+
+      // Add Next button into feedback
+      const nextBtn = document.createElement('button');
+      nextBtn.className = "mt-3 px-4 py-2 bg-scout-gold hover:bg-yellow-400 text-scout-dark font-bold text-xs rounded-lg transition";
+      nextBtn.innerText = currentSimIndex + 1 < simulationScenarios.length ? "Senario Seterusnya ➔" : "Lihat Penilaian Operasi 🎖️";
+      nextBtn.onclick = () => {
+        currentSimIndex++;
+        if (currentSimIndex < simulationScenarios.length) {
+          loadSimScenario();
+        } else {
+          finishSimulation();
+        }
+      };
+      fbBox.appendChild(nextBtn);
+    }
+
+    function finishSimulation() {
+      document.getElementById('simActiveState').classList.add('hidden');
+      const resState = document.getElementById('simResultState');
+      resState.classList.remove('hidden');
+
+      const title = document.getElementById('simResultTitle');
+      const summary = document.getElementById('simResultSummary');
+      const icon = document.getElementById('simResultIcon');
+
+      if (simScore >= 300) {
+        icon.innerText = "⭐🎖️⭐";
+        title.innerText = "Panglima Operasi Krisis Teladan!";
+        summary.innerText = `Tahniah! Anda mencatat markah penuh (300 Pts). Anda menunjukkan kefahaman mendalam terhadap protokol keselamatan negara, rantaian perintah berkanun dan peranan sebenar sukarelawan pengakap.`;
+      } else {
+        icon.innerText = "🛡️";
+        title.innerText = "Latihan Tambahan Diperlukan";
+        summary.innerText = `Anda mengumpul ${simScore} Pts. Dalam situasi keselamatan negara yang sebenar, tindakan tidak berkoordinasi boleh memudaratkan pasukan. Ulang kaji peranan HANRUH dan cuba lagi!`;
+      }
+    }
+
+    function restartSimulation() {
+      startSimulation();
+    }
+
+    // ==========================================
+    // DATA & LOGIC: FLASHCARDS & GLOSARI PINTAR
+    // ==========================================
+    const flashcardsData = [
+      {
+        cat: "DOKTRIN UTAMA",
+        front: "HANRUH",
+        back: "Pertahanan Menyeluruh: Doktrin pertahanan negara yang melibatkan penyertaan bersepadu agensi kerajaan, sektor swasta, pertubuhan sukarela (Pengakap) dan seluruh rakyat Malaysia."
+      },
+      {
+        cat: "INSTITUSI",
+        front: "MKN",
+        back: "Majlis Keselamatan Negara: Agensi pusat di bawah Jabatan Perdana Menteri yang bertanggungjawab menyelaras dasar keselamatan negara dan pengurusan krisis berskala besar."
+      },
+      {
+        cat: "PRINSIP STRATEGIK",
+        front: "Deterens (Pencegahan)",
+        back: "Keupayaan ketenteraan dan ketahanan awam yang cukup berwibawa bagi mencegah atau menghalang mana-mana pihak asing daripada berniat menyerang kedaulatan negara."
+      },
+      {
+        cat: "DOMEN KE-5",
+        front: "Keselamatan Siber",
+        back: "Perlindungan terhadap ruang siber, infrastruktur maklumat kritikal negara, rangkaian data serta pencegahan manipulasi maklumat palsu hibrid."
+      },
+      {
+        cat: "ETOS KEPENGAKAPAN",
+        front: "Kesiapsiagaan Awam",
+        back: "Motto 'Selalu Sedia' (Be Prepared). Kesediaan mental, fizikal dan kemahiran ikhtiar hidup serta bantu mula ahli pengakap untuk bertindak dalam sebarang kecemasan."
+      },
+      {
+        cat: "ARAHAN KESELAMATAN",
+        front: "Arahan MKN No. 20",
+        back: "Garis panduan rasmi mekanisme pengurusan bencana negara yang menggariskan peranan Jawatankuasa Pengurusan Bencana di peringkat Daerah, Negeri dan Pusat."
+      }
+    ];
+
+    let currentCardIndex = 0;
+    let isFlipped = false;
+
+    function updateFlashcardDisplay() {
+      const card = flashcardsData[currentCardIndex];
+      document.getElementById('flashcardCounter').innerText = `Kad ${currentCardIndex + 1} / ${flashcardsData.length}`;
+      document.getElementById('cardCategory').innerText = `KATEGORI: ${card.cat}`;
+      
+      const sideLabel = document.getElementById('cardSideLabel');
+      const mainText = document.getElementById('cardMainText');
+      const box = document.getElementById('flashcardBox');
+
+      if (isFlipped) {
+        sideLabel.innerText = "MAKSUD / HURAIAN";
+        mainText.innerText = card.back;
+        mainText.className = "text-base sm:text-lg font-medium text-yellow-200 leading-relaxed";
+        box.classList.remove('from-emerald-800', 'to-scout-dark');
+        box.classList.add('from-slate-900', 'to-emerald-950');
+      } else {
+        sideLabel.innerText = "ISTILAH";
+        mainText.innerText = card.front;
+        mainText.className = "text-2xl sm:text-3xl font-black text-white leading-snug";
+        box.classList.add('from-emerald-800', 'to-scout-dark');
+        box.classList.remove('from-slate-900', 'to-emerald-950');
+      }
+    }
+
+    function flipFlashcard() {
+      playBeep(580, 'triangle', 0.08);
+      isFlipped = !isFlipped;
+      updateFlashcardDisplay();
+    }
+
+    function nextFlashcard() {
+      playBeep(500, 'sine', 0.08);
+      isFlipped = false;
+      currentCardIndex = (currentCardIndex + 1) % flashcardsData.length;
+      updateFlashcardDisplay();
+    }
+
+    function prevFlashcard() {
+      playBeep(500, 'sine', 0.08);
+      isFlipped = false;
+      currentCardIndex = (currentCardIndex - 1 + flashcardsData.length) % flashcardsData.length;
+      updateFlashcardDisplay();
+    }
+
+    // Glossary items
+    const glossaryItems = [
+      { term: "HANRUH", def: "Pertahanan Menyeluruh merangkumi pertahanan tentera dan pertahanan awam sukarela.", relation: "Teras penglibatan Pengakap dalam bantuan operasi krisis komuniti." },
+      { term: "Kedaulatan", def: "Kekuasaan tertinggi sesebuah negara yang bebas daripada sebarang telunjuk asing.", relation: "Pengakap taat kepada Raja dan Negara (Persetiaan Pengakap)." },
+      { term: "Deterens", def: "Keupayaan mencegah musuh daripada bertindak menceroboh menerusi kesiapsiagaan tinggi.", relation: "Membina disiplin patriotik dan kesedaran pertahanan sejak usia muda." },
+      { term: "ZEE (Zon Ekonomi Eksklusif)", def: "Zon maritim sejauh 200 batu nautika dari garis pangkal pantai Malaysia.", relation: "Kepentingan kepengakapan laut memahami sempadan maritim perikanan dan sumber." },
+      { term: "Arahan No. 20 MKN", def: "Peraturan penyelarasan operasi bencana darat, laut dan udara Malaysia.", relation: "Panduan koordinasi bila ahli Pengakap dikerahkan membantu di PPS." },
+      { term: "Perang Siber / Hibrid", def: "Serangan ke atas sistem komputer, infrastruktur data dan persepsi awam.", relation: "Pengakap bertindak sebagai ejen penerang berita sahih menentang fitnah." },
+      { term: "First Aid / Bantu Mula", def: "Rawatan awal segera kepada mangsa kemalangan sebelum ketibaan paramedik.", relation: "Kemahiran teras setiap ahli Pengakap untuk menyelamatkan nyawa awam." }
+    ];
+
+    function renderGlossary(filterText = '') {
+      const tbody = document.getElementById('glossaryTableBody');
+      const filtered = glossaryItems.filter(item => 
+        item.term.toLowerCase().includes(filterText.toLowerCase()) || 
+        item.def.toLowerCase().includes(filterText.toLowerCase())
+      );
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="3" class="py-4 text-center text-slate-400">Tiada istilah dijumpai.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(item => `
+        <tr class="hover:bg-slate-50 transition">
+          <td class="py-3 px-4 font-bold text-emerald-900 whitespace-nowrap">${item.term}</td>
+          <td class="py-3 px-4 text-slate-600">${item.def}</td>
+          <td class="py-3 px-4 text-slate-500 italic text-xs">${item.relation}</td>
+        </tr>
+      `).join('');
+    }
+
+    function filterGlossary() {
+      const val = document.getElementById('glossarySearch').value;
+      renderGlossary(val);
+    }
+
+    // ==========================================
+    // DATA & LOGIC: KUIZ & SIJIL LENCANA
+    // ==========================================
+    const quizQuestions = [
+      {
+        q: "Apakah maksud teras konsep HANRUH dalam Dasar Keselamatan dan Pertahanan Negara?",
+        options: [
+          "Hanya Angkatan Tentera Malaysia bertanggungjawab mempertahankan negara",
+          "Penggemblengan seluruh jentera kerajaan, sektor swasta dan rakyat termasuk Pengakap dalam pertahanan negara",
+          "Pembelian senjata moden daripada negara luar secara eksklusif",
+          "Latihan ketenteraan wajib bersenjata bagi semua kanak-kanak sekolah rendah"
+        ],
+        answer: 1,
+        exp: "HANRUH (Pertahanan Menyeluruh) berasaskan doktrin bahawa keselamatan negara adalah tanggungjawab bersama setiap warga negara dan agensi awam, bukan tentera semata-mata."
+      },
+      {
+        q: "Agensi manakah yang bertindak sebagai badan penyelaras dasar keselamatan negara di bawah Jabatan Perdana Menteri?",
+        options: [
+          "Suruhanjaya Komunikasi dan Multimedia (MCMC)",
+          "Majlis Keselamatan Negara (MKN)",
+          "Jabatan Pengangkutan Jalan (JPJ)",
+          "Jabatan Alam Sekitar (JAS)"
+        ],
+        answer: 1,
+        exp: "MKN bertanggungjawab menggubal dan menyelaraskan dasar-dasar keselamatan negara serta menguruskan arahan krisis bencana negara."
+      },
+      {
+        q: "Antara berikut, yang manakah merupakan salah satu daripada 5 Teras Utama Keselamatan Negara?",
+        options: [
+          "Penguasaan Pasaran Saham Global",
+          "Kedaulatan dan Keutuhan Wilayah",
+          "Pemisahan Komuniti Mengikut Kaum",
+          "Perluasan Sempadan ke Negara Jiran"
+        ],
+        answer: 1,
+        exp: "Kedaulatan dan Keutuhan Wilayah (Teras 1) adalah asas kedaulatan negara bagi memelihara integriti sempadan darat, maritim dan udara."
+      },
+      {
+        q: "Bagaimanakah ahli Pengakap boleh mempraktikkan Teras Keselamatan Siber dalam kehidupan seharian?",
+        options: [
+          "Menggodam akaun media sosial rakan untuk tujuan bergurau",
+          "Menularkan tangkap layar mesej kecemasan palsu bagi menguji keberanian orang ramai",
+          "Menyemak kesahihan berita sebelum berkongsi dan melindungi maklumat peribadi daripada penipuan digital",
+          "Memuat turun aplikasi perisian cetak rompak tanpa kawalan keselamatan"
+        ],
+        answer: 2,
+        exp: "Menyemak kesahihan maklumat (tidak menyebarkan hoaks) dan mengamalkan keselamatan kata laluan adalah langkah utama pertahanan siber komuniti."
+      },
+      {
+        q: "Semasa berlaku bencana banjir besar, apakah peranan sah ahli Pengakap berdasarkan prinsip perkhidmatan sukarela?",
+        options: [
+          "Membantu pengurusan Pusat Pemindahan Sementara (PPS), bantuan pertolongan cemas awal dan sokongan logistik dengan koordinasi agensi rasmi",
+          "Mengambil alih tugas juruterbang helikopter tentera",
+          "Menghalang pihak polis dan tentera daripada memasuki kawasan bencana",
+          "Membubarkan jawatankuasa bencana daerah"
+        ],
+        answer: 0,
+        exp: "Pengakap bertindak sebagai sayap bantuan komuniti yang berdisiplin tinggi dalam menyokong kebajikan di PPS dan bantuan bantu mula awal."
+      }
+    ];
+
+    let quizIdx = 0;
+    let quizScore = 0;
+    let quizAnswered = false;
+
+    function renderQuizQuestion() {
+      quizAnswered = false;
+      const q = quizQuestions[quizIdx];
+      document.getElementById('quizQuestionNumber').innerText = `Soalan ${quizIdx + 1} daripada ${quizQuestions.length}`;
+      document.getElementById('quizScoreTracker').innerText = `Skor: ${quizScore} / ${quizIdx}`;
+      document.getElementById('quizProgressBar').style.width = `${((quizIdx + 1) / quizQuestions.length) * 100}%`;
+      document.getElementById('quizQuestionText').innerText = q.q;
+
+      const expEl = document.getElementById('quizExplanation');
+      expEl.classList.add('hidden');
+      expEl.innerHTML = "";
+
+      document.getElementById('quizNextBtn').classList.add('hidden');
+
+      const container = document.getElementById('quizOptionsContainer');
+      container.innerHTML = q.options.map((opt, i) => `
+        <button onclick="handleQuizAnswer(${i})" class="quiz-option-btn w-full text-left p-3.5 rounded-xl border border-slate-200 hover:border-emerald-600 bg-white hover:bg-emerald-50/50 text-xs sm:text-sm text-slate-800 transition font-medium flex items-start gap-3">
+          <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center font-bold text-xs shrink-0">${String.fromCharCode(65 + i)}</span>
+          <span>${opt}</span>
+        </button>
+      `).join('');
+    }
+
+    function handleQuizAnswer(selectedIdx) {
+      if (quizAnswered) return;
+      quizAnswered = true;
+
+      const q = quizQuestions[quizIdx];
+      const buttons = document.querySelectorAll('.quiz-option-btn');
+      const expEl = document.getElementById('quizExplanation');
+      const isCorrect = selectedIdx === q.answer;
+
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === q.answer) {
+          btn.classList.add('border-emerald-600', 'bg-emerald-100', 'text-emerald-950', 'font-bold');
+        } else if (idx === selectedIdx) {
+          btn.classList.add('border-red-500', 'bg-red-100', 'text-red-950');
+        }
+      });
+
+      if (isCorrect) {
+        playBeep(750, 'sine', 0.2);
+        quizScore++;
+        expEl.className = "p-4 rounded-xl text-xs sm:text-sm bg-emerald-50 text-emerald-900 border border-emerald-300";
+        expEl.innerHTML = `<strong>✔ TEPAT SEKALI!</strong> ${q.exp}`;
+      } else {
+        playBeep(260, 'sawtooth', 0.25);
+        expEl.className = "p-4 rounded-xl text-xs sm:text-sm bg-red-50 text-red-900 border border-red-300";
+        expEl.innerHTML = `<strong>✖ KURANG TEPAT!</strong> ${q.exp}`;
+      }
+      expEl.classList.remove('hidden');
+
+      const nextBtn = document.getElementById('quizNextBtn');
+      nextBtn.classList.remove('hidden');
+      if (quizIdx + 1 === quizQuestions.length) {
+        nextBtn.innerText = "Lihat Keputusan & Sijil Lencana 🏆";
+      } else {
+        nextBtn.innerText = "Soalan Seterusnya ➔";
+      }
+    }
+
+    function nextQuizQuestion() {
+      playBeep(520, 'sine', 0.08);
+      if (quizIdx + 1 < quizQuestions.length) {
+        quizIdx++;
+        renderQuizQuestion();
+      } else {
+        showQuizResults();
+      }
+    }
+
+    function showQuizResults() {
+      document.getElementById('quizScreen').classList.add('hidden');
+      const certScreen = document.getElementById('certificateScreen');
+      certScreen.classList.remove('hidden');
+
+      const percentage = (quizScore / quizQuestions.length) * 100;
+      const gradeEl = document.getElementById('certGrade');
+      const badgeStatus = document.getElementById('badgeProgressText');
+
+      if (percentage >= 80) {
+        playBeep(880, 'sine', 0.3);
+        gradeEl.innerText = `LULUS CEMERLANG (${quizScore}/${quizQuestions.length} - ${percentage}%)`;
+        gradeEl.className = "font-bold text-emerald-800";
+        badgeStatus.innerText = "Status Lencana: LULUS & DIAKUI ⭐";
+        badgeStatus.className = "bg-emerald-700 text-yellow-300 px-2 py-0.5 rounded border border-yellow-400 font-bold";
+      } else {
+        gradeEl.innerText = `PENYERTAAN SAHAJA (${quizScore}/${quizQuestions.length} - ${percentage}% - Perlu 80% untuk Lencana)`;
+        gradeEl.className = "font-bold text-amber-700";
+      }
+
+      // Set formatted date
+      const today = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('certDate').innerText = today.toLocaleDateString('ms-MY', options);
+    }
+
+    function resetQuiz() {
+      quizIdx = 0;
+      quizScore = 0;
+      document.getElementById('certificateScreen').classList.add('hidden');
+      document.getElementById('quizScreen').classList.remove('hidden');
+      renderQuizQuestion();
+    }
+
+    // Modal popup logic
+    const threatDetails = {
+      wilayah: {
+        title: "Pencerobohan Wilayah & Sempadan Negara",
+        desc: "Kedaulatan wilayah Malaysia dipertahankan oleh Angkatan Tentera Malaysia (ATM) melalui ketiga-tiga cabangnya bersama APMM di laut. Ahli pengakap memainkan peranan patriotik dengan memahami batas kedaulatan, menjaga keselamatan pangkalan komuniti tempatan, dan mengelakkan sebarang kerjasama dengan pihak penyeludup asing."
+      },
+      siber: {
+        title: "Ancaman Siber, Perang Hibrid & Maklumat Palsu",
+        desc: "Ancaman moden kini menyusup tanpa memerlukan senjata api. Serangan siber menyasarkan pusat data dan psikologi rakyat menerusi fitnah digital. Pengakap dididik supaya berintegriti di media sosial, memelihara keselamatan kata laluan dan menyemak setiap berita melalui saluran rasmi MKN sebelum menyebarkannya."
+      },
+      bencana: {
+        title: "Bencana Alam, Krisis Iklim & Gangguan Ekologi",
+        desc: "Banjir monsun, tanah runtuh dan jerebu mengancam kehidupan rakyat. Melalui sukatan lencana Pengakap (Lencana Ahli Berkhemah, Pertolongan Cemas, Kebajikan), ahli pengakap menjadi sukarelawan terlatih barisan hadapan yang bersiap sedia menyokong APM, Bomba dan NADMA."
+      },
+      ketenteraman: {
+        title: "Perpaduan Kaum & Ketenteraman Awam Sivil",
+        desc: "Perpecahan antara kaum dan isu 3R (Raja, Kaum, Agama) boleh meruntuhkan kestabilan negara dari dalam. Pengakap adalah pergerakan persaudaraan berbilang kaum yang mengukuhkan keharmonian berasaskan ikrar Persetiaan Pengakap dan prinsip Rukun Negara."
+      }
+    };
+
+    function showThreatModal(type) {
+      playBeep(600, 'triangle', 0.1);
+      const data = threatDetails[type];
+      if (!data) return;
+      document.getElementById('modalTitle').innerText = data.title;
+      document.getElementById('modalBody').innerHTML = `<p>${data.desc}</p>`;
+      document.getElementById('threatModal').classList.remove('hidden');
+    }
+
+    function closeThreatModal() {
+      document.getElementById('threatModal').classList.add('hidden');
+    }
+
+    // Initialize application on load
+    window.onload = function() {
+      selectTeras(1);
+      renderAgencies('all');
+      updateFlashcardDisplay();
+      renderGlossary();
+      renderQuizQuestion();
+    };
+  </script>
+</body>
+</html>
