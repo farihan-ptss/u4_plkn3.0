@@ -208,20 +208,34 @@
                             <i data-lucide="file-text" class="w-5 h-5"></i>
                         </div>
                         <div>
-                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 1</span>
-                            <h2 class="text-xl sm:text-2xl font-black text-slate-900">Penubuhan KSM</h2>
+                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 1 & 2</span>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900">Penubuhan & Pengenalan KSM</h2>
                         </div>
                     </div>
                 </div>
 
                 <!-- Slide Images Stack -->
                 <div class="space-y-6">
-                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef22a4.jpg', 'Penubuhan Kelanasiswa Malaysia (KSM) di Politeknik & Kolej Komuniti')">
-                        <img src="image_ef22a4.jpg" alt="Penubuhan KSM POLYCC Cover" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/7c3aed/ffffff?text=Penubuhan+Kelanasiswa+Malaysia+(KSM)'">
+                    <!-- Slaid Penubuhan KSM (gambar1.png) -->
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 text-xs font-extrabold text-brand-700 uppercase tracking-wider">
+                            <i data-lucide="image" class="w-4 h-4 text-brand-600"></i>
+                            <span>Slaid Penubuhan KSM</span>
+                        </div>
+                        <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('gambar1.png', 'Penubuhan Kelanasiswa Malaysia (KSM) di Politeknik & Kolej Komuniti')">
+                            <img src="gambar1.png" alt="Penubuhan KSM POLYCC" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='image_ef22a4.jpg'">
+                        </div>
                     </div>
 
-                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef2550.jpg', 'Pengenalan Penubuhan KSM')">
-                        <img src="image_ef2550.jpg" alt="Pengenalan Kelanasiswa Malaysia" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Pengenalan+Penubuhan+KSM'">
+                    <!-- Slaid Pengenalan (gambar2.png) -->
+                    <div class="space-y-2 pt-2">
+                        <div class="flex items-center gap-2 text-xs font-extrabold text-brand-700 uppercase tracking-wider">
+                            <i data-lucide="image" class="w-4 h-4 text-brand-600"></i>
+                            <span>Slaid Pengenalan KSM</span>
+                        </div>
+                        <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('gambar2.png', 'Pengenalan Kelanasiswa Malaysia (KSM)')">
+                            <img src="gambar2.png" alt="Pengenalan Kelanasiswa Malaysia" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='image_ef2550.jpg'">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -551,9 +565,6 @@
             if (activeBtn) {
                 activeBtn.classList.remove('bg-slate-100', 'text-slate-600');
                 activeBtn.classList.add('bg-brand-600', 'text-white', 'shadow-md', 'shadow-brand-200');
-                
-                // Scroll button into view smoothly if needed
-                activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             }
         }
 
