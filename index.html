@@ -116,58 +116,58 @@
 
     <div class="sticky top-20 z-40 bg-white/95 backdrop-blur-md border-b border-purple-100 shadow-sm py-3">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Scrollable Tab Container -->
-            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 pt-1" id="tabNavContainer">
-                <button onclick="switchTab('penubuhan')" id="tab-btn-penubuhan" class="tab-btn active-tab flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-brand-600 text-white shadow-md shadow-brand-200">
+            <!-- Centered Tab Container (No Scroll) -->
+            <div class="flex flex-wrap items-center justify-center gap-2 pb-1 pt-1" id="tabNavContainer">
+                <button onclick="switchTab('penubuhan')" id="tab-btn-penubuhan" class="tab-btn active-tab flex items-center gap-2 px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-brand-600 text-white shadow-md shadow-brand-200">
                     <i data-lucide="file-text" class="w-4 h-4"></i>
                     <span>Penubuhan KSM</span>
                 </button>
 
-                <button onclick="switchTab('apa-itu')" id="tab-btn-apa-itu" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
+                <button onclick="switchTab('apa-itu')" id="tab-btn-apa-itu" class="tab-btn flex items-center gap-2 px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
                     <i data-lucide="help-circle" class="w-4 h-4"></i>
                     <span>Apa itu Pengakap Kelana</span>
                 </button>
 
-                <button onclick="switchTab('organisasi')" id="tab-btn-organisasi" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
+                <button onclick="switchTab('organisasi')" id="tab-btn-organisasi" class="tab-btn flex items-center gap-2 px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
                     <i data-lucide="sitemap" class="w-4 h-4"></i>
                     <span>Struktur Organisasi</span>
                 </button>
 
-                <button onclick="switchTab('unit')" id="tab-btn-unit" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
+                <button onclick="switchTab('unit')" id="tab-btn-unit" class="tab-btn flex items-center gap-2 px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
                     <i data-lucide="users" class="w-4 h-4"></i>
                     <span>Unit Pengakap Kelana</span>
                 </button>
 
-                <button onclick="switchTab('proses')" id="tab-btn-proses" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
+                <button onclick="switchTab('proses')" id="tab-btn-proses" class="tab-btn flex items-center gap-2 px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
                     <i data-lucide="git-merge" class="w-4 h-4"></i>
                     <span>Proses Pelaksanaan Pengakap Kelana POLYCC</span>
                 </button>
 
-                <button onclick="switchTab('manfaat')" id="tab-btn-manfaat" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
+                <button onclick="switchTab('manfaat')" id="tab-btn-manfaat" class="tab-btn flex items-center gap-2 px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
                     <i data-lucide="gift" class="w-4 h-4"></i>
                     <span>Manfaat kepada Pelajar</span>
                 </button>
 
-                <button onclick="switchTab('kelayakan')" id="tab-btn-kelayakan" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
+                <button onclick="switchTab('kelayakan')" id="tab-btn-kelayakan" class="tab-btn flex items-center gap-2 px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
                     <i data-lucide="check-circle-2" class="w-4 h-4"></i>
                     <span>Kelayakan</span>
                 </button>
 
-                <button onclick="switchTab('pemetaan')" id="tab-btn-pemetaan" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
+                <button onclick="switchTab('pemetaan')" id="tab-btn-pemetaan" class="tab-btn flex items-center gap-2 px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
                     <i data-lucide="award" class="w-4 h-4"></i>
                     <span>Pemetaan kepada Anugerah</span>
                 </button>
 
                 <!-- Dropdown Menu Bahan PdP -->
                 <div class="relative inline-block">
-                    <button type="button" onclick="togglePdpMenu(event)" id="pdpMenuBtn" class="flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-gradient-to-r from-purple-600 to-brand-600 text-white shadow-md shadow-brand-200 hover:opacity-90 hover:scale-[1.02]">
+                    <button type="button" onclick="togglePdpMenu(event)" id="pdpMenuBtn" class="flex items-center gap-2 px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-gradient-to-r from-purple-600 to-brand-600 text-white shadow-md shadow-brand-200 hover:opacity-90 hover:scale-[1.02]">
                         <i data-lucide="book-open" class="w-4 h-4"></i>
                         <span>Bahan PdP</span>
                         <i data-lucide="chevron-down" class="w-3.5 h-3.5 opacity-90 transition-transform duration-200" id="pdpChevron"></i>
                     </button>
                 </div>
 
-                <button onclick="switchTab('hubungi')" id="tab-btn-hubungi" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
+                <button onclick="switchTab('hubungi')" id="tab-btn-hubungi" class="tab-btn flex items-center gap-2 px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 bg-slate-100 text-slate-600 hover:bg-purple-100 hover:text-brand-700">
                     <i data-lucide="phone-call" class="w-4 h-4"></i>
                     <span>Hubungi</span>
                 </button>
@@ -250,15 +250,15 @@
                             <i data-lucide="help-circle" class="w-5 h-5"></i>
                         </div>
                         <div>
-                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 2</span>
+                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 3</span>
                             <h2 class="text-xl sm:text-2xl font-black text-slate-900">Apa itu Pengakap Kelana</h2>
                         </div>
                     </div>
                 </div>
 
                 <!-- Slide Image Container -->
-                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef258b.jpg', 'Apa itu Pengakap Kelana')">
-                    <img src="image_ef258b.jpg" alt="Apa itu Pengakap Kelana" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Apa+itu+Pengakap+Kelana'">
+                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('gambar3.png', 'Apa itu Pengakap Kelana')">
+                    <img src="gambar3.png" alt="Apa itu Pengakap Kelana" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='image_ef258b.jpg'">
                 </div>
             </div>
         </div>
@@ -272,15 +272,15 @@
                             <i data-lucide="sitemap" class="w-5 h-5"></i>
                         </div>
                         <div>
-                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 3</span>
+                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 4</span>
                             <h2 class="text-xl sm:text-2xl font-black text-slate-900">Struktur Organisasi</h2>
                         </div>
                     </div>
                 </div>
 
                 <!-- Slide Image Container -->
-                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef25c5.jpg', 'Struktur Organisasi')">
-                    <img src="image_ef25c5.jpg" alt="Struktur Organisasi Kelanasiswa Malaysia" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Struktur+Organisasi'">
+                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('gambar4.png', 'Struktur Organisasi')">
+                    <img src="gambar4.png" alt="Struktur Organisasi Kelanasiswa Malaysia" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='image_ef25c5.jpg'">
                 </div>
             </div>
         </div>
@@ -294,15 +294,15 @@
                             <i data-lucide="users" class="w-5 h-5"></i>
                         </div>
                         <div>
-                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 4</span>
+                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 6</span>
                             <h2 class="text-xl sm:text-2xl font-black text-slate-900">Unit Pengakap Kelana</h2>
                         </div>
                     </div>
                 </div>
 
                 <!-- Slide Image Container -->
-                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef2625.jpg', 'Unit Pengakap Kelana (Darat, Laut, Udara)')">
-                    <img src="image_ef2625.jpg" alt="Unit Pengakap Kelana Darat Laut Udara" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Unit+Pengakap+Kelana+(Darat,+Laut,+Udara)'">
+                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('gambar6.png', 'Unit Pengakap Kelana (Darat, Laut, Udara)')">
+                    <img src="gambar6.png" alt="Unit Pengakap Kelana Darat Laut Udara" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='image_ef2625.jpg'">
                 </div>
             </div>
         </div>
@@ -316,7 +316,7 @@
                             <i data-lucide="git-merge" class="w-5 h-5"></i>
                         </div>
                         <div>
-                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 5</span>
+                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 5, 7, 8 & 10</span>
                             <h2 class="text-xl sm:text-2xl font-black text-slate-900">Proses Pelaksanaan Pengakap Kelana POLYCC</h2>
                         </div>
                     </div>
@@ -324,20 +324,29 @@
 
                 <!-- Stack of Process & Implementation Images -->
                 <div class="space-y-6">
-                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef25ea.jpg', 'Proses Pelaksanaan Pengakap Kelana POLYCC (6 Fasa)')">
-                        <img src="image_ef25ea.jpg" alt="6 Fasa Proses Pelaksanaan" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=6+Fasa+Proses+Pelaksanaan'">
+                    <!-- 6 Fasa Proses Pelaksanaan (gambar5.png) -->
+                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('gambar5.png', 'Proses Pelaksanaan Pengakap Kelana POLYCC (6 Fasa)')">
+                        <img src="gambar5.png" alt="6 Fasa Proses Pelaksanaan" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='image_ef25ea.jpg'">
                     </div>
 
-                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef265f.jpg', 'Pelaksanaan Pengakap Kelana di Politeknik / Kolej Komuniti')">
-                        <img src="image_ef265f.jpg" alt="Pelaksanaan di Politeknik / Kolej Komuniti" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Pelaksanaan+di+Politeknik+/+Kolej+Komuniti'">
+                    <!-- Pelaksanaan di Politeknik / Kolej Komuniti (gambar7.png) -->
+                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('gambar7.png', 'Pelaksanaan Pengakap Kelana di Politeknik / Kolej Komuniti')">
+                        <img src="gambar7.png" alt="Pelaksanaan di Politeknik / Kolej Komuniti" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='image_ef265f.jpg'">
                     </div>
 
-                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef2911.jpg', 'Kaedah Pelaksanaan & Penilaian')">
-                        <img src="image_ef2911.jpg" alt="Kaedah Pelaksanaan dan Penilaian" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Kaedah+Pelaksanaan+and+Penilaian'">
+                    <!-- Kaedah Pelaksanaan & Penilaian (gambar8.png) -->
+                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('gambar8.png', 'Kaedah Pelaksanaan & Penilaian')">
+                        <img src="gambar8.png" alt="Kaedah Pelaksanaan dan Penilaian" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='image_ef2911.jpg'">
                     </div>
 
-                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef296d.jpg', 'Kandungan Kursus (Silabus 1 & 2)')">
-                        <img src="image_ef296d.jpg" alt="Kandungan Kursus Semester 1 dan 2" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Kandungan+Kursus+Semester+1+dan+2'">
+                    <!-- Slaid Tambahan Proses / Aktiviti (gambar9.png) -->
+                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('gambar9.png', 'Aktiviti & Pelaksanaan Pengakap Kelana')">
+                        <img src="gambar9.png" alt="Aktiviti dan Pelaksanaan Pengakap Kelana" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Pelaksanaan+Pengakap+Kelana+(Slaid+9)'">
+                    </div>
+
+                    <!-- Kandungan Kursus (gambar10.png) -->
+                    <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('gambar10.png', 'Kandungan Kursus (Silabus 1 & 2)')">
+                        <img src="gambar10.png" alt="Kandungan Kursus Semester 1 dan 2" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='image_ef296d.jpg'">
                     </div>
                 </div>
             </div>
@@ -352,15 +361,15 @@
                             <i data-lucide="gift" class="w-5 h-5"></i>
                         </div>
                         <div>
-                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid 6</span>
+                            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Maklumat Slaid</span>
                             <h2 class="text-xl sm:text-2xl font-black text-slate-900">Manfaat kepada Pelajar</h2>
                         </div>
                     </div>
                 </div>
 
-                <!-- Slide Image Container -->
-                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef294b.jpg', 'Manfaat kepada Pelajar & Pemetaan PLKN 3.0')">
-                    <img src="image_ef294b.jpg" alt="Manfaat Pelajar dan Integrasi PLKN 3.0" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Manfaat+kepada+Pelajar'">
+                <!-- Slide Image Container for gambar11.png -->
+                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('gambar11.png', 'Manfaat kepada Pelajar')">
+                    <img src="gambar11.png" alt="Manfaat kepada Pelajar" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='image_ef294b.jpg'">
                 </div>
             </div>
         </div>
@@ -381,8 +390,8 @@
                 </div>
 
                 <!-- Slide Image Container -->
-                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef258b.jpg', 'Kelayakan Pengakap Kelana')">
-                    <img src="image_ef258b.jpg" alt="Kelayakan Umur dan Pendaftaran Pengakap Kelana" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Kelayakan+Ahlian+Pengakap+Kelana'">
+                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('gambar12.png', 'Kelayakan Keahlian Pengakap Kelana')">
+                    <img src="gambar12.png" alt="Kelayakan Keahlian Pengakap Kelana" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='image_ef258b.jpg'">
                 </div>
             </div>
         </div>
@@ -403,8 +412,8 @@
                 </div>
 
                 <!-- Slide Image Container -->
-                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('image_ef294b.jpg', 'Pemetaan Penilaian MPU dengan Elemen PLKN 3.0 & Anugerah')">
-                    <img src="image_ef294b.jpg" alt="Pemetaan penilaian MPU dengan elemen PLKN 3.0" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Pemetaan+Penilaian+MPU+dan+Anugerah'">
+                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('gambar13.png', 'Pemetaan Penilaian MPU dengan Elemen PLKN 3.0 & Anugerah')">
+                    <img src="gambar13.png" alt="Pemetaan Penilaian MPU dan Anugerah" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='image_ef294b.jpg'">
                 </div>
             </div>
         </div>
@@ -422,6 +431,11 @@
                             <h2 class="text-xl sm:text-2xl font-black text-slate-900">Hubungi Kami</h2>
                         </div>
                     </div>
+                </div>
+
+                <!-- Slaid Hubungi (gambar14.png) -->
+                <div class="slide-img-container rounded-2xl overflow-hidden border border-purple-100 shadow-sm bg-purple-50/50 cursor-pointer" onclick="openLightbox('gambar14.png', 'Maklumat Hubungi Kami')">
+                    <img src="gambar14.png" alt="Maklumat Hubungi Kami" class="w-full h-auto rounded-2xl object-contain block" onerror="this.src='https://placehold.co/1000x560/f5f3ff/6d28d9?text=Hubungi+Kami+(Slaid+14)'">
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
